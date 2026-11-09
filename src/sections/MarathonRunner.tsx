@@ -1,0 +1,215 @@
+import { useMemo, useState } from 'react';
+import { Check, X, Zap } from 'lucide-react';
+import type { Script } from '../types';
+import type { Exercise } from '../types';
+import { ChoiceExerciseView } from '../components/exercises/ChoiceExercise';
+import { BuildExerciseView } from '../components/exercises/BuildExercise';
+import { BlankExerciseView } from '../components/exercises/BlankExercise';
+import { MatchExerciseView } from '../components/exercises/MatchExercise';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  exercises: Exercise[];
+  sectionTitle: string;
+  color: string;
+  colorDeep: string;
+  script: Script;
+  onExit: () => void;
+  onComplete: (xp: number, correct: number, mistakes: number) => void;
+}
+
+export function MarathonRunner({
+  exercises,
+  sectionTitle,
+  color,
+  colorDeep,
+  script,
+  onExit,
+  onComplete,
+}: Props) {
+  const [index, setIndex] = useState(0);
+  const [choiceSel, setChoiceSel] = useState<number | null>(null);
+  const [buildSel, setBuildSel] = useState<string[]>([]);
+  const [blankSel, setBlankSel] = useState<string | null>(null);
+  const [checked, setChecked] = useState<'correct' | 'wrong' | null>(null);
+  const [xp, setXp] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [mistakes, setMistakes] = useState(0);
+
+  const exercise = exercises[index];
+  const progress = (index + (checked ? 1 : 0)) / exercises.length;
+
+  const canCheck = useMemo(() => {
+    if (checked !== null) return false;
+    if (exercise.type === 'choice') return choiceSel !== null;
+    if (exercise.type === 'build') return buildSel.length > 0;
+    if (exercise.type === 'blank') return blankSel !== null;
+    return false; // match completes automatically
+  }, [checked, exercise, choiceSel, buildSel, blankSel]);
+
+  const check = () => {
+    let correct = false;
+    if (exercise.type === 'choice') correct = choiceSel === exercise.answer;
+    if (exercise.type === 'build') correct = buildSel.join(' ') === exercise.sr;
+    if (exercise.type === 'blank') correct = blankSel === exercise.answer;
+    if (correct) {
+      setChecked('correct');
+      setXp((x) => x + 10);
+      setCorrectCount((c) => c + 1);
+    } else {
+      setChecked('wrong');
+      setMistakes((m) => m + 1);
+    }
+  };
+
+  const next = () => {
+    if (index + 1 >= exercises.length) {
+      onComplete(xp + 10, correctCount, mistakes); // +10 completion bonus
+      return;
+    }
+    setIndex((i) => i + 1);
+    setChoiceSel(null);
+    setBuildSel([]);
+    setBlankSel(null);
+    setChecked(null);
+  };
+
+  const onMatchComplete = (matchMistakes: number) => {
+    setChecked('correct');
+    setXp((x) => x + (matchMistakes === 0 ? 10 : 5));
+    setCorrectCount((c) => c + 1);
+    if (matchMistakes > 0) setMistakes((m) => m + matchMistakes);
+  };
+
+  return (
+    <div className="mx-auto flex min-h-100dvh w-full max-w-xl flex-col px-4">
+      {/* Top bar */}
+      <div className="flex items-center gap-3 pt-4 pb-2">
+        <button
+          type="button"
+          onClick={onExit}
+          aria-label="Exit marathon"
+          className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary cursor-pointer focus-visible:outline-3 focus-visible:outline-[hsl(var(--ring))]"
+        >
+          <X className="h-6 w-6" />
+        </button>
+        <div
+          className="h-4 flex-1 overflow-hidden rounded-full bg-secondary"
+          role="progressbar"
+          aria-valuenow={Math.round(progress * 100)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
+          <div
+            className="h-full rounded-full transition-all duration-300"
+            style={{ width: `${progress * 100}%`, backgroundColor: `hsl(${color})` }}
+          />
+        </div>
+        <div className="flex items-center gap-1 font-extrabold" style={{ color: `hsl(${colorDeep})` }}>
+          <Zap className="h-5 w-5 fill-current" aria-hidden="true" />
+          {xp}
+        </div>
+      </div>
+
+      {/* Exercise body */}
+      <div className="flex flex-1 flex-col items-start py-6" key={`marathon-${index}`}>
+        <p
+          className="mb-1 text-xs font-extrabold uppercase tracking-widest"
+          style={{ color: `hsl(${color})` }}
+        >
+          Marathon · {sectionTitle} · {index + 1}/{exercises.length}
+        </p>
+        {exercise.type === 'choice' && (
+          <ChoiceExerciseView
+            exercise={exercise}
+            script={script}
+            selected={choiceSel}
+            onChange={setChoiceSel}
+            checked={checked}
+          />
+        )}
+        {exercise.type === 'build' && (
+          <BuildExerciseView
+            exercise={exercise}
+            script={script}
+            selected={buildSel}
+            onChange={setBuildSel}
+            checked={checked}
+          />
+        )}
+        {exercise.type === 'blank' && (
+          <BlankExerciseView
+            exercise={exercise}
+            script={script}
+            selected={blankSel}
+            onChange={setBlankSel}
+            checked={checked}
+          />
+        )}
+        {exercise.type === 'match' && (
+          <MatchExerciseView exercise={exercise} script={script} onComplete={onMatchComplete} />
+        )}
+      </div>
+
+      {/* Bottom action bar */}
+      <div
+        className={cn(
+          'sticky bottom-0 -mx-4 border-t-2 px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-colors',
+          checked === null && 'border-border bg-background',
+          checked === 'correct' && 'border-[hsl(var(--success))] bg-[hsl(var(--success-bg))]',
+          checked === 'wrong' && 'border-[hsl(var(--error))] bg-[hsl(var(--error-bg))]'
+        )}
+      >
+        {checked === null ? (
+          exercise.type === 'match' ? (
+            <p className="text-center font-bold text-muted-foreground">
+              Match all the pairs to continue
+            </p>
+          ) : (
+            <button
+              type="button"
+              className="btn-push w-full bg-[hsl(var(--primary))] px-6 py-3.5 text-[hsl(var(--primary-foreground))]"
+              disabled={!canCheck}
+              onClick={check}
+            >
+              Проверить
+            </button>
+          )
+        ) : (
+          <div className="slide-up">
+            <div className="mb-3 flex items-center gap-2">
+              <span
+                className={cn(
+                  'flex h-8 w-8 items-center justify-center rounded-full',
+                  checked === 'correct'
+                    ? 'bg-[hsl(var(--success))] text-white'
+                    : 'bg-[hsl(var(--error))] text-white'
+                )}
+              >
+                {checked === 'correct' ? <Check className="h-5 w-5" /> : <X className="h-5 w-5" />}
+              </span>
+              <p
+                className={cn(
+                  'font-display text-lg',
+                  checked === 'correct' ? 'text-[hsl(var(--success))]' : 'text-[hsl(var(--error))]'
+                )}
+              >
+                {checked === 'correct' ? 'Отлично!' : 'Не совсем…'}
+              </p>
+            </div>
+            <button
+              type="button"
+              className={cn(
+                'btn-push w-full px-6 py-3.5 text-white',
+                checked === 'correct' ? 'bg-[hsl(var(--success))]' : 'bg-[hsl(var(--error))]'
+              )}
+              onClick={next}
+            >
+              Продолжить
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Manrope:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primitive palette (from design references) */
+    --mint: 110 37% 94%;          /* #edf5e9 page background */
+    --forest: 142 55% 22%;        /* #195736 primary green */
+    --forest-deep: 142 58% 15%;
+    --gold: 42 100% 59%;          /* #ffbf2e CTA / XP */
+    --gold-deep: 38 95% 45%;
+    --ink: 120 9% 11%;            /* tinted near-black */
+    --paper: 0 0% 100%;
+
+    /* Semantic tokens */
+    --background: var(--mint);
+    --foreground: var(--ink);
+    --card: var(--paper);
+    --card-foreground: var(--ink);
+    --popover: var(--paper);
+    --popover-foreground: var(--ink);
+    --primary: var(--forest);
+    --primary-foreground: 110 37% 96%;
+    --secondary: 110 25% 88%;
+    --secondary-foreground: var(--ink);
+    --muted: 110 20% 89%;
+    --muted-foreground: 120 6% 38%;
+    --accent: var(--gold);
+    --accent-foreground: var(--ink);
+    --destructive: 4 75% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 110 14% 80%;
+    --input: 110 14% 80%;
+    --ring: var(--forest);
+    --radius: 1.25rem;
+
+    /* Status */
+    --success: 142 60% 32%;
+    --success-bg: 120 45% 90%;
+    --error: 4 75% 45%;
+    --error-bg: 8 80% 93%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .font-display {
+    font-family: 'Dela Gothic One', 'Manrope', system-ui, sans-serif;
+    font-weight: 400;
+  }
+  .font-serifbian {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 800;
+  }
+}
+
+@layer components {
+  /* Chunky push button, Duolingo-style */
+  .btn-push {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-2xl font-extrabold uppercase tracking-wide transition-all duration-150 select-none cursor-pointer;
+    box-shadow: 0 4px 0 0 rgb(0 0 0 / 0.22);
+    transform: translateY(0);
+  }
+  .btn-push:hover:not(:disabled) {
+    filter: brightness(1.05);
+  }
+  .btn-push:active:not(:disabled) {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 0 rgb(0 0 0 / 0.22);
+  }
+  .btn-push:disabled {
+    @apply opacity-40 cursor-not-allowed;
+  }
+  .btn-push:focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Word tile */
+  .tile {
+    @apply inline-flex items-center justify-center rounded-xl border-2 border-b-4 bg-card px-3 py-2 font-bold cursor-pointer transition-all duration-150 select-none;
+    min-height: 44px;
+  }
+  .tile:hover:not(:disabled) { @apply bg-secondary; }
+  .tile:active:not(:disabled) { transform: scale(0.95); }
+  .tile:disabled { @apply opacity-35 cursor-not-allowed; }
+  .tile:focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Pop-in with playful bounce */
+  .pop-in {
+    animation: pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .pop-in-stagger > * {
+    animation: pop-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .pop-in-stagger > *:nth-child(1) { animation-delay: 0.02s; }
+  .pop-in-stagger > *:nth-child(2) { animation-delay: 0.07s; }
+  .pop-in-stagger > *:nth-child(3) { animation-delay: 0.12s; }
+  .pop-in-stagger > *:nth-child(4) { animation-delay: 0.17s; }
+  .pop-in-stagger > *:nth-child(5) { animation-delay: 0.22s; }
+  .pop-in-stagger > *:nth-child(6) { animation-delay: 0.27s; }
+  .pop-in-stagger > *:nth-child(7) { animation-delay: 0.32s; }
+  .pop-in-stagger > *:nth-child(8) { animation-delay: 0.37s; }
+  .pop-in-stagger > *:nth-child(9) { animation-delay: 0.42s; }
+  .pop-in-stagger > *:nth-child(10) { animation-delay: 0.47s; }
+
+  .slide-up {
+    animation: slide-up 0.28s ease-out both;
+  }
+  .wiggle {
+    animation: wiggle 0.4s ease-in-out;
+  }
+  .float-slow {
+    animation: float-slow 3s ease-in-out infinite;
+  }
+  .star-pop {
+    animation: star-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.85) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes wiggle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes star-pop {
+  0% { opacity: 0; transform: scale(0) rotate(-30deg); }
+  60% { opacity: 1; transform: scale(1.25) rotate(10deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pop-in, .pop-in-stagger > *, .slide-up, .wiggle, .float-slow, .star-pop {
+    animation: none !important;
+  }
+  * { transition-duration: 0.01ms !important; }
+}

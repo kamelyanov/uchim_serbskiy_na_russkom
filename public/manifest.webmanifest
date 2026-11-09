@@ -1,0 +1,31 @@
+{
+  "name": "Učimo Srpski — Learn Serbian",
+  "short_name": "Učimo Srpski",
+  "description": "Learn Serbian theme by theme with Duolingo-style text exercises. Latin and Cyrillic scripts.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#edf5e9",
+  "theme_color": "#edf5e9",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
