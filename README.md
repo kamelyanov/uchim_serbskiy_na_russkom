@@ -1,6 +1,6 @@
 # Učimo Srpski — Learn Serbian
 
-**Live:** https://kamelyanov.github.io/ucimo_srpski/
+**Live:** https://kamelyanov.github.io/uchim_serbskiy_na_russkom/
 
 A Duolingo-style web app for learning Serbian with text-only exercises, organized
 theme by theme following the Duolingo course section plan (English↔Russian plan,

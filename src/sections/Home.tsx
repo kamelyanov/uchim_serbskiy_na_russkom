@@ -90,7 +90,7 @@ export function Home({ script, onToggleScript, progress, onStartLesson, onStartS
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <Owl size={36} />
-            <span className="font-display text-lg text-[hsl(var(--primary))]">Učimo Srpski</span>
+            <span className="font-display text-lg text-[hsl(var(--primary))]">Učimo Srpski · учим с русского</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1 font-extrabold text-[hsl(var(--gold-deep))]" title="Streak">
