@@ -1,0 +1,74 @@
+1.1. Две азбуки
+Кириллица	Латиница	Пример
+А а	A a	auto
+Б б	B b	borba
+В в	V v	voda
+Г г	G g	grad
+Д д	D d	danas
+Ђ ђ	Đ đ	đak
+Е е	E e	estetika
+Ж ж	Ž ž	žut
+З з	Z z	zvono
+И и	I i	isti
+Ј ј	J j	ja, jug
+К к	K k	kada
+Л л	L l	luka
+Љ љ	Lj lj	ljubav
+М м	M m	mleko
+Н н	N n	nada
+Њ њ	Nj nj	njuška
+О о	O o	okolo
+П п	P p	pas
+Р р	R r	ruka
+С с	S s	srce
+Т т	T t	tanak
+Ћ ћ	Ć ć	ćerka
+У у	U u	usta
+Ф ф	F f	flaša
+Х х	H h	hladan
+Ц ц	C c	cifra
+Ч ч	Č č	čas
+Џ џ	Dž dž	džip
+Ш ш	Š š	širok
+1.2. Гласные и слогообразующий r
+5 гласных: i, e, a, o, u. Произносятся чётко, без редукции.
+
+Слогообразующий r: trg, krst, prst, vrt, srce.
+
+1.3. Парные согласные
+Глухой	p	t	k	s	š	f	c	č	ć
+Звонкий	b	d	g	z	ž	v	—	dž	đ
+В конце слова звонкие не оглушаются: zub /zub/, nož /nož/.
+
+Ассимиляция перед глухим: poljubac — poljupci, sveska — svezaka, težak — teška, sladak — slatka.
+
+1.4. Твёрдость и мягкость
+Сербские согласные не смягчаются перед i, e (в отличие от русского): novi grad, lepa žena — твёрдо.
+
+Мягкие lj, nj, ć, đ: кончик языка за нижними зубами. ljubav, njuška, đak, ćerka.
+
+1.5. Ударение
+Четыре типа музыкального ударения:
+
+долгое нисходящее: gás
+
+долгое восходящее: gásiti
+
+краткое нисходящее: kònj
+
+краткое восходящее: čìtati
+
+Заударные долготы: jùnãk, vòjnîk.
+
+Практическое правило: ударение может быть на любом слоге, кроме последнего.
+
+Нет редукции: student, profesor, Beograd — все гласные энергичные.
+
+1.6. Экавица и иекавица
+Экавица	Иекавица
+mleko	mlijeko
+reka	rijeka
+vreme	vrijeme
+lep	lijep
+deca	djeca
+čovek	čovjek

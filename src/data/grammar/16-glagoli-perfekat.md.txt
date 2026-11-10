@@ -1,0 +1,27 @@
+16. Перфект (Perfekat)
+16.1. Образование
+Краткая форма biti (sam, si, je, smo, ste, su) + причастие на *-o* (м.р.), *-la* (ж.р.), *-lo* (ср.р.), *-li* (мн.ч.).
+
+16.2. Полная парадигма: raditi
+Лицо	М.р.	Ж.р.	Ср.р.
+ja	sam radio	sam radila	—
+ti	si radio	si radila	—
+on/ona/ono	je radio	je radila	je radilo
+mi	smo radili	smo radile	smo radila
+vi	ste radili	ste radile	ste radila
+oni/one/ona	su radili	su radile	su radila
+16.3. Примеры
+Prošle nedelje sam posetio starog prijatelja.
+
+Juče smo gledali zanimljiv film.
+
+Ona je napisala dugo pismo svojoj majci.
+
+Deca su se igrala u velikom parku.
+
+Nisam bio kod kuće. Nije došao na vreme.
+
+Da li si učio srpski? Jesam, učio sam.
+
+16.4. Порядок энклитик
+Ja sam mu ga dao. Ona mi se javila. Knjiga je na stolu. Dao sam ti je.

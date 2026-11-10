@@ -1,0 +1,31 @@
+21. Модальные глаголы и классы спряжения
+21.1. Модальные глаголы (modalni glagoli)
+Глагол	Значение	Парадигма
+moći	мочь	mogu, možeš, može, možemo, možete, mogu
+morati	быть должным	moram, moraš, mora, moramo, morate, moraju
+hteti	хотеть	hoću, hoćeš, hoće, hoćemo, hoćete, hoće
+trebati	нужно	treba mi, trebaš mi…
+smeti	сметь	smem, smeš, sme, smemo, smete, smeju
+Примеры:
+
+Ne mogu da dođem. Moram da radim. Hoću da idem kući.
+
+Treba mi tvoja pomoć. Ne smem to da uradim.
+
+Možeš li mi pomoći? Moramo da učimo.
+
+21.2. Классы спряжения (vrste promene glagola)
+Класс	Окончание 1 л. ед.ч.	Примеры
+I (a-тип)	-am	čitam, radim, gledam, putujem
+II (e-тип)	-em	pišem, govorim, idem, nosim
+III (i-тип)	-im	volim, želim, trčim
+IV (неправильные)	—	biti, hteti, moći, morati, dati, znati, ići
+Примеры по классам:
+
+I: Čitam knjigu. Radim posao. Gledam film.
+
+II: Pišem pismo. Govorim srpski. Idem kući.
+
+III: Volim kafu. Želim da putujem. Trčim u parku.
+
+IV: Jesam student. Hoću da idem. Mogu da dođem. Moram da radim.

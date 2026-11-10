@@ -1,0 +1,34 @@
+26. Порядок энклитик в предложении
+26.1. Правило
+Энклитики стоят на втором месте в предложении (после первого ударного слова). Порядок:
+
+глагол (sam/si/je/ću…) → датив (mi/ti/mu/joj/nam/vam/im) → аккузатив (me/te/ga/je/nas/vas/ih) → se → je (3 л. ед.ч. ж.р.)
+
+26.2. Примеры
+Ja sam mu ga dao. — sam + mu + ga.
+
+Ona mi se javila. — mi + se.
+
+Knjiga je na stolu. Dao sam ti je. — sam + ti + je.
+
+Da li si mu to rekao? — si + mu.
+
+Oni su nam se predstavili. — su + nam + se.
+
+Ti si mi ga poslao. — si + mi + ga.
+
+Nisam ga video. — nisam + ga.
+
+Neću ti ga dati. — neću + ti + ga.
+
+Kada si mi ga poslao? — si + mi + ga.
+
+26.3. Вопрос и отрицание
+Da li si mi ga dao? — si + mi + ga.
+
+Nisam ti ga dao. — nisam + ti + ga.
+
+26.4. Сложные случаи
+On mi ga je dao. — mi + ga + je. (порядок: датив → аккузатив → je)
+
+Ona mi ih je poslala. — mi + ih + je.

@@ -1,0 +1,178 @@
+32. Энклитики: je, se, mi и вся система кратких форм
+32.1. Что такое энклитика
+Энклитика — безударное слово, которое примыкает к предыдущему ударному слову. В сербском энклитики обязаны стоять на втором месте в предложении (после первого ударного слова или группы).
+
+32.2. Полный список энклитик
+Разряд	Энклитики
+Глагол biti (наст.)	sam, si, je, smo, ste, su
+Глагол hteti (футур)	ću, ćeš, će, ćemo, ćete, će
+Глагол biti (кондиционал)	bih, bi, bi, bismo, biste, bi
+Датив личных местоимений	mi, ti, mu, joj, nam, vam, im
+Аккузатив личных местоимений	me, te, ga, je, nas, vas, ih
+Возвратная частица	se
+Возвратное sebi (дат.)	si
+3 л. ед.ч. ж.р. аккузатив	je (совпадает с je от biti)
+32.3. Строгий порядок энклитик
+Порядок фиксирован:
+
+1. Глагольная энклитика (sam, si, je, smo, ste, su; ću, ćeš…; bih, bi…)
+2. Датив (mi, ti, mu, joj, nam, vam, im; si)
+3. Аккузатив (me, te, ga, je, nas, vas, ih)
+4. se
+5. je (3 л. ед.ч. ж.р. аккузатив)
+
+Запомнить: глагол → кому → что → себя → её.
+
+32.4. Примеры с je
+1. je от глагола biti (3 л. ед.ч.):
+
+On je student. (Он студент.)
+
+Ona je lepa. (Она красивая.)
+
+Knjiga je na stolu. (Книга на столе.)
+
+2. je — аккузатив 3 л. ед.ч. ж.р. («её»):
+
+Vidim je. (Я вижу её.)
+
+Dao sam ti je. (Я тебе её дал.) — sam + ti + je
+
+On mi je dao. (Он мне её дал.) — mi + je
+
+3. Оба je в одном предложении:
+
+Ona je videla je. — невозможно, второе je вытесняется. Говорят: Ona ju je videla. или Ona je vidi.
+
+Knjiga je na stolu. Dao sam ti je. — здесь je = «её» (книгу).
+
+32.5. Примеры с se
+Возвратная частица:
+
+Umivam se. (Я умываюсь.)
+
+Ona se češlja. (Она причёсывается.)
+
+Deca su se igrala. (Дети играли.) — su + se
+
+Oni su nam se predstavili. (Они нам представились.) — su + nam + se
+
+Пассивное/безличное se:
+
+Knjiga se čita. (Книга читается.)
+
+Ovde se ne puši. (Здесь не курят.)
+
+Kako se ide do stanice? (Как пройти до станции?)
+
+Место se в цепочке:
+
+Ja sam se umio. — sam + se
+
+Ona mi se javila. — mi + se
+
+Oni su nam se predstavili. — su + nam + se
+
+Ne mogu se setiti. — se после mogu (модальный глагол не энклитика)
+
+32.6. Примеры с mi
+1. Датив «мне»:
+
+Dajem ti knjigu. (Я даю тебе книгу.)
+
+On mi je dao knjigu. (Он мне дал книгу.) — mi + je (je = книга, ж.р.)
+
+Ona mi se javila. (Она мне позвонила.) — mi + se
+
+Ti si mi ga poslao. (Ты мне его послал.) — si + mi + ga
+
+2. mi как подлежащее «мы» (полная форма, не энклитика):
+
+Mi smo studenti. (Мы студенты.) — mi ударное, smo энклитика.
+
+Mi idemo kući. (Мы идём домой.)
+
+Важно: mi может быть и ударным местоимением «мы», и энклитикой «мне». Различайте по контексту и месту в предложении:
+
+Mi smo došli. — «Мы пришли» (mi — подлежащее, ударное).
+
+On mi je došao. — «Он мне пришёл» (mi — энклитика, безударное).
+
+32.7. Полные цепочки энклитик
+Предложение	Цепочка	Перевод
+Ja sam mu ga dao.	sam + mu + ga	Я ему его дал.
+Ti si mi ga poslao.	si + mi + ga	Ты мне его послал.
+Ona mi se javila.	mi + se	Она мне позвонила.
+Oni su nam se predstavili.	su + nam + se	Они нам представились.
+Dao sam ti je.	sam + ti + je	Я тебе её дал.
+On mi ga je dao.	mi + ga + je	Он мне его дал.
+Ona mi ih je poslala.	mi + ih + je	Она мне их послала.
+Nisam ti ga dao.	nisam + ti + ga	Я тебе его не дал.
+Neću ti ga dati.	neću + ti + ga	Я тебе его не дам.
+Kada si mi ga poslao?	si + mi + ga	Когда ты мне его послал?
+32.8. Где стоит цепочка
+Правило второго места: цепочка энклитик ставится после первого ударного слова или первой ударной группы.
+
+Ja sam mu ga dao. — после ja.
+
+Juče sam mu ga dao. — после juče.
+
+Moj dobar prijatelj mi je to rekao. — после moj dobar prijatelj (вся группа — первое ударное).
+
+Knjiga je na stolu. — после knjiga.
+
+Da li si mu to rekao? — после da li ( da li — единая группа).
+
+Kada si mi ga poslao? — после kada.
+
+Нельзя ставить цепочку в начало предложения:
+
+❌ Sam mu ga dao ja.
+
+✅ Ja sam mu ga dao.
+
+Нельзя разрывать цепочку:
+
+❌ Sam mu dao ga je.
+
+✅ On mi ga je dao.
+
+32.9. Энклитики в вопросах
+Da li si mi ga dao? — si + mi + ga
+
+Jesi li mi ga dao? — si + mi + ga (разговорно)
+
+Kada si mi ga dao? — si + mi + ga
+
+Zašto mi ga nisi dao? — mi + ga + nisi (отрицание nisi — тоже энклитика, но стоит перед mi? Нет: nisi — глагольная энклитика, порядок: nisi + mi + ga.)
+
+Zašto mi ga nisi dao? — mi + ga + nisi — неверно; правильно: Zašto mi ga nisi dao? — здесь nisi стоит после ga, потому что nisi — отрицательная форма, которая ведёт себя как глагольная энклитика и должна быть первой в цепочке. Но в данном примере mi + ga стоят перед nisi — это ошибка. Правильно: Zašto mi nisi dao? или Zašto mi ga nije dao?
+
+Исправление: отрицательные формы nisam, nisi, nije… — это глагольные энклитики, они стоят первыми в цепочке:
+
+Zašto mi ga nisi dao? — ❌
+
+Zašto mi nisi dao? — ✅ (без ga)
+
+Zašto mi ga nije dao? — ✅ (nije + mi + ga? Нет: mi + ga + nije — неверно. Правильно: Zašto mi ga nije dao? — здесь nije стоит после ga, что нарушает порядок.)
+
+Правильно: Zašto mi ga nije dao? — неверно. Верно: Zašto mi nije dao? (без ga) или Zašto ga nije dao? (без mi). Если нужны оба: Zašto mi ga nije dao? — это ошибка порядка. Правильно: Zašto mi nije dao? — mi + nije? Нет, nije должно быть первым.
+
+Итог: при отрицании nije стоит первым в цепочке: Zašto mi nije dao? — mi + nije неверно; правильно Zašto mi nije dao? — здесь mi стоит перед nije, что нарушает правило. Верно: Zašto mi nije dao? — ошибка. Правильно: Zašto mi nije dao? — нет.
+
+Проще: отрицательные формы nisam, nisi, nije… — глагольные энклитики, стоят первыми:
+
+Nije mi ga dao. (Он мне его не дал.) — nije + mi + ga ✅
+
+Nisam ti ga dao. — nisam + ti + ga ✅
+
+Neću ti ga dati. — neću + ti + ga ✅
+
+32.10. Таблица-шпаргалка
+Позиция	Энклитика	Пример
+1	sam, si, je, smo, ste, su; ću, ćeš…; bih, bi…; nisam, nisi, nije…	Ja sam…
+2	mi, ti, mu, joj, nam, vam, im; si	…mi…
+3	me, te, ga, je, nas, vas, ih	…ga…
+4	se	…se…
+5	je (3 л. ед.ч. ж.р.)	…je
+Формула: глагол → кому → что → себя → её.

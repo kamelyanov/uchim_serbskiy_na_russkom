@@ -1,0 +1,36 @@
+12.1. Количественные (osnovni brojevi)
+jedan, dva, tri, četiri, pet, šest, sedam, osam, devet, deset, jedanaest, dvanaest, trinaest, četrnaest, petnaest, šesnaest, sedamnaest, osamnaest, devetnaest, dvadeset, trideset, četrdeset, pedeset, šezdeset, sedamdeset, osamdeset, devedeset, sto, dvesta, trista, četiristo, petsto, hiljada, milion.
+
+Согласование:
+
+Число	Форма существительного	Пример
+1	им.п. ед.ч.	jedan novi grad, jedna lepa žena, jedno malo selo
+2–4	род.п. ед.ч.	dva nova grada, tri lepe žene, četiri mala sela
+5+	род.п. мн.ч.	pet novih gradova, šest lepih žena, deset malih sela
+Kupio sam dva nova udžbenika. Pročitao sam tri zanimljive knjige. U gradu živi pet hiljada ljudi.
+
+Склонение dva, tri, četiri:
+dva grada — dvaju gradova — dvama gradovima
+tri žene — triju žena — trima ženama
+
+Razgovaram s dvama prijateljima. Idem prema trima kućama.
+
+12.2. Порядковые (redni brojevi)
+prvi, drugi, treći, četvrti, peti, šesti, sedmi, osmi, deveti, deseti, jedanaesti, dvadeseti, stoti, hiljaditi.
+
+Prvi novi grad, druga lepa žena, treće malo selo.
+Stanujem na trećem spratu. Idem u prvu zgradu. Razgovaramo o drugom filmu.
+Danas je prvi maj. To je moj drugi pokušaj.
+
+12.3. Собирательные (zbirni brojevi)
+dvoje, troje, četvoro, petoro, šestoro, desetoro; oba/obe, obadva/obadve.
+
+dvoje dece, troje ljudi, četvoro studenata, petoro prijatelja.
+Došlo je troje dece. Imamo dvoje male dece. S oba prijatelja idem.
+Obe moje sestre su starije od mene.
+
+12.4. Количественные существительные (brojne imenice)
+dvojica, trojica, četvorica, petorica (о лицах м.р.); dvojka, trojka (оценки, цифры).
+
+Dvojica studenata su došla. Trojica prijatelja su čekala.
+Dobio sam dvojku iz matematike.

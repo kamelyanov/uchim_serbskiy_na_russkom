@@ -1,0 +1,27 @@
+14. Глагольный вид (Vid glagola)
+14.1. Несовершенный и совершенный
+Несовершенный (процесс, повтор)	Совершенный (результат, однократность)
+pisati	napisati
+čitati	pročitati
+govoriti	reći
+raditi	uraditi
+gledati	pogledati
+putovati	otputovati
+učiti	naučiti
+dolaziti	doći
+odlaziti	otići
+14.2. Примеры в контексте
+Juče sam pisao pismo. (процесс) / Juče sam napisao pismo. (результат)
+
+Čitao sam tu knjigu. / Pročitao sam tu knjigu.
+
+Učio sam srpski godinu dana. / Naučio sam srpski.
+
+Gledao sam film. / Pogledao sam film.
+
+Dolazim svaki dan. (повтор) / Došao sam juče. (однократно)
+
+14.3. Влияние вида на время
+С несовершенным — процесс/повтор: Čitam knjigu. Čitao sam knjigu.
+
+С совершенным — результат: Pročitaću knjigu. Pročitao sam knjigu.

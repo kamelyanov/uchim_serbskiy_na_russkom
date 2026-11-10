@@ -1,0 +1,54 @@
+10.1. Притяжательные местоимения
+moj, tvoj, njegov, njen, naš, vaš, njihov.
+
+Парадигма moj (м.р.):
+
+Падеж	Ед.ч.	Мн.ч.
+N	moj novi stan	moji novi stanovi
+G	mog novog stana	mojih novih stanova
+D	mom novom stanu	mojim novim stanovima
+A	moj novi stan	moje nove stanove
+V	moj novi stane!	moji novi stanovi!
+I	mojim novim stanom	mojim novim stanovima
+L	mom novom stanu	mojim novim stanovima
+Парадигма moja (ж.р.):
+
+Падеж	Ед.ч.	Мн.ч.
+N	moja lepa kuća	moje lepe kuće
+G	moje lepe kuće	mojih lepih kuća
+D	mojoj lepoj kući	mojim lepim kućama
+A	moju lepu kuću	moje lepe kuće
+V	moja lepa kućo!	moje lepe kuće!
+I	mojom lepom kućom	mojim lepim kućama
+L	mojoj lepoj kući	mojim lepim kućama
+To je moj dobar prijatelj. Idem kod mog dobrog prijatelja. Razgovaramo o mom dobrom prijatelju.
+Njena stara majka živi u malom selu. Idem kod njene stare majke.
+
+10.2. Указательные местоимения
+ovaj, ova, ovo (этот, близко)
+taj, ta, to (тот, среднее)
+onaj, ona, ono (тот, далеко)
+
+Парадигма ovaj (м.р.):
+
+Падеж	Ед.ч.	Мн.ч.
+N	ovaj novi grad	ovi novi gradovi
+G	ovog novog grada	ovih novih gradova
+D	ovom novom gradu	ovim novim gradovima
+A	ovaj novi grad	ove nove gradove
+V	ovaj novi grade!	ovi novi gradovi!
+I	ovim novim gradom	ovim novim gradovima
+L	ovom novom gradu	ovim novim gradovima
+Парадигма ova (ж.р.):
+
+Падеж	Ед.ч.	Мн.ч.
+N	ova lepa žena	ove lepe žene
+G	ove lepe žene	ovih lepih žena
+D	ovoj lepoj ženi	ovim lepim ženama
+A	ovu lepu ženu	ove lepe žene
+V	ova lepa ženo!	ove lepe žene!
+I	ovom lepom ženom	ovim lepim ženama
+L	ovoj lepoj ženi	ovim lepim ženama
+Ovaj novi grad mi se sviđa. Idem u ovaj novi grad. Živim u ovom novom gradu.
+Ta lepa žena je moja majka. Razgovaramo o toj lepoj ženi.
+Onaj stari most je veoma lep. Idem prema onom starom mostu.

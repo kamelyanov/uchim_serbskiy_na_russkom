@@ -1,0 +1,134 @@
+33. Краткие (безударные) формы местоимений
+33.1. Полные и краткие формы
+В сербском у личных местоимений есть полные (ударные) и краткие (безударные, энклитические) формы. Краткие формы используются, когда на местоимении нет логического ударения.
+
+Падеж	ja	ti	on	ona	ono	mi	vi	oni/one/ona
+G (полная)	mene	tebe	njega	nje	njega	nas	vas	njih
+G (краткая)	me	te	ga	je	ga	nas	vas	ih
+D (полная)	meni	tebi	njemu	njoj	njemu	nama	vama	njima
+D (краткая)	mi	ti	mu	joj	mu	nam	vam	im
+A (полная)	mene	tebe	njega	nju	njega	nas	vas	njih
+A (краткая)	me	te	ga	je/ju	ga	nas	vas	ih
+33.2. Когда употребляются краткие формы
+1. Когда местоимение безударное (не выделено логически):
+
+Vidim ga. (Я вижу его.) — ga безударное.
+
+Vidim njega. (Я вижу именно его.) — njega ударное, эмфаза.
+
+2. В цепочке энклитик:
+
+Dao sam ti je. (Я тебе её дал.) — ti + je краткие.
+
+On mi ga je dao. — mi + ga + je краткие.
+
+3. С предлогами — только полные формы:
+
+Bez tebe ne idem. (Без тебя не пойду.) — tebe после предлога.
+
+S tobom idem. (С тобой иду.) — tobom после предлога.
+
+Prema meni. (По направлению ко мне.) — meni после предлога.
+
+❌ Bez te ne idem. — нельзя краткую форму после предлога.
+
+Исключение: na me, za te, u nj — в разговорной речи допускаются краткие формы после некоторых предлогов (na, za, u, po), но литературная норма — полные: na mene, za tebe, u njega.
+
+33.3. Дативные краткие формы (кому?)
+Лицо	Энклитика	Пример
+1 ед.	mi	Dajem mi knjigu. → Dajem knjigu. (неправильно: Dajem mi — «мне» не говорят о себе в 1 л.)
+2 ед.	ti	Dajem ti knjigu. (Я даю тебе книгу.)
+3 ед. м.	mu	Dajem mu knjigu. (Я даю ему книгу.)
+3 ед. ж.	joj	Dajem joj knjigu. (Я даю ей книгу.)
+1 мн.	nam	Dajem nam knjigu. (Я даю нам книгу.) — нелогично, но форма есть.
+2 мн.	vam	Dajem vam knjigu. (Я даю вам книгу.)
+3 мн.	im	Dajem im knjigu. (Я даю им книгу.)
+Важно: mi (дат. «мне») и mi (ном. «мы») — омонимы. Различайте:
+
+Mi smo studenti. — «Мы студенты» (mi ударное, подлежащее).
+
+On mi je dao knjigu. — «Он мне дал книгу» (mi безударное, энклитика).
+
+33.4. Аккузативные краткие формы (кого? что?)
+Лицо	Энклитика	Пример
+1 ед.	me	Vidim me. — нелогично; Vidiš me. (Ты видишь меня.)
+2 ед.	te	Vidim te. (Я вижу тебя.)
+3 ед. м.	ga	Vidim ga. (Я вижу его.)
+3 ед. ж.	je / ju	Vidim je. / Vidim ju. (Я вижу её.)
+3 ед. ср.	ga	Vidim ga. (Я вижу его — о предмете ср.р.)
+1 мн.	nas	Vidim nas. — нелогично; Vidiš nas. (Ты видишь нас.)
+2 мн.	vas	Vidim vas. (Я вижу вас.)
+3 мн.	ih	Vidim ih. (Я вижу их.)
+Особенность je / ju: в 3 л. ед.ч. ж.р. аккузатив — je (основная форма) или ju (вариант, особенно после предлогов и в начале цепочки). Vidim je. / Vidim ju.
+
+33.5. Краткие формы в цепочке (порядок)
+Правило: глагол → датив → аккузатив → se → je.
+
+Цепочка	Пример	Перевод
+mi + ga	On mi ga je dao.	Он мне его дал.
+ti + je	Dao sam ti je.	Я тебе её дал.
+mu + ga	Dao sam mu ga.	Я ему его дал.
+joj + ga	Dao sam joj ga.	Я ей его дал.
+nam + ih	Dao sam nam ih.	Я нам их дал.
+vam + ga	Dao sam vam ga.	Я вам его дал.
+im + je	Dao sam im je.	Я им её дал.
+mi + se	Ona mi se javila.	Она мне позвонила.
+nam + se	Oni su nam se predstavili.	Они нам представились.
+ti + ga + je	On ti ga je dao.	Он тебе его дал.
+33.6. Краткие формы с возвратным se
+Форма	Пример	Перевод
+se (акк.)	Umivam se.	Я умываюсь.
+si (дат.)	Kupujem si knjigu.	Я покупаю себе книгу.
+sebe (полн.)	Volim sebe.	Я люблю себя.
+sebi (полн. дат.)	Govorim sebi.	Я говорю себе.
+sobom (полн. инстр.)	Ponosan sam sobom.	Я горжусь собой.
+Различие si и se:
+
+si — датив («себе»): Kupujem si knjigu. (Покупаю себе книгу.)
+
+se — аккузатив («себя»): Umivam se. (Умываюсь.)
+
+33.7. Краткие формы в вопросах и отрицаниях
+Вопрос:
+
+Da li me vidiš? (Ты меня видишь?) — me после da li.
+
+Vidiš li me? (Видишь ли ты меня?) — li на втором месте, me после глагола.
+
+Kada si mi ga dao? — si + mi + ga.
+
+Отрицание:
+
+Ne vidim ga. (Я его не вижу.) — ne + глагол + ga.
+
+Nisam ti ga dao. — nisam + ti + ga.
+
+Neću ti ga dati. — neću + ti + ga.
+
+Nema me. (Меня нет.) — nema + me.
+
+33.8. Ударные vs. безударные: сравнение
+Ударная форма	Безударная	Разница
+Vidim njega.	Vidim ga.	njega — эмфаза («именно его»), ga — нейтрально.
+Dajem tebi.	Dajem ti.	tebi — эмфаза («именно тебе»), ti — нейтрально.
+Bez tebe.	❌ Bez te.	После предлога — только полная.
+S tobom.	❌ S tom.	После предлога — только полная.
+Prema meni.	❌ Prema mi.	После предлога — только полная.
+33.9. Таблица-шпаргалка: когда что
+Контекст	Форма	Пример
+После предлога	полная	bez tebe, s tobom, prema meni
+Эмфаза («именно…»)	полная	Vidim njega, ne tebe.
+Нейтрально, в цепочке	краткая	Vidim ga. Dao sam ti je.
+В начале предложения	полная (краткая — на 2-м месте)	Njega vidim. / Ja ga vidim.
+С se	se / si	Umivam se. Kupujem si knjigu.
+С отрицанием	краткая после глагольной энклитики	Nisam ga video. Neću ti ga dati.
+33.10. Типичные ошибки
+Ошибка	Правильно	Почему
+❌ Bez te ne idem.	✅ Bez tebe ne idem.	После предлога — полная форма.
+❌ S tom idem.	✅ S tobom idem.	После предлога — полная форма.
+❌ Ja ga sam video.	✅ Ja sam ga video.	Глагол (sam) — первым в цепочке.
+❌ On je mi dao.	✅ On mi je dao.	Датив (mi) — перед je (акк.).
+❌ Dao sam je ti.	✅ Dao sam ti je.	Датив (ti) — перед аккузативом (je).
+❌ Ona se mi javila.	✅ Ona mi se javila.	Датив (mi) — перед se.
+❌ Mi smo se nam predstavili.	✅ Mi smo nam se predstavili.	Порядок: smo + nam + se.
+❌ Vidim je ju.	✅ Vidim je. / Vidim ju.	Одна форма, не обе.

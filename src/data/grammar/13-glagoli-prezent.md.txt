@@ -1,0 +1,38 @@
+13. Глаголы: настоящее время (Prezent)
+13.1. Три основных класса спряжения
+Класс	1 л. ед.ч.	Примеры
+I (a-тип)	-am	čitam, radim, gledam, putujem
+II (e-тип)	-em	pišem, govorim, idem, nosim
+III (i-тип)	-im	volim, želim, trčim
+13.2. Полная парадигма: raditi (I), pisati (II), govoriti (III)
+Лицо	raditi (I)	pisati (II)	govoriti (III)
+ja	radim	pišem	govorim
+ti	radiš	pišeš	govoriš
+on/ona/ono	radi	piše	govori
+mi	radimo	pišemo	govorimo
+vi	radite	pišete	govorite
+oni/one/ona	rade	pišu	govore
+13.3. Глагол biti (наст.)
+Лицо	Полная	Краткая	Отрицание
+ja	jesam	sam	nisam
+ti	jesi	si	nisi
+on/ona/ono	jeste	je	nije
+mi	jesmo	smo	nismo
+vi	jeste	ste	niste
+oni/one/ona	jesu	su	nisu
+13.4. Особые формы
+hteti: hoću, hoćeš, hoće, hoćemo, hoćete, hoće
+moći: mogu, možeš, može, možemo, možete, mogu
+morati: moram, moraš, mora, moramo, morate, moraju
+dati: dam, daš, da, damo, date, daju
+znati: znam, znaš, zna, znamo, znate, znaju
+ići: idem, ideš, ide, idemo, idete, idu
+
+13.5. Примеры
+Ja čitam zanimljivu knjigu. Ti pišeš dugo pismo. On govori srpski jezik.
+
+Mi radimo težak posao. Oni gledaju novi film.
+
+Ja sam student. Ona nije moja sestra. Da li si ti student?
+
+Hoću da idem kući. Ne mogu da dođem. Moram da radim.

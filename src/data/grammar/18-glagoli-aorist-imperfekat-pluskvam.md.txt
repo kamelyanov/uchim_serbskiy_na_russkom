@@ -1,0 +1,48 @@
+18. Аорист, имперфект, плюсквамперфект
+18.1. Аорист (Aorist)
+Книжное прошедшее, обозначает завершённое действие (в разговоре — редко).
+Образование: от инфинитивной основы.
+
+Глагол	Парадигма
+reći	rekoh, reče, reče, rekosmo, rekoste, rekoše
+doći	dođoh, dođe, dođe, dođosmo, dođoste, dođoše
+biti	bih, bi, bi, bismo, biste, biše
+pisati	pisah, pisa, pisa, pismosmo, pisaste, pisaše
+Примеры:
+
+On reče istinu i ode.
+
+Dođoh, videh, pobedih.
+
+Tada biše teški dani.
+
+Ja pisah pismo, a on čitaše knjigu. 
+
+18.2. Имперфект (Imperfekat)
+Книжное прошедшее, обозначает длительное/повторяющееся действие в прошлом.
+Образование: от основы презента + -ah, -aše, -aše, -asmo, -aste, -ahu.
+
+Глагол	Парадигма
+čitati	čitah, čitaše, čitaše, čitasmo, čitaste, čitahu
+pisati	pisah, pisaše, pisaše, pisasmo, pisaste, pisahu
+ići	iđah, iđaše, iđaše, iđasmo, iđaste, iđahu
+Примеры:
+
+Dok ja čitah, on pisaše pismo.
+
+Svakog dana iđaše u školu.
+
+Bijaše hladna zima.
+
+18.3. Плюсквамперфект (Pluskvamperfekat)
+Давнопрошедшее: действие до другого прошедшего.
+Образование: bio/bila/bilo + причастие: bio sam radio / bila sam radila.
+Или: bejah radio / bejaše radila.
+
+Примеры:
+
+Kada sam došao, on je već bio otišao.
+
+Rekao mi je da je bio učio srpski.
+
+Bila je već zaspala kada smo stigli.

@@ -1,0 +1,39 @@
+17. Будущее время (Futur I и Futur II)
+17.1. Futur I (независимое)
+Образование: краткая форма hteti (ću, ćeš, će, ćemo, ćete, će) + инфинитив.
+Слитная форма: čitaću, pisaćeš, govoriće, radićemo, putovaćete, doći će.
+
+Лицо	Полная	Слитная
+ja	ću čitati	čitaću
+ti	ćeš čitati	čitaćeš
+on/ona/ono	će čitati	čitaće
+mi	ćemo čitati	čitaćemo
+vi	ćete čitati	čitaćete
+oni/one/ona	će čitati	čitaće
+Примеры:
+
+Ja ću sutra čitati zanimljivu knjigu.
+
+Ti ćeš pisati pismo svojoj majci.
+
+Oni će putovati u veliki grad.
+
+Sutra ćemo posetiti starog prijatelja.
+
+Čitaću knjigu. Pisaću pismo. Doći ću sutra.
+
+Neću doći. Nećeš moći. Nećemo stići.
+
+17.2. Futur II (зависимое)
+Образование: budem, budeš, bude, budemo, budete, budu + причастие на *-o/-la/-lo*.
+Употребляется в придаточных после будущего, условия, времени.
+
+Примеры:
+
+Ako budem imao vremena, doći ću.
+
+Kada budeš završio posao, pozovi me.
+
+Ako budemo stigli ranije, sačekaćemo te.
+
+Ne znam da li će doći. Ako bude došao, javi mi.

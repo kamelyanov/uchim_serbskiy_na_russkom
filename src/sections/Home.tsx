@@ -52,9 +52,11 @@ interface Props {
   onStartLesson: (lessonId: string) => void;
   onStartSection: (sectionIndex: number) => void;
   onResetProgress: () => void;
+  onOpenGrammar: () => void;
+  onOpenVocab: () => void;
 }
 
-export function Home({ script, onToggleScript, progress, onStartLesson, onStartSection, onResetProgress }: Props) {
+export function Home({ script, onToggleScript, progress, onStartLesson, onStartSection, onResetProgress, onOpenGrammar, onOpenVocab }: Props) {
   const [tipsTheme, setTipsTheme] = useState<Theme | null>(null);
 
   const isUnlocked = (lessonId: string): boolean => {
@@ -104,6 +106,24 @@ export function Home({ script, onToggleScript, progress, onStartLesson, onStartS
               <Zap className="h-5 w-5 fill-current" aria-hidden="true" />
               {progress.xp}
             </span>
+            <button
+              type="button"
+              onClick={onOpenVocab}
+              aria-label="Открыть словарь"
+              title="Слова"
+              className="btn-push bg-secondary px-3 py-1.5 text-sm text-secondary-foreground"
+            >
+              <GraduationCap className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={onOpenGrammar}
+              aria-label="Открыть грамматику"
+              title="Грамматика"
+              className="btn-push bg-secondary px-3 py-1.5 text-sm text-secondary-foreground"
+            >
+              <BookOpen className="h-4 w-4" aria-hidden="true" />
+            </button>
             <button
               type="button"
               onClick={onToggleScript}

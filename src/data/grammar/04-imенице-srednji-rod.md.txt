@@ -1,0 +1,23 @@
+4.1. Полная парадигма: selo (твёрдая основа) / polje (мягкая основа)
+Падеж	Ед.ч. (selo)	Ед.ч. (polje)	Мн.ч. (sela)	Мн.ч. (polja)
+N	selo	polje	sela	polja
+G	sela	polja	sela	polja
+D	selu	polju	selima	poljima
+A	selo	polje	sela	polja
+V	selo!	polje!	sela!	polja!
+I	selom	poljem	selima	poljima
+L	selu	polju	selima	poljima
+4.2. Примеры
+Ovo malo selo je tiho. Živim u malom selu.
+
+Vidim lepo polje. Idem kroz lepo polje. Razgovaramo o lepom polju.
+
+Dete se igra u velikom dvorištu. Dajem igračku malom detetu. Razgovaramo o malom detetu.
+
+Putujem s dobrim prijateljem kroz mala sela.
+
+4.3. Особые случаи
+doba (ср.р. на -a): Ovo je teško doba. U teškom dobu ne treba žuriti.
+
+Собирательные ср.р.: drveće, cveće, lišće — склоняются как ед.ч. ср.р.:
+Zeleno drveće raste ispred kuće. Cveće je lepo. Lišće pada u jesen.

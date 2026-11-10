@@ -1,0 +1,56 @@
+3.1. Падежи (Padeži)
+N (номинатив) — ko? šta?
+G (генитив) — koga? čega?
+D (датив) — kome? čemu?
+A (акузатив) — koga? šta?
+V (вокатив) — обращение
+I (инструментал) — s kim? s čim?
+L (локатив) — o kome? o čemu?
+
+3.2. Полная парадигма: student (одушевлённый) / grad (неодушевлённый)
+Падеж	Ед.ч. (student)	Ед.ч. (grad)	Мн.ч. (studenti)	Мн.ч. (gradovi)
+N	student	grad	studenti	gradovi
+G	studenta	grada	studenata	gradova
+D	studentu	gradu	studentima	gradovima
+A	studenta	grad	studente	gradove
+V	studente!	grade!	studenti!	gradovi!
+I	studentom	gradom	studentima	gradovima
+L	studentu	gradu	studentima	gradovima
+3.3. Примеры в словосочетаниях
+Ovaj novi student je iz malog grada.
+
+Dajem knjigu mom dobrom prijatelju.
+
+Vidim novog studenta. Vidim novi grad.
+
+Idem s dobrim prijateljem u veliki grad.
+
+Živim u velikom gradu. Razgovaramo o novom filmu.
+
+Studente, dođi ovamo! Grade, ti si lep!
+
+3.4. Мужской род на -a (tata, sudija, čika)
+Падеж	Ед.ч.	Мн.ч.
+N	tata	tate
+G	tate	tata
+D	tati	tatama
+A	tatu	tate
+V	tata!	tate!
+I	tatom	tatama
+L	tati	tatama
+Moj tata je dobar čovek. Vidim mog tatu. Dajem knjigu mom tati. Idem s tatom.
+Sudija je doneo presudu. Sudiji je potreban mir. S sudijom se ne raspravljam.
+
+3.5. Заимствования на -o, -e, -i, -u (auto, bife, taksi, intervju)
+Падеж	Ед.ч. (auto)	Мн.ч. (auta)
+N	auto	auta
+G	auta	auta
+D	autu	autima
+A	auto	auta
+V	auto!	auta!
+I	autom	autima
+L	autu	autima
+Moj novi auto je brz. Vidim moj novi auto. Idem s mojim novim autom.
+U malom bifeu pijem kafu. Razgovaramo o zanimljivom intervjuu.
+Vozim moskovski žuti taksi.
+

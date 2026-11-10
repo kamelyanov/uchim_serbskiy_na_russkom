@@ -1,0 +1,33 @@
+9.1. Полная парадигма
+Падеж	ja	ti	on	ona	ono	mi	vi	oni/one/ona
+N	ja	ti	on	ona	ono	mi	vi	oni/one/ona
+G	mene/me	tebe/te	njega/ga	nje/je	njega/ga	nas	vas	njih/ih
+D	meni/mi	tebi/ti	njemu/mu	njoj/joj	njemu/mu	nama/nam	vama/vam	njima/im
+A	mene/me	tebe/te	njega/ga	nju/ju/je	njega/ga	nas	vas	njih/ih
+I	mnom(e)	tobom(e)	njim(e)	njom(e)	njim(e)	nama	vama	njima
+L	meni	tebi	njemu	njoj	njemu	nama	vama	njima
+9.2. Примеры (полные и краткие)
+Dajem knjigu tebi. Dajem ti knjigu.
+
+Vidim ga. Vidim njega.
+
+Ona mi se javila.
+
+Knjiga je na stolu. Dao sam ti je.
+
+Ja sam mu ga dao.
+
+Oni su nam se predstavili.
+
+Bez tebe ne idem. S tobom idem.
+
+Razgovaramo o njoj. Ponosan sam na njom.
+
+9.3. Возвратное sebe / se
+Падеж	Форма
+G	sebe / se
+D	sebi / si
+A	sebe / se
+I	sobom
+L	sebi
+Umivam se. Kupujem sebi knjigu. Govorim o sebi. Ponosan sam sobom.

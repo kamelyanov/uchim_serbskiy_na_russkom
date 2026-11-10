@@ -7,8 +7,10 @@ import { Home } from './sections/Home';
 import { LessonRunner } from './sections/LessonRunner';
 import { MarathonRunner } from './sections/MarathonRunner';
 import { SummaryScreen } from './sections/SummaryScreen';
+import { GrammarScreen } from './sections/GrammarScreen';
+import { VocabScreen } from './sections/VocabScreen';
 
-type View = 'home' | 'lesson' | 'marathon' | 'summary';
+type View = 'home' | 'lesson' | 'marathon' | 'summary' | 'grammar' | 'vocab';
 
 const SCRIPT_KEY = 'ucimo-srpski-script';
 
@@ -27,7 +29,7 @@ export default function App() {
     const saved = localStorage.getItem(SCRIPT_KEY);
     return saved === 'cyrillic' ? 'cyrillic' : 'latin';
   });
-  const { progress, completeLesson, unlockSection, resetProgress } = useProgress();
+  const { progress, completeLesson, unlockSection, markWordLearned, resetProgress } = useProgress();
 
   useEffect(() => {
     localStorage.setItem(SCRIPT_KEY, script);
@@ -124,6 +126,21 @@ export default function App() {
     );
   }
 
+  if (view === 'grammar') {
+    return <GrammarScreen script={script} onBack={() => setView('home')} />;
+  }
+
+  if (view === 'vocab') {
+    return (
+      <VocabScreen
+        script={script}
+        learnedWords={progress.learnedWords}
+        onMarkLearned={markWordLearned}
+        onBack={() => setView('home')}
+      />
+    );
+  }
+
   return (
     <Home
       script={script}
@@ -132,6 +149,8 @@ export default function App() {
       onStartLesson={startLesson}
       onStartSection={startMarathon}
       onResetProgress={resetProgress}
+      onOpenGrammar={() => setView('grammar')}
+      onOpenVocab={() => setView('vocab')}
     />
   );
 }

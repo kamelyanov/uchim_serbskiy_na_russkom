@@ -1,0 +1,31 @@
+Второе склонение: женский род на -a
+5.1. Полная парадигма: žena / kuća
+Падеж	Ед.ч. (žena)	Ед.ч. (kuća)	Мн.ч. (žene)	Мн.ч. (kuće)
+N	žena	kuća	žene	kuće
+G	žene	kuće	žena	kuća
+D	ženi	kući	ženama	kućama
+A	ženu	kuću	žene	kuće
+V	ženo!	kućo!	žene!	kuće!
+I	ženom	kućom	ženama	kućama
+L	ženi	kući	ženama	kućama
+5.2. Примеры
+Ova lepa žena je moja majka. Vidim lepu ženu. Dajem knjigu lepoj ženi.
+
+Idem s dobrom prijateljicom u veliku kuću. Živim u staroj kući.
+
+Razgovaramo o novoj školi. Idem prema staroj crkvi.
+
+Ženo, dođi ovamo! Prijateljice, kako ste?
+
+5.3. Чередования в D/L ед.ч.
+Исходный	D/L
+ruka	ruci
+noga	nozi
+svrha	svrsi
+majka	majci
+knjiga	knjizi
+drugarica	drugarici
+Dajem knjigu mojoj majci. Idem prema staroj crkvi. Razgovaramo o novoj knjizi.
+
+5.4. Множественное число с чередованием
+učenica — učenice, drugarica — drugarice, ruka — ruke, noga — noge.

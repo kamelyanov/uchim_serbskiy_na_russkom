@@ -1,0 +1,121 @@
+22. Наречия
+22.1. Разряды
+Разряд	Примеры
+Времени	danas, juče, sutra, sada, uvek, nikad, često, retko, rano, kasno
+Места	ovde, tamo, gore, dole, napred, nazad, blizu, daleko, unutra, napolju
+Образа действия	brzo, polako, lepo, dobro, loše, tiho, glasno, lako, teško
+Количества	mnogo, malo, više, manje, dovoljno, previše
+Причины	zato, stoga
+22.2. Примеры
+Danas je lepo vreme. Juče sam bio u gradu. Sutra idem u školu.
+
+Ovde je tiho, a tamo je bučno. Idem napred, ne nazad.
+
+On govori brzo, a ona polako. Radim dobro, ali mogu bolje.
+
+Imam mnogo posla. Treba mi malo vremena.
+
+Zato ne idem, jer nemam vremena.
+
+22.3. Степени сравнения наречий
+Положительная	Сравнительная	Превосходная
+brzo	brže	najbrže
+lepo	lepše	najlepše
+dobro	bolje	najbolje
+mnogo	više	najviše
+malo	manje	najmanje
+On trči brže od mene. Ona peva najlepše. Danas radim bolje nego juče.
+
+text
+=== ФАЙЛ: 23-predlozi.md ===
+23. Предлоги (с управлением)
+23.1. Генитив (G)
+bez, od, iz, do, kod, nakon, pre, posle, zbog, između, ispred, iza, pored, blizu, daleko od, umesto.
+
+bez tvog prijatelja
+
+od mog oca
+
+iz malog grada
+
+do velikog mosta
+
+kod starog lekara
+
+nakon dugog posla
+
+pre nedelje
+
+posle dobrog ručka
+
+zbog teškog ispita
+
+između dve visoke zgrade
+
+ispred nove kuće
+
+pored starog parka
+
+23.2. Датив (D)
+prema, ka, zahvaljujući, uprkos, nasuprot.
+
+prema novoj zgradi
+
+ka starom mostu
+
+zahvaljujući dobrom prijatelju
+
+uprkos lošem vremenu
+
+23.3. Аккузатив (A)
+u, na, kroz, za, pred, pod, nad (движение/направление).
+
+u veliki grad
+
+na lepu plažu
+
+kroz mračni park
+
+za mog brata
+
+pred novu kuću
+
+pod staro drvo
+
+23.4. Инструментал (I)
+s(a), pred, nad, pod, za, među.
+
+s dobrim prijateljem
+
+pred novom kućom
+
+nad velikim stolom
+
+pod starim drvetom
+
+za velikim stolom
+
+među dobrim ljudima
+
+23.5. Локатив (L)
+u, na, o, po.
+
+u malom selu
+
+na drvenom stolu
+
+o novom filmu
+
+po lepom parku
+
+u staroj kući
+
+23.6. Сводные примеры
+Idem u veliki grad. Živim u velikom gradu. Dolazim iz velikog grada.
+
+Idem na lepu plažu. Ležim na lepoj plaži. Vraćam se s lepe plaže.
+
+Razgovaramo o novom filmu. Gledam novi film. Posle filma idem kući.
+
+Idem s dobrim prijateljem. Bez dobrog prijatelja ne idem. Zahvaljujući dobrom prijatelju, sve je u redu.
+

@@ -1,0 +1,28 @@
+22. Наречия
+22.1. Разряды
+Разряд	Примеры
+Времени	danas, juče, sutra, sada, uvek, nikad, često, retko, rano, kasno
+Места	ovde, tamo, gore, dole, napred, nazad, blizu, daleko, unutra, napolju
+Образа действия	brzo, polako, lepo, dobro, loše, tiho, glasno, lako, teško
+Количества	mnogo, malo, više, manje, dovoljno, previše
+Причины	zato, stoga
+22.2. Примеры
+Danas je lepo vreme. Juče sam bio u gradu. Sutra idem u školu.
+
+Ovde je tiho, a tamo je bučno. Idem napred, ne nazad.
+
+On govori brzo, a ona polako. Radim dobro, ali mogu bolje.
+
+Imam mnogo posla. Treba mi malo vremena.
+
+Zato ne idem, jer nemam vremena.
+
+22.3. Степени сравнения наречий
+Положительная	Сравнительная	Превосходная
+brzo	brže	najbrže
+lepo	lepše	najlepše
+dobro	bolje	najbolje
+mnogo	više	najviše
+malo	manje	najmanje
+On trči brže od mene. Ona peva najlepše. Danas radim bolje nego juče.
+

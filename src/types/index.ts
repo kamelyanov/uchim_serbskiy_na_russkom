@@ -94,4 +94,6 @@ export interface Progress {
   lastPlayed: string; // YYYY-MM-DD or ''
   /** Section indexes unlocked via marathon completion. */
   unlockedSections: number[];
+  /** Ids выученных словарных слов (см. src/data/vocab.ts). */
+  learnedWords: string[];
 }

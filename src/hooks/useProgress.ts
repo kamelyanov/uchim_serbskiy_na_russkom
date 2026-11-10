@@ -9,6 +9,7 @@ const DEFAULT_PROGRESS: Progress = {
   streak: 0,
   lastPlayed: '',
   unlockedSections: [1],
+  learnedWords: [],
 };
 
 function load(): Progress {
@@ -71,6 +72,14 @@ export function useProgress() {
     );
   }, []);
 
+  const markWordLearned = useCallback((wordId: string) => {
+    setProgress((p) =>
+      p.learnedWords.includes(wordId)
+        ? p
+        : { ...p, learnedWords: [...p.learnedWords, wordId] }
+    );
+  }, []);
+
   const resetProgress = useCallback(() => {
     try {
       localStorage.removeItem(KEY);
@@ -85,5 +94,5 @@ export function useProgress() {
     [progress.completedLessons]
   );
 
-  return { progress, completeLesson, unlockSection, isCompleted, resetProgress };
+  return { progress, completeLesson, unlockSection, markWordLearned, isCompleted, resetProgress };
 }

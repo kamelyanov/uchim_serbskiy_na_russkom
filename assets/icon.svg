@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Фон -->
+  <rect width="512" height="512" rx="110" fill="#f2f7ec"/>
+
+  <!-- Ушки-перья -->
+  <path d="M150 150 L128 62 L212 108 Z" fill="#1e4d2b"/>
+  <path d="M362 150 L384 62 L300 108 Z" fill="#1e4d2b"/>
+  <path d="M232 92 Q244 62 256 88 Q268 62 280 92 Q268 80 256 96 Q244 80 232 92 Z" fill="#1e4d2b"/>
+
+  <!-- Тело совы -->
+  <ellipse cx="256" cy="265" rx="128" ry="168" fill="#1e4d2b"/>
+
+  <!-- Животик: сплетение флагов Сербии (слева) и России (справа) -->
+  <clipPath id="belly">
+    <ellipse cx="256" cy="308" rx="86" ry="98"/>
+  </clipPath>
+  <g clip-path="url(#belly)">
+    <!-- левая половина — сербский триколор: красный, синий, белый -->
+    <rect x="170" y="210" width="86" height="63" fill="#c6363c"/>
+    <rect x="170" y="273" width="86" height="63" fill="#0c4076"/>
+    <rect x="170" y="336" width="86" height="70" fill="#ffffff"/>
+    <!-- правая половина — русский триколор: белый, синий, красный -->
+    <rect x="256" y="210" width="86" height="63" fill="#ffffff"/>
+    <rect x="256" y="273" width="86" height="63" fill="#0c4076"/>
+    <rect x="256" y="336" width="86" height="70" fill="#c6363c"/>
+    <!-- шов сплетения -->
+    <line x1="256" y1="210" x2="256" y2="406" stroke="#1e4d2b" stroke-width="4"/>
+  </g>
+
+  <!-- Крылья -->
+  <ellipse cx="146" cy="292" rx="26" ry="72" fill="#143a20"/>
+  <ellipse cx="366" cy="292" rx="26" ry="72" fill="#143a20"/>
+  <g stroke="#e8a923" stroke-width="5" stroke-linecap="round">
+    <path d="M138 300 l16 14 M138 322 l16 14 M138 344 l16 14" fill="none"/>
+    <path d="M374 300 l-16 14 M374 322 l-16 14 M374 344 l-16 14" fill="none"/>
+  </g>
+
+  <!-- Глаза -->
+  <circle cx="200" cy="192" r="56" fill="#ffffff" stroke="#143a20" stroke-width="5"/>
+  <circle cx="312" cy="192" r="56" fill="#ffffff" stroke="#143a20" stroke-width="5"/>
+  <circle cx="206" cy="198" r="25" fill="#14261a"/>
+  <circle cx="318" cy="198" r="25" fill="#14261a"/>
+  <circle cx="214" cy="188" r="7" fill="#ffffff"/>
+  <circle cx="326" cy="188" r="7" fill="#ffffff"/>
+
+  <!-- Клюв -->
+  <path d="M256 238 L276 264 L256 292 L236 264 Z" fill="#e8a923" stroke="#b97f12" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Лапки -->
+  <g fill="#e8a923" stroke="#b97f12" stroke-width="4" stroke-linejoin="round">
+    <path d="M196 428 q0 -18 14 -18 q6 0 9 6 q3 -6 9 -6 q8 0 10 8 q2 -8 10 -8 q12 0 12 18 q0 10 -32 10 q-32 0 -32 -10 Z"/>
+    <path d="M256 428 q0 -18 14 -18 q6 0 9 6 q3 -6 9 -6 q8 0 10 8 q2 -8 10 -8 q12 0 12 18 q0 10 -32 10 q-32 0 -32 -10 Z" transform="translate(48 0)"/>
+  </g>
+</svg>

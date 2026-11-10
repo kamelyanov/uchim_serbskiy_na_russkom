@@ -1,0 +1,42 @@
+Прилагательные: согласование, определённые/неопределённые формы
+7.1. Согласование в роде и числе
+Род	Ед.ч.	Пример	Мн.ч.	Пример
+Мужской	-∅ (согласный)	dobar grad	-i	dobri gradovi
+Женский	-a	dobra kafa	-e	dobre kafe
+Средний	-o	dobro pivo	-a	dobra piva
+7.2. Неопределённые и определённые формы
+Неопределённая (краткая): dobar student, lep grad, nov sto.
+Определённая (длинная): dobri student, lepi grad, novi sto.
+
+Употребление:
+
+Неопределённая — при первом упоминании / как сказуемое: Ovo je lep grad. On je dobar čovek.
+
+Определённая — при известном предмете / с указательными и притяжательными: Taj lepi grad mi se sviđa. Dobri čovek uvek pomaže.
+
+7.3. Полная парадигма: novi grad / lepa žena / malo selo
+Падеж	М.р. ед.ч.	Ж.р. ед.ч.	Ср.р. ед.ч.	Мн.ч. (все роды)
+N	novi grad	lepa žena	malo selo	novi gradovi / lepe žene / mala sela
+G	novog grada	lepe žene	malog sela	novih gradova / lepih žena / malih sela
+D	novom gradu	lepoj ženi	malom selu	novim gradovima / lepim ženama / malim selima
+A	novi grad / novog studenta	lepu ženu	malo selo	nove gradove / lepe žene / mala sela
+V	novi grade!	lepa ženo!	malo selo!	novi gradovi! / lepe žene! / mala sela!
+I	novim gradom	lepom ženom	malim selom	novim gradovima / lepim ženama / malim selima
+L	novom gradu	lepoj ženi	malom selu	novim gradovima / lepim ženama / malim selima
+7.4. Примеры в словосочетаниях
+Živim u novom gradu. Idem u novi grad. Vidim novi grad.
+
+Dajem knjigu lepoj ženi. Idem s lepom ženom. Razgovaramo o lepoj ženi.
+
+Dete se igra u malom selu. Idem kroz mala sela.
+
+Sreo sam starog prijatelja. Idem kod starog lekara. Ponosan sam na starog prijatelja.
+
+Kupio sam nove knjige. Čitam nove knjige. Zadovoljan sam novim knjigama.
+
+7.5. Притяжательные прилагательные на -ov/-ev/-in
+očev stan — očevog stana — očevom stanu
+majčina kuća — majčine kuće — majčinoj kući
+Markov auto — Markovog auta — Markovom autu
+
+To je bratov novi stan. Idem u bratov novi stan. Razgovaramo o bratovom novom stanu.
