@@ -18,7 +18,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { Progress, Script, Theme } from '../types';
-import { sections, lessonOrder } from '../data';
+import { sections, lessonOrder, findLesson } from '../data';
 import { sr } from '../lib/transliterate';
 import { TipsSheet } from '../components/TipsSheet';
 import { Owl } from '../components/Owl';
@@ -63,7 +63,10 @@ export function Home({ script, onToggleScript, progress, onStartLesson, onStartS
     // unlocked if any earlier lesson is incomplete but this is the next one,
     // i.e. all lessons before it are completed
     // find the previous lesson id via global order
-    return progress.completedLessons.length >= order;
+    if (progress.completedLessons.length >= order) return true;
+    // or if its section was unlocked via a marathon
+    const loc = findLesson(lessonId);
+    return loc != null && progress.unlockedSections.includes(loc.sectionIndex + 1);
   };
 
   const nextLessonId = useMemo(() => {

@@ -92,4 +92,6 @@ export interface Progress {
   xp: number;
   streak: number;
   lastPlayed: string; // YYYY-MM-DD or ''
+  /** Section indexes unlocked via marathon completion. */
+  unlockedSections: number[];
 }

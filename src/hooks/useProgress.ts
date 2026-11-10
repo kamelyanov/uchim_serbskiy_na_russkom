@@ -8,6 +8,7 @@ const DEFAULT_PROGRESS: Progress = {
   xp: 0,
   streak: 0,
   lastPlayed: '',
+  unlockedSections: [1],
 };
 
 function load(): Progress {
@@ -51,6 +52,7 @@ export function useProgress() {
         streak = p.lastPlayed === yesterdayStr() ? p.streak + 1 : 1;
       }
       return {
+        ...p,
         completedLessons: already
           ? p.completedLessons
           : [...p.completedLessons, lessonId],
@@ -59,6 +61,14 @@ export function useProgress() {
         lastPlayed: today,
       };
     });
+  }, []);
+
+  const unlockSection = useCallback((sectionIndex: number) => {
+    setProgress((p) =>
+      p.unlockedSections.includes(sectionIndex)
+        ? p
+        : { ...p, unlockedSections: [...p.unlockedSections, sectionIndex] }
+    );
   }, []);
 
   const resetProgress = useCallback(() => {
@@ -75,5 +85,5 @@ export function useProgress() {
     [progress.completedLessons]
   );
 
-  return { progress, completeLesson, isCompleted, resetProgress };
+  return { progress, completeLesson, unlockSection, isCompleted, resetProgress };
 }

@@ -1,12 +1,15 @@
 import { useMemo, useState } from 'react';
-import { Check, X, Zap } from 'lucide-react';
+import { Check, Heart, X, Zap } from 'lucide-react';
 import type { Script } from '../types';
 import type { Exercise } from '../types';
 import { ChoiceExerciseView } from '../components/exercises/ChoiceExercise';
 import { BuildExerciseView } from '../components/exercises/BuildExercise';
 import { BlankExerciseView } from '../components/exercises/BlankExercise';
 import { MatchExerciseView } from '../components/exercises/MatchExercise';
+import { Owl } from '../components/Owl';
 import { cn } from '@/lib/utils';
+
+const MAX_HEARTS = 5;
 
 interface Props {
   exercises: Exercise[];
@@ -35,6 +38,8 @@ export function MarathonRunner({
   const [xp, setXp] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistakes, setMistakes] = useState(0);
+  const [hearts, setHearts] = useState(MAX_HEARTS);
+  const [failed, setFailed] = useState(false);
 
   const exercise = exercises[index];
   const progress = (index + (checked ? 1 : 0)) / exercises.length;
@@ -59,6 +64,9 @@ export function MarathonRunner({
     } else {
       setChecked('wrong');
       setMistakes((m) => m + 1);
+      const h = hearts - 1;
+      setHearts(h);
+      if (h <= 0) setFailed(true);
     }
   };
 
@@ -75,11 +83,37 @@ export function MarathonRunner({
   };
 
   const onMatchComplete = (matchMistakes: number) => {
-    setChecked('correct');
-    setXp((x) => x + (matchMistakes === 0 ? 10 : 5));
-    setCorrectCount((c) => c + 1);
-    if (matchMistakes > 0) setMistakes((m) => m + matchMistakes);
+    if (matchMistakes === 0) {
+      setChecked('correct');
+      setXp((x) => x + 10);
+      setCorrectCount((c) => c + 1);
+    } else {
+      setChecked('wrong');
+      setMistakes((m) => m + matchMistakes);
+      const h = Math.max(0, hearts - matchMistakes);
+      setHearts(h);
+      if (h <= 0) setFailed(true);
+    }
   };
+
+  if (failed) {
+    return (
+      <div className="flex min-h-100dvh flex-col items-center justify-center gap-5 px-6 text-center">
+        <Owl size={130} mood="sad" />
+        <h2 className="font-display text-2xl">Кажется, вам нужно повторить материал</h2>
+        <p className="max-w-sm font-semibold text-muted-foreground">
+          Жизни закончились. Повторите материал справочника и попробуйте пройти марафон ещё раз.
+        </p>
+        <button
+          type="button"
+          className="btn-push w-full max-w-xs bg-[hsl(var(--primary))] px-6 py-3 text-[hsl(var(--primary-foreground))]"
+          onClick={onExit}
+        >
+          На главную
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto flex min-h-100dvh w-full max-w-xl flex-col px-4">
@@ -108,6 +142,10 @@ export function MarathonRunner({
         <div className="flex items-center gap-1 font-extrabold" style={{ color: `hsl(${colorDeep})` }}>
           <Zap className="h-5 w-5 fill-current" aria-hidden="true" />
           {xp}
+        </div>
+        <div className="flex items-center gap-1 font-extrabold text-[hsl(var(--error))]">
+          <Heart className="h-5 w-5 fill-current" aria-hidden="true" />
+          <span aria-label={`${hearts} hearts left`}>{hearts}</span>
         </div>
       </div>
 

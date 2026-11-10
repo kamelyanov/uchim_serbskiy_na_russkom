@@ -9,6 +9,8 @@ export interface MarathonPlan {
   /** Total exercises available in the range. */
   available: number;
   sectionTitle: string;
+  /** Section this marathon was started from (unlocked on completion). */
+  sectionIndex: number;
   cefr: string;
   /** Accent colors from the target section's first unit. */
   color: string;
@@ -63,6 +65,7 @@ export function buildMarathon(
     lessonsToComplete,
     available: pool.length,
     sectionTitle: target.titleRu,
+    sectionIndex,
     cefr: target.cefr,
     color: target.units[0].color,
     colorDeep: target.units[0].colorDeep,

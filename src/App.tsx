@@ -27,7 +27,7 @@ export default function App() {
     const saved = localStorage.getItem(SCRIPT_KEY);
     return saved === 'cyrillic' ? 'cyrillic' : 'latin';
   });
-  const { progress, completeLesson, resetProgress } = useProgress();
+  const { progress, completeLesson, unlockSection, resetProgress } = useProgress();
 
   useEffect(() => {
     localStorage.setItem(SCRIPT_KEY, script);
@@ -67,12 +67,13 @@ export default function App() {
       if (marathon) {
         const nextLesson = marathon.lessonsToComplete[0];
         if (nextLesson) completeLesson(nextLesson, xp);
+        unlockSection(marathon.sectionIndex);
         setSummary({ xp, total: marathon.exercises.length, mistakes });
       }
       setMarathon(null);
       setView('summary');
     },
-    [marathon, completeLesson]
+    [marathon, completeLesson, unlockSection]
   );
 
   const location = activeLessonId ? findLesson(activeLessonId) : null;
