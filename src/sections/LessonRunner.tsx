@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Check, Heart, X } from 'lucide-react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { BookOpen, Check, Heart, X } from 'lucide-react';
 import type { Script } from '../types';
 import type { LessonLocation } from '../data';
 import type { Exercise } from '../types';
@@ -15,11 +15,12 @@ interface Props {
   script: Script;
   onExit: () => void;
   onComplete: (lessonId: string, xp: number, mistakes: number) => void;
+  onOpenGrammar: () => void;
 }
 
 const MAX_HEARTS = 5;
 
-export function LessonRunner({ location, script, onExit, onComplete }: Props) {
+export function LessonRunner({ location, script, onExit, onComplete, onOpenGrammar }: Props) {
   const { theme, lessonIndex } = location;
   const lesson = theme.lessons[lessonIndex];
   const exercises: Exercise[] = lesson.exercises;
@@ -33,6 +34,19 @@ export function LessonRunner({ location, script, onExit, onComplete }: Props) {
   const [xp, setXp] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [failed, setFailed] = useState(false);
+  const exerciseRef = useRef<HTMLDivElement>(null);
+  const isFirstExercise = useRef(true);
+
+  // При переходе к следующему упражнению мягко скроллим к его началу,
+  // чтобы страница не «прыгала» в самый верх
+  useLayoutEffect(() => {
+    if (isFirstExercise.current) {
+      isFirstExercise.current = false;
+      return;
+    }
+    (document.activeElement as HTMLElement | null)?.blur();
+    exerciseRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [index]);
 
   const exercise = exercises[index];
   const progress = (index + (checked ? 1 : 0)) / exercises.length;
@@ -152,7 +166,7 @@ export function LessonRunner({ location, script, onExit, onComplete }: Props) {
       </div>
 
       {/* Exercise body */}
-      <div className="flex flex-1 flex-col items-start py-6" key={`${lesson.id}-${index}`}>
+      <div ref={exerciseRef} className="flex flex-1 scroll-mt-16 flex-col items-start py-6" key={`${lesson.id}-${index}`}>
         <p className="mb-1 text-xs font-extrabold uppercase tracking-widest" style={{ color: `hsl(${theme.color})` }}>
           {theme.titleRu} · {index + 1}/{exercises.length}
         </p>
@@ -246,6 +260,14 @@ export function LessonRunner({ location, script, onExit, onComplete }: Props) {
             </button>
           </div>
         )}
+        <button
+          type="button"
+          onClick={onOpenGrammar}
+          className="mx-auto mt-2 flex items-center gap-1.5 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+        >
+          <BookOpen className="h-4 w-4" aria-hidden="true" />
+          Грамматика по теме урока
+        </button>
       </div>
     </div>
   );

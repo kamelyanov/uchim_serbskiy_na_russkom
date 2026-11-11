@@ -50,12 +50,14 @@
   }
   html {
     -webkit-tap-highlight-color: transparent;
+    overflow-x: clip;
   }
   body {
     @apply bg-background text-foreground;
     font-family: 'Manrope', system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.6;
+    overflow-x: clip;
   }
   .font-display {
     font-family: 'Dela Gothic One', 'Manrope', system-ui, sans-serif;

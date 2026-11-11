@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, BookOpen, ChevronRight } from 'lucide-react';
 import type { Script } from '../types';
 import { grammarSections, type GrammarBlock } from '../data/grammar';
@@ -7,6 +7,8 @@ import { sr } from '../lib/transliterate';
 interface Props {
   script: Script;
   onBack: () => void;
+  /** Тема, к которой нужно проскроллить при открытии (из урока). */
+  initialTopicId?: string;
 }
 
 function Block({ block, script }: { block: GrammarBlock; script: Script }) {
@@ -67,8 +69,10 @@ function Block({ block, script }: { block: GrammarBlock; script: Script }) {
   );
 }
 
-export function GrammarScreen({ script, onBack }: Props) {
-  const [tocOpen, setTocOpen] = useState(true);
+export function GrammarScreen({ script, onBack, initialTopicId }: Props) {
+  const [tocOpen, setTocOpen] = useState(!initialTopicId);
+  const tocRef = useRef<HTMLElement>(null);
+  const articlesRef = useRef<HTMLDivElement>(null);
 
   const scrollToTopic = (topicId: string) => {
     setTocOpen(false);
@@ -79,6 +83,32 @@ export function GrammarScreen({ script, onBack }: Props) {
           .getElementById(`grammar-topic-${topicId}`)
           ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
+    });
+  };
+
+  // При открытии из урока сразу показываем нужную тему
+  useEffect(() => {
+    if (initialTopicId) {
+      scrollToTopic(initialTopicId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Кнопка «Скрыть / Оглавление»: при скрытии возвращаемся к статьям,
+  // при открытии — к началу оглавления
+  const toggleToc = () => {
+    setTocOpen((v) => {
+      const next = !v;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (next) {
+            tocRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            articlesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+      return next;
     });
   };
 
@@ -101,7 +131,8 @@ export function GrammarScreen({ script, onBack }: Props) {
           </h1>
           <button
             type="button"
-            onClick={() => setTocOpen((v) => !v)}
+            onClick={toggleToc}
+            aria-expanded={tocOpen}
             className="btn-push ml-auto bg-secondary px-3 py-1.5 text-sm text-secondary-foreground"
           >
             {tocOpen ? 'Скрыть' : 'Оглавление'}
@@ -111,7 +142,7 @@ export function GrammarScreen({ script, onBack }: Props) {
 
       {/* Оглавление по секциям */}
       {tocOpen && (
-        <nav className="mb-8 space-y-4">
+        <nav ref={tocRef} className="mb-8 scroll-mt-20 space-y-4">
           {grammarSections.map((section) => (
             <div key={section.id}>
               <p className="mb-1.5 text-xs font-extrabold uppercase tracking-widest text-muted-foreground">
@@ -136,6 +167,7 @@ export function GrammarScreen({ script, onBack }: Props) {
       )}
 
       {/* Статьи */}
+      <div ref={articlesRef} className="scroll-mt-20">
       {grammarSections.map((section) => (
         <div key={section.id} className="mb-6">
           <h2 className="mb-4 border-b-2 border-border pb-2 font-display text-xl text-[hsl(var(--primary))]">
@@ -155,6 +187,7 @@ export function GrammarScreen({ script, onBack }: Props) {
           ))}
         </div>
       ))}
+      </div>
     </div>
   );
 }

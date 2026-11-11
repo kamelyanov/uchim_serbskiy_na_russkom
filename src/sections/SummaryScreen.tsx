@@ -8,10 +8,14 @@ interface Props {
   total: number;
   mistakes: number;
   streak: number;
+  /** Название следующего урока, если он есть. */
+  nextLessonTitle?: string | null;
   onContinue: () => void;
+  /** Переход к следующему уроку без возврата на карту. */
+  onNextLesson?: () => void;
 }
 
-export function SummaryScreen({ xp, total, mistakes, streak, onContinue }: Props) {
+export function SummaryScreen({ xp, total, mistakes, streak, nextLessonTitle, onContinue, onNextLesson }: Props) {
   const accuracy = Math.max(0, Math.round(((total - mistakes) / total) * 100));
   const perfect = mistakes === 0;
 
@@ -63,6 +67,16 @@ export function SummaryScreen({ xp, total, mistakes, streak, onContinue }: Props
       >
         Продолжить
       </button>
+
+      {onNextLesson && (
+        <button
+          type="button"
+          className="btn-push w-full border-2 border-[hsl(var(--primary))] bg-background px-6 py-3 text-[hsl(var(--primary))]"
+          onClick={onNextLesson}
+        >
+          Следующее задание{nextLessonTitle ? `: ${nextLessonTitle}` : ''} →
+        </button>
+      )}
     </div>
   );
 }

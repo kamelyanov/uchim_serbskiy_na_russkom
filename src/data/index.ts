@@ -135,3 +135,24 @@ export function lessonOrder(lessonId: string): number {
     (loc) => loc.theme.lessons[loc.lessonIndex].id === lessonId
   );
 }
+
+/** First lesson in global order that is not yet completed. */
+export function findNextLessonId(completedLessons: string[]): string | null {
+  for (const loc of allLessons) {
+    const id = loc.theme.lessons[loc.lessonIndex].id;
+    if (!completedLessons.includes(id)) return id;
+  }
+  return null;
+}
+
+/** First incomplete lesson inside a section (1-based section.index), if any. */
+export function firstIncompleteInSection(sectionIndex: number, completedLessons: string[]): string | null {
+  const section = sections.find((s) => s.index === sectionIndex);
+  if (!section) return null;
+  for (const unit of section.units) {
+    for (const lesson of unit.lessons) {
+      if (!completedLessons.includes(lesson.id)) return lesson.id;
+    }
+  }
+  return null;
+}

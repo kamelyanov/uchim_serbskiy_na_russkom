@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { Check, Heart, X, Zap } from 'lucide-react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { BookOpen, Check, Heart, X, Zap } from 'lucide-react';
 import type { Script } from '../types';
 import type { Exercise } from '../types';
 import { ChoiceExerciseView } from '../components/exercises/ChoiceExercise';
@@ -19,6 +19,7 @@ interface Props {
   script: Script;
   onExit: () => void;
   onComplete: (xp: number, correct: number, mistakes: number) => void;
+  onOpenGrammar: () => void;
 }
 
 export function MarathonRunner({
@@ -29,6 +30,7 @@ export function MarathonRunner({
   script,
   onExit,
   onComplete,
+  onOpenGrammar,
 }: Props) {
   const [index, setIndex] = useState(0);
   const [choiceSel, setChoiceSel] = useState<number | null>(null);
@@ -40,6 +42,19 @@ export function MarathonRunner({
   const [mistakes, setMistakes] = useState(0);
   const [hearts, setHearts] = useState(MAX_HEARTS);
   const [failed, setFailed] = useState(false);
+  const exerciseRef = useRef<HTMLDivElement>(null);
+  const isFirstExercise = useRef(true);
+
+  // При переходе к следующему упражнению мягко скроллим к его началу,
+  // чтобы страница не «прыгала» в самый верх
+  useLayoutEffect(() => {
+    if (isFirstExercise.current) {
+      isFirstExercise.current = false;
+      return;
+    }
+    (document.activeElement as HTMLElement | null)?.blur();
+    exerciseRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [index]);
 
   const exercise = exercises[index];
   const progress = (index + (checked ? 1 : 0)) / exercises.length;
@@ -150,7 +165,7 @@ export function MarathonRunner({
       </div>
 
       {/* Exercise body */}
-      <div className="flex flex-1 flex-col items-start py-6" key={`marathon-${index}`}>
+      <div ref={exerciseRef} className="flex flex-1 scroll-mt-16 flex-col items-start py-6" key={`marathon-${index}`}>
         <p
           className="mb-1 text-xs font-extrabold uppercase tracking-widest"
           style={{ color: `hsl(${color})` }}
@@ -247,6 +262,14 @@ export function MarathonRunner({
             </button>
           </div>
         )}
+        <button
+          type="button"
+          onClick={onOpenGrammar}
+          className="mx-auto mt-2 flex items-center gap-1.5 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+        >
+          <BookOpen className="h-4 w-4" aria-hidden="true" />
+          Грамматика
+        </button>
       </div>
     </div>
   );

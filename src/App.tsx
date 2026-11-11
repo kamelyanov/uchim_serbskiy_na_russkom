@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { Script } from './types';
-import { findLesson } from './data';
+import { findLesson, findNextLessonId } from './data';
+import { grammarTopicForLesson } from './data/grammar-map';
 import { useProgress } from './hooks/useProgress';
 import { buildMarathon, type MarathonPlan } from './lib/marathon';
 import { Home } from './sections/Home';
@@ -18,6 +19,7 @@ interface Summary {
   xp: number;
   total: number;
   mistakes: number;
+  nextLessonId: string | null;
 }
 
 export default function App() {
@@ -25,20 +27,34 @@ export default function App() {
   const [activeLessonId, setActiveLessonId] = useState<string | null>(null);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [marathon, setMarathon] = useState<MarathonPlan | null>(null);
+  const [grammarCtx, setGrammarCtx] = useState<{ topicId?: string } | null>(null);
   const [script, setScript] = useState<Script>(() => {
     const saved = localStorage.getItem(SCRIPT_KEY);
     return saved === 'cyrillic' ? 'cyrillic' : 'latin';
   });
   const { progress, completeLesson, unlockSection, markWordLearned, resetProgress } = useProgress();
 
+  // Позиция скролла на главной: сохраняем при уходе в урок/марафон
+  // и восстанавливаем при возврате, чтобы не «прыгать» в самый верх
+  const homeScrollY = useRef(0);
+  useLayoutEffect(() => {
+    if (view === 'home') {
+      window.scrollTo(0, homeScrollY.current);
+    }
+  }, [view]);
+  const rememberHomeScroll = useCallback(() => {
+    homeScrollY.current = window.scrollY;
+  }, []);
+
   useEffect(() => {
     localStorage.setItem(SCRIPT_KEY, script);
   }, [script]);
 
   const startLesson = useCallback((lessonId: string) => {
+    rememberHomeScroll();
     setActiveLessonId(lessonId);
     setView('lesson');
-  }, []);
+  }, [rememberHomeScroll]);
 
   const finishLesson = useCallback(
     (lessonId: string, xp: number, mistakes: number) => {
@@ -48,20 +64,22 @@ export default function App() {
         xp,
         total: loc ? loc.theme.lessons[loc.lessonIndex].exercises.length : 0,
         mistakes,
+        nextLessonId: findNextLessonId([...progress.completedLessons, lessonId]),
       });
       setView('summary');
     },
-    [completeLesson]
+    [completeLesson, progress.completedLessons]
   );
 
   const startMarathon = useCallback(
     (sectionIndex: number) => {
       const plan = buildMarathon(sectionIndex, progress.completedLessons);
       if (!plan || plan.exercises.length === 0) return;
+      rememberHomeScroll();
       setMarathon(plan);
       setView('marathon');
     },
-    [progress.completedLessons]
+    [progress.completedLessons, rememberHomeScroll]
   );
 
   const finishMarathon = useCallback(
@@ -70,18 +88,33 @@ export default function App() {
         const nextLesson = marathon.lessonsToComplete[0];
         if (nextLesson) completeLesson(nextLesson, xp);
         unlockSection(marathon.sectionIndex);
-        setSummary({ xp, total: marathon.exercises.length, mistakes });
+        setSummary({
+          xp,
+          total: marathon.exercises.length,
+          mistakes,
+          nextLessonId: findNextLessonId(
+            nextLesson ? [...progress.completedLessons, nextLesson] : progress.completedLessons
+          ),
+        });
       }
       setMarathon(null);
       setView('summary');
     },
-    [marathon, completeLesson, unlockSection]
+    [marathon, completeLesson, unlockSection, progress.completedLessons]
   );
 
+  const openGrammarFromLesson = useCallback(() => {
+    const topicId = activeLessonId ? grammarTopicForLesson(activeLessonId) : undefined;
+    setGrammarCtx({ topicId });
+  }, [activeLessonId]);
+
   const location = activeLessonId ? findLesson(activeLessonId) : null;
+  const summaryNextLoc = summary?.nextLessonId ? findLesson(summary.nextLessonId) : null;
+
+  let content: React.ReactNode;
 
   if (view === 'marathon' && marathon) {
-    return (
+    content = (
       <MarathonRunner
         key={`${marathon.sectionTitle}-${marathon.exercises.length}`}
         exercises={marathon.exercises}
@@ -94,44 +127,47 @@ export default function App() {
           setView('home');
         }}
         onComplete={finishMarathon}
+        onOpenGrammar={() => setGrammarCtx({})}
       />
     );
-  }
-
-  if (view === 'lesson' && location) {
-    return (
+  } else if (view === 'lesson' && location) {
+    content = (
       <LessonRunner
         key={activeLessonId}
         location={location}
         script={script}
         onExit={() => setView('home')}
         onComplete={finishLesson}
+        onOpenGrammar={openGrammarFromLesson}
       />
     );
-  }
-
-  if (view === 'summary' && summary) {
-    return (
+  } else if (view === 'summary' && summary) {
+    content = (
       <SummaryScreen
         xp={summary.xp}
         total={summary.total}
         mistakes={summary.mistakes}
         streak={progress.streak}
+        nextLessonTitle={summaryNextLoc ? summaryNextLoc.theme.lessons[summaryNextLoc.lessonIndex].titleRu : null}
         onContinue={() => {
           setActiveLessonId(null);
           setSummary(null);
           setView('home');
         }}
+        onNextLesson={
+          summary.nextLessonId
+            ? () => {
+                setSummary(null);
+                startLesson(summary.nextLessonId!);
+              }
+            : undefined
+        }
       />
     );
-  }
-
-  if (view === 'grammar') {
-    return <GrammarScreen script={script} onBack={() => setView('home')} />;
-  }
-
-  if (view === 'vocab') {
-    return (
+  } else if (view === 'grammar') {
+    content = <GrammarScreen script={script} onBack={() => setView('home')} />;
+  } else if (view === 'vocab') {
+    content = (
       <VocabScreen
         script={script}
         learnedWords={progress.learnedWords}
@@ -139,18 +175,33 @@ export default function App() {
         onBack={() => setView('home')}
       />
     );
+  } else {
+    content = (
+      <Home
+        script={script}
+        onToggleScript={() => setScript((s) => (s === 'latin' ? 'cyrillic' : 'latin'))}
+        progress={progress}
+        onStartLesson={startLesson}
+        onStartSection={startMarathon}
+        onResetProgress={resetProgress}
+        onOpenGrammar={() => setView('grammar')}
+        onOpenVocab={() => setView('vocab')}
+      />
+    );
   }
 
   return (
-    <Home
-      script={script}
-      onToggleScript={() => setScript((s) => (s === 'latin' ? 'cyrillic' : 'latin'))}
-      progress={progress}
-      onStartLesson={startLesson}
-      onStartSection={startMarathon}
-      onResetProgress={resetProgress}
-      onOpenGrammar={() => setView('grammar')}
-      onOpenVocab={() => setView('vocab')}
-    />
+    <>
+      {content}
+      {grammarCtx && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-background">
+          <GrammarScreen
+            script={script}
+            onBack={() => setGrammarCtx(null)}
+            initialTopicId={grammarCtx.topicId}
+          />
+        </div>
+      )}
+    </>
   );
 }

@@ -18,10 +18,11 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { Progress, Script, Theme } from '../types';
-import { sections, lessonOrder, findLesson } from '../data';
+import { sections, findLesson, findNextLessonId, firstIncompleteInSection } from '../data';
 import { sr } from '../lib/transliterate';
 import { TipsSheet } from '../components/TipsSheet';
 import { Owl } from '../components/Owl';
+import { useIsMobile } from '../hooks/use-mobile';
 import { cn } from '@/lib/utils';
 
 const ICONS: Record<string, LucideIcon> = {
@@ -58,30 +59,24 @@ interface Props {
 
 export function Home({ script, onToggleScript, progress, onStartLesson, onStartSection, onResetProgress, onOpenGrammar, onOpenVocab }: Props) {
   const [tipsTheme, setTipsTheme] = useState<Theme | null>(null);
+  const isMobile = useIsMobile();
+
+  const nextLessonId = useMemo(
+    () => findNextLessonId(progress.completedLessons),
+    [progress.completedLessons]
+  );
 
   const isUnlocked = (lessonId: string): boolean => {
-    const order = lessonOrder(lessonId);
-    if (order <= 0) return true;
-    // unlocked if any earlier lesson is incomplete but this is the next one,
-    // i.e. all lessons before it are completed
-    // find the previous lesson id via global order
-    if (progress.completedLessons.length >= order) return true;
-    // or if its section was unlocked via a marathon
+    // unlocked if it is the next lesson in the global path
+    if (lessonId === nextLessonId) return true;
+    // or if its section was unlocked via a marathon — but only the first
+    // incomplete lesson of that section, not all of them
     const loc = findLesson(lessonId);
-    return loc != null && progress.unlockedSections.includes(loc.sectionIndex + 1);
+    if (loc == null) return false;
+    const sectionId = loc.sectionIndex + 1;
+    if (!progress.unlockedSections.includes(sectionId)) return false;
+    return lessonId === firstIncompleteInSection(sectionId, progress.completedLessons);
   };
-
-  const nextLessonId = useMemo(() => {
-    // first lesson in global order not yet completed
-    for (const sec of sections) {
-      for (const unit of sec.units) {
-        for (const lesson of unit.lessons) {
-          if (!progress.completedLessons.includes(lesson.id)) return lesson.id;
-        }
-      }
-    }
-    return null;
-  }, [progress.completedLessons]);
 
   const totalLessons = useMemo(
     () => sections.reduce((n, s) => n + s.units.reduce((m, u) => m + u.lessons.length, 0), 0),
@@ -211,53 +206,66 @@ export function Home({ script, onToggleScript, progress, onStartLesson, onStartS
                     const done = progress.completedLessons.includes(lesson.id);
                     const unlocked = isUnlocked(lesson.id);
                     const isNext = lesson.id === nextLessonId;
-                    const offset = OFFSETS[li % OFFSETS.length] * (li % 4 < 2 ? 1 : -1);
+                    const offset = (isMobile ? [0, 20] : OFFSETS)[li % OFFSETS.length] * (li % 4 < 2 ? 1 : -1);
                     return (
-                      <button
+                      <div
                         key={lesson.id}
-                        type="button"
-                        disabled={!unlocked}
-                        onClick={() => onStartLesson(lesson.id)}
-                        aria-label={`${lesson.titleRu}${done ? ' (пройден)' : unlocked ? '' : ' (заблокирован)'}`}
-                        className={cn(
-                          'group relative flex h-[72px] w-[72px] items-center justify-center rounded-full border-b-6 transition-all duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[hsl(var(--ring))]',
-                          done &&
-                            'border-[hsl(var(--gold-deep))] bg-[hsl(var(--gold))] text-[hsl(var(--ink))]',
-                          !done && unlocked &&
-                            'cursor-pointer text-white hover:brightness-105 active:translate-y-1 active:border-b-2',
-                          !unlocked &&
-                            'cursor-not-allowed border-[hsl(110_10%_70%)] bg-[hsl(110_12%_82%)] text-[hsl(110_8%_55%)]',
-                          isNext && 'star-pop'
-                        )}
-                        style={
-                          !done && unlocked
-                            ? {
-                                backgroundColor: `hsl(${unit.color})`,
-                                borderColor: `hsl(${unit.colorDeep})`,
-                                transform: `translateX(${offset}px)`,
-                              }
-                            : { transform: `translateX(${offset}px)` }
-                        }
+                        className={cn('flex items-center gap-3', offset < 0 && 'flex-row-reverse')}
+                        style={{ transform: `translateX(${offset}px)` }}
                       >
-                        {done ? (
-                          <Check className="h-8 w-8" strokeWidth={3.5} />
-                        ) : unlocked ? (
-                          <Icon className="h-8 w-8" />
-                        ) : (
-                          <Lock className="h-7 w-7" />
-                        )}
-                        {isNext && (
-                          <span
-                            className="absolute -top-8 left-1/2 -translate-x-1/2 rounded-xl border-2 border-b-4 bg-card px-2.5 py-0.5 text-xs font-extrabold uppercase tracking-wide whitespace-nowrap"
-                            style={{
-                              color: `hsl(${unit.colorDeep})`,
-                              borderColor: `hsl(${unit.color})`,
-                            }}
-                          >
-                            Старт
-                          </span>
-                        )}
-                      </button>
+                        <button
+                          type="button"
+                          disabled={!unlocked}
+                          onClick={() => onStartLesson(lesson.id)}
+                          aria-label={`${lesson.titleRu}${done ? ' (пройден)' : unlocked ? '' : ' (заблокирован)'}`}
+                          className={cn(
+                            'group relative flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-full border-b-6 transition-all duration-150 focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-[hsl(var(--ring))]',
+                            done &&
+                              'border-[hsl(var(--gold-deep))] bg-[hsl(var(--gold))] text-[hsl(var(--ink))]',
+                            !done && unlocked &&
+                              'cursor-pointer text-white hover:brightness-105 active:translate-y-1 active:border-b-2',
+                            !unlocked &&
+                              'cursor-not-allowed border-[hsl(110_10%_70%)] bg-[hsl(110_12%_82%)] text-[hsl(110_8%_55%)]',
+                            isNext && 'star-pop'
+                          )}
+                          style={
+                            !done && unlocked
+                              ? {
+                                  backgroundColor: `hsl(${unit.color})`,
+                                  borderColor: `hsl(${unit.colorDeep})`,
+                                }
+                              : undefined
+                          }
+                        >
+                          {done ? (
+                            <Check className="h-8 w-8" strokeWidth={3.5} />
+                          ) : unlocked ? (
+                            <Icon className="h-8 w-8" />
+                          ) : (
+                            <Lock className="h-7 w-7" />
+                          )}
+                          {isNext && (
+                            <span
+                              className="absolute -top-8 left-1/2 -translate-x-1/2 rounded-xl border-2 border-b-4 bg-card px-2.5 py-0.5 text-xs font-extrabold uppercase tracking-wide whitespace-nowrap"
+                              style={{
+                                color: `hsl(${unit.colorDeep})`,
+                                borderColor: `hsl(${unit.color})`,
+                              }}
+                            >
+                              Старт
+                            </span>
+                          )}
+                        </button>
+                        <span
+                          className={cn(
+                            'max-w-[160px] text-sm font-bold leading-tight sm:max-w-[200px]',
+                            done && 'text-muted-foreground',
+                            !unlocked && 'text-muted-foreground/60'
+                          )}
+                        >
+                          {lesson.titleRu}
+                        </span>
+                      </div>
                     );
                   })}
                 </div>
