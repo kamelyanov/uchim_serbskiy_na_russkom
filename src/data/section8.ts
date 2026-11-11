@@ -447,7 +447,8 @@ export const section8Units: Theme[] = [
     lessons: [
       {
         id: 's8u1l1',
-        titleRu: 'Give reasons and justifications',
+        titleRu: 'Приведите причины и обоснования',
+        titleSr: 'Iznesite razloge i obrazloženja',
         exercises: [
           { type: 'choice', prompt: 'обоснование', promptLang: 'ru', options: ['obrazloženje', 'razlog', 'argument', 'dokaz'], answer: 0 },
           { type: 'choice', prompt: 'Obrazložiti', promptLang: 'sr', options: ['Объяснить', 'Обосновать', 'Доказать', 'Привести'], answer: 1 },
@@ -467,7 +468,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l2',
-        titleRu: 'Ask for things in a softened way',
+        titleRu: 'Попросите что-нибудь мягко',
+        titleSr: 'Zatražite nešto ljubazno',
         exercises: [
           { type: 'choice', prompt: 'просьба', promptLang: 'ru', options: ['molba', 'usluga', 'ljubaznost', 'dozvola'], answer: 0 },
           { type: 'choice', prompt: 'Zamoliti', promptLang: 'sr', options: ['Попросить', 'Разрешить', 'Помочь', 'Поблагодарить'], answer: 0 },
@@ -487,7 +489,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l3',
-        titleRu: 'Negotiate while shopping',
+        titleRu: 'Торгуйтесь при покупках',
+        titleSr: 'Cenkajte se pri kupovini',
         exercises: [
           { type: 'choice', prompt: 'торг', promptLang: 'ru', options: ['cenkanje', 'cena', 'popust', 'kupac'], answer: 0 },
           { type: 'choice', prompt: 'Sniziti', promptLang: 'sr', options: ['Торговаться', 'Снизить', 'Договориться', 'Купить'], answer: 1 },
@@ -507,7 +510,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l4',
-        titleRu: 'Understand a local news report',
+        titleRu: 'Поймите местный выпуск новостей',
+        titleSr: 'Razumite lokalne vesti',
         exercises: [
           { type: 'choice', prompt: 'репортёр', promptLang: 'ru', options: ['reporter', 'izveštaj', 'događaj', 'svedok'], answer: 0 },
           { type: 'choice', prompt: 'Izvestiti', promptLang: 'sr', options: ['Следить', 'Передать', 'Сообщить', 'Свидетельствовать'], answer: 2 },
@@ -527,7 +531,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l5',
-        titleRu: 'Talk about music history, repeat what someone said',
+        titleRu: 'Поговорите об истории музыки, перескажите услышанное',
+        titleSr: 'Pričajte o istoriji muzike, prepričajte ono što ste čuli',
         exercises: [
           { type: 'choice', prompt: 'направление', promptLang: 'ru', options: ['pravac', 'žanr', 'autor', 'citat'], answer: 0 },
           { type: 'choice', prompt: 'Navesti', promptLang: 'sr', options: ['Передать', 'Указать', 'Утверждать', 'Цитировать'], answer: 1 },
@@ -547,7 +552,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l6',
-        titleRu: 'Use the present perfect progressive',
+        titleRu: 'Настоящее длительное совершенное время',
+        titleSr: 'Sadašnje trajno svršeno vreme',
         exercises: [
           { type: 'choice', prompt: 'длиться', promptLang: 'ru', options: ['trajati', 'od', 'već', 'godinama'], answer: 0 },
           { type: 'choice', prompt: 'Već', promptLang: 'sr', options: ['Уже', 'Ещё', 'С', 'До'], answer: 0 },
@@ -567,7 +573,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l7',
-        titleRu: 'Talk about how things have changed',
+        titleRu: 'Поговорите о переменах',
+        titleSr: 'Pričajte o promenama',
         exercises: [
           { type: 'choice', prompt: 'развитие', promptLang: 'ru', options: ['razvoj', 'promena', 'napredak', 'prošlost'], answer: 0 },
           { type: 'choice', prompt: 'Razvijati se', promptLang: 'sr', options: ['Меняться', 'Развиваться', 'Сравнивать', 'Быть когда-то'], answer: 1 },
@@ -587,7 +594,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l8',
-        titleRu: 'Express disagreement',
+        titleRu: 'Выразите несогласие',
+        titleSr: 'Izrazite neslaganje',
         exercises: [
           { type: 'choice', prompt: 'несогласие', promptLang: 'ru', options: ['neslaganje', 'protivljenje', 'argument', 'stav'], answer: 0 },
           { type: 'choice', prompt: 'Osporavati', promptLang: 'sr', options: ['Не соглашаться', 'Возражать', 'Оспаривать', 'Противостоять'], answer: 2 },
@@ -607,7 +615,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l9',
-        titleRu: 'Present a counter-argument',
+        titleRu: 'Приведите контраргумент',
+        titleSr: 'Iznesite kontraargument',
         exercises: [
           { type: 'choice', prompt: 'контраргумент', promptLang: 'ru', options: ['kontraargument', 'pobijanje', 'dokaz', 'tvrdnja'], answer: 0 },
           { type: 'choice', prompt: 'Pobijati', promptLang: 'sr', options: ['Опровергать', 'Противопоставить', 'Доказать', 'Защитить'], answer: 0 },
@@ -627,7 +636,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l10',
-        titleRu: 'Express frustration',
+        titleRu: 'Выразите досаду',
+        titleSr: 'Izrazite nezadovoljstvo',
         exercises: [
           { type: 'choice', prompt: 'терпение', promptLang: 'ru', options: ['strpljenje', 'frustracija', 'bes', 'nervoza'], answer: 0 },
           { type: 'choice', prompt: 'Nervirati se', promptLang: 'sr', options: ['Злиться', 'Нервничать', 'Терпеть', 'Разочаровываться'], answer: 1 },
@@ -647,7 +657,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l11',
-        titleRu: 'Discuss plans for a work party',
+        titleRu: 'Обсудите планы корпоратива',
+        titleSr: 'Diskutujte o planovima za žurku',
         exercises: [
           { type: 'choice', prompt: 'организация', promptLang: 'ru', options: ['organizacija', 'žurka', 'kolega', 'mesto'], answer: 0 },
           { type: 'choice', prompt: 'Rezervisati', promptLang: 'sr', options: ['Организовать', 'Договориться', 'Забронировать', 'Пригласить'], answer: 2 },
@@ -667,7 +678,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l12',
-        titleRu: 'Make conclusions and deductions',
+        titleRu: 'Сделайте выводы',
+        titleSr: 'Izvedite zaključke',
         exercises: [
           { type: 'choice', prompt: 'вывод', promptLang: 'ru', options: ['zaključak', 'dedukcija', 'činjenica', 'logika'], answer: 0 },
           { type: 'choice', prompt: 'Zaključiti', promptLang: 'sr', options: ['Сделать вывод', 'Умозаключать', 'Следовать', 'Быть очевидным'], answer: 0 },
@@ -687,7 +699,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l13',
-        titleRu: 'Tell stories around a campfire, use the passive voice',
+        titleRu: 'Расскажите истории у костра, пассивный залог',
+        titleSr: 'Ispričajte priče uz logorsku vatru, pasivni zalog',
         exercises: [
           { type: 'choice', prompt: 'таинственный', promptLang: 'ru', options: ['tajanstven', 'strah', 'priča', 'vatra'], answer: 0 },
           { type: 'choice', prompt: 'Pripovedati', promptLang: 'sr', options: ['Рассказывать', 'Пугать', 'Описывать', 'Слушать'], answer: 0 },
@@ -707,7 +720,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l14',
-        titleRu: 'Describe a move to the big city',
+        titleRu: 'Опишите переезд в большой город',
+        titleSr: 'Opišite selidbu u veliki grad',
         exercises: [
           { type: 'choice', prompt: 'вызов', promptLang: 'ru', options: ['izazov', 'prilika', 'selidba', 'grad'], answer: 0 },
           { type: 'choice', prompt: 'Prilagoditi se', promptLang: 'sr', options: ['Переехать', 'Привыкнуть', 'Адаптироваться', 'Справиться'], answer: 2 },
@@ -727,7 +741,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l15',
-        titleRu: 'Navigate a trip to a theme park',
+        titleRu: 'Сориентируйтесь в поездке в парк развлечений',
+        titleSr: 'Snađite se u poseti tematskom parku',
         exercises: [
           { type: 'choice', prompt: 'аттракцион', promptLang: 'ru', options: ['atrakcija', 'vožnja', 'karta', 'red'], answer: 0 },
           { type: 'choice', prompt: 'Voziti se', promptLang: 'sr', options: ['Ждать', 'Кататься', 'Наслаждаться', 'Покупать'], answer: 1 },
@@ -747,7 +762,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l16',
-        titleRu: 'Negotiate chores with roommates',
+        titleRu: 'Договоритесь о делах с соседями по квартире',
+        titleSr: 'Dogovorite se o poslovima sa cimerima',
         exercises: [
           { type: 'choice', prompt: 'сосед по квартире', promptLang: 'ru', options: ['cimer', 'dogovor', 'obaveza', 'pravilo'], answer: 0 },
           { type: 'choice', prompt: 'Poštovati', promptLang: 'sr', options: ['Договариваться', 'Разделять', 'Соблюдать', 'Сотрудничать'], answer: 2 },
@@ -767,7 +783,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l17',
-        titleRu: 'Express how certain or uncertain you are',
+        titleRu: 'Выразите уверенность или сомнение',
+        titleSr: 'Izrazite sigurnost ili sumnju',
         exercises: [
           { type: 'choice', prompt: 'сомнение', promptLang: 'ru', options: ['sumnja', 'sigurnost', 'nesigurnost', 'verovatnoća'], answer: 0 },
           { type: 'choice', prompt: 'Sumnjati', promptLang: 'sr', options: ['Быть уверенным', 'Сомневаться', 'Вероятно', 'Точно'], answer: 1 },
@@ -787,7 +804,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l18',
-        titleRu: 'Confirm information',
+        titleRu: 'Подтвердите информацию',
+        titleSr: 'Potvrdite informaciju',
         exercises: [
           { type: 'choice', prompt: 'подтверждение', promptLang: 'ru', options: ['potvrda', 'informacija', 'tačnost', 'provera'], answer: 0 },
           { type: 'choice', prompt: 'Proveriti', promptLang: 'sr', options: ['Подтвердить', 'Проверить', 'Быть точным', 'Быть верным'], answer: 1 },
@@ -807,7 +825,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l19',
-        titleRu: 'Express good wishes for someone',
+        titleRu: 'Выразите добрые пожелания',
+        titleSr: 'Izrazite dobre želje',
         exercises: [
           { type: 'choice', prompt: 'поздравление', promptLang: 'ru', options: ['čestitka', 'želja', 'sreća', 'uspeh'], answer: 0 },
           { type: 'choice', prompt: 'Čestitati', promptLang: 'sr', options: ['Желать', 'Поздравлять', 'Надеяться', 'Удачи'], answer: 1 },
@@ -827,7 +846,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l20',
-        titleRu: 'Talk about your plans for a trip',
+        titleRu: 'Поговорите о планах на поездку',
+        titleSr: 'Pričajte o planovima za putovanje',
         exercises: [
           { type: 'choice', prompt: 'маршрут', promptLang: 'ru', options: ['itinerar', 'putovanje', 'rezervacija', 'destinacija'], answer: 0 },
           { type: 'choice', prompt: 'Posetiti', promptLang: 'sr', options: ['Планировать', 'Бронировать', 'Отправиться', 'Посетить'], answer: 3 },
@@ -847,7 +867,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l21',
-        titleRu: 'Use the future perfect progressive',
+        titleRu: 'Будущее длительное совершенное время',
+        titleSr: 'Buduće trajno svršeno vreme',
         exercises: [
           { type: 'choice', prompt: 'длительность', promptLang: 'ru', options: ['trajanje', 'budućnost', 'do', 'kraj'], answer: 0 },
           { type: 'choice', prompt: 'Do tada', promptLang: 'sr', options: ['К тому времени', 'До конца', 'В будущем', 'С тех пор'], answer: 0 },
@@ -867,7 +888,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l22',
-        titleRu: 'Make plans for a Friday night, form verb phrases',
+        titleRu: 'Спланируйте пятницу вечером, составьте словосочетания',
+        titleSr: 'Isplanirajte petak uveče, sastavite izraze',
         exercises: [
           { type: 'choice', prompt: 'пятница', promptLang: 'ru', options: ['petak', 'izlazak', 'plan', 'dogovor'], answer: 0 },
           { type: 'choice', prompt: 'Predložiti', promptLang: 'sr', options: ['Договориться', 'Предложить', 'Принять', 'Организовать'], answer: 1 },
@@ -887,7 +909,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l23',
-        titleRu: 'Navigate transactions at a garage sale',
+        titleRu: 'Совершите покупки на распродаже',
+        titleSr: 'Obavite kupovinu na rasprodaji',
         exercises: [
           { type: 'choice', prompt: 'предмет', promptLang: 'ru', options: ['predmet', 'cena', 'kupac', 'prodaja'], answer: 0 },
           { type: 'choice', prompt: 'Prodati', promptLang: 'sr', options: ['Купить', 'Продать', 'Договориться', 'Осмотреть'], answer: 1 },
@@ -907,7 +930,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l24',
-        titleRu: 'Respond to a command or request',
+        titleRu: 'Ответьте на просьбу или приказ',
+        titleSr: 'Odgovorite na molbu ili naredbu',
         exercises: [
           { type: 'choice', prompt: 'команда', promptLang: 'ru', options: ['komanda', 'zahtev', 'molba', 'odgovor'], answer: 0 },
           { type: 'choice', prompt: 'Izvršiti', promptLang: 'sr', options: ['Ответить', 'Послушать', 'Выполнить', 'Отказывать'], answer: 2 },
@@ -927,7 +951,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l25',
-        titleRu: 'Politely decline an offer or proposal',
+        titleRu: 'Вежливо отклоните предложение',
+        titleSr: 'Ljubazno odbijte ponudu',
         exercises: [
           { type: 'choice', prompt: 'отказать', promptLang: 'ru', options: ['odbiti', 'ponuda', 'zahvalnost', 'razlog'], answer: 0 },
           { type: 'choice', prompt: 'Zahvaliti se', promptLang: 'sr', options: ['Отказать', 'Поблагодарить', 'Объяснить', 'Извиниться'], answer: 1 },
@@ -947,7 +972,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l26',
-        titleRu: 'Talk about household chores',
+        titleRu: 'Поговорите о домашних делах',
+        titleSr: 'Pričajte o kućnim poslovima',
         exercises: [
           { type: 'choice', prompt: 'разделение', promptLang: 'ru', options: ['podela', 'obaveza', 'rutina', 'poslovi'], answer: 0 },
           { type: 'choice', prompt: 'Obavljati', promptLang: 'sr', options: ['Выполнять', 'Разделять', 'Организовать', 'Отдыхать'], answer: 0 },
@@ -967,7 +993,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l27',
-        titleRu: 'Catch up with an old friend',
+        titleRu: 'Пообщайтесь со старым другом',
+        titleSr: 'Porazgovarajte sa starim prijateljem',
         exercises: [
           { type: 'choice', prompt: 'воспоминание', promptLang: 'ru', options: ['uspomena', 'promena', 'razgovor', 'prijatelj'], answer: 0 },
           { type: 'choice', prompt: 'Setiti se', promptLang: 'sr', options: ['Вспомнить', 'Рассказать', 'Измениться', 'Продолжить'], answer: 0 },
@@ -987,7 +1014,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l28',
-        titleRu: 'Use the past perfect passive',
+        titleRu: 'Прошедшее совершенное, пассивный залог',
+        titleSr: 'Prošlo svršeno, pasivni zalog',
         exercises: [
           { type: 'choice', prompt: 'пассив', promptLang: 'ru', options: ['pasiv', 'prošlost', 'radnja', 'rezultat'], answer: 0 },
           { type: 'choice', prompt: 'Završen je', promptLang: 'sr', options: ['Был сделан', 'Был описан', 'Был закончен', 'Был начат'], answer: 2 },
@@ -1007,7 +1035,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l29',
-        titleRu: 'Express limitations or caveats',
+        titleRu: 'Выразите ограничения или оговорки',
+        titleSr: 'Izrazite ograničenja ili uslove',
         exercises: [
           { type: 'choice', prompt: 'ограничение', promptLang: 'ru', options: ['ograničenje', 'uslov', 'izuzetak', 'napomena'], answer: 0 },
           { type: 'choice', prompt: 'Napomenuti', promptLang: 'sr', options: ['Ограничить', 'Отметить', 'Исключить', 'Зависеть'], answer: 1 },
@@ -1027,7 +1056,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l30',
-        titleRu: 'Talk about sporting events, explain your plans and opinions',
+        titleRu: 'Поговорите о спортивных событиях, расскажите о планах',
+        titleSr: 'Pričajte o sportskim dešavanjima, ispričajte o planovima',
         exercises: [
           { type: 'choice', prompt: 'соревнование', promptLang: 'ru', options: ['takmičenje', 'utakmica', 'mišljenje', 'plan'], answer: 0 },
           { type: 'choice', prompt: 'Smatrati', promptLang: 'sr', options: ['Комментировать', 'Объяснять', 'Планировать', 'Считать'], answer: 3 },
@@ -1047,7 +1077,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l31',
-        titleRu: 'Understand a guided tour',
+        titleRu: 'Поймите экскурсию с гидом',
+        titleSr: 'Razumite obilazak sa vodičem',
         exercises: [
           { type: 'choice', prompt: 'обход', promptLang: 'ru', options: ['obilazak', 'vodič', 'grupa', 'spomenik'], answer: 0 },
           { type: 'choice', prompt: 'Razgledati', promptLang: 'sr', options: ['Обходить', 'Слушать', 'Осматривать', 'Фотографировать'], answer: 2 },
@@ -1067,7 +1098,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l32',
-        titleRu: 'Speculate about mysteries',
+        titleRu: 'Рассуждайте о загадках',
+        titleSr: 'Razmišljajte o misterijama',
         exercises: [
           { type: 'choice', prompt: 'загадка', promptLang: 'ru', options: ['zagonetka', 'misterija', 'trag', 'istraga'], answer: 0 },
           { type: 'choice', prompt: 'Istraživati', promptLang: 'sr', options: ['Расследовать', 'Разгадать', 'Подозревать', 'Раскрыть'], answer: 0 },
@@ -1087,7 +1119,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l33',
-        titleRu: 'Interact at a magic show',
+        titleRu: 'Поучаствуйте в магическом шоу',
+        titleSr: 'Učestvujte u magičnom šou',
         exercises: [
           { type: 'choice', prompt: 'трюк', promptLang: 'ru', options: ['trik', 'šou', 'publika', 'magično'], answer: 0 },
           { type: 'choice', prompt: 'Izvoditi', promptLang: 'sr', options: ['Исполнять', 'Верить', 'Восхищаться', 'Аплодировать'], answer: 0 },
@@ -1107,7 +1140,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l34',
-        titleRu: 'Reminisce about childhood',
+        titleRu: 'Вспомните детство',
+        titleSr: 'Setite se detinjstva',
         exercises: [
           { type: 'choice', prompt: 'детство', promptLang: 'ru', options: ['detinjstvo', 'igra', 'igračka', 'uspomena'], answer: 0 },
           { type: 'choice', prompt: 'Odrasti', promptLang: 'sr', options: ['Помнить', 'Играть', 'Вырасти', 'Ностальгировать'], answer: 2 },
@@ -1127,7 +1161,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l35',
-        titleRu: 'Explain a complicated situation',
+        titleRu: 'Объясните сложную ситуацию',
+        titleSr: 'Objasnite složenu situaciju',
         exercises: [
           { type: 'choice', prompt: 'ситуация', promptLang: 'ru', options: ['situacija', 'problem', 'uzrok', 'rešenje'], answer: 0 },
           { type: 'choice', prompt: 'Zakomplikovati', promptLang: 'sr', options: ['Объяснить', 'Анализировать', 'Решить', 'Усложнить'], answer: 3 },
@@ -1147,7 +1182,8 @@ export const section8Units: Theme[] = [
       },
       {
         id: 's8u1l36',
-        titleRu: 'Express relief and congratulations',
+        titleRu: 'Выразите облегчение и поздравления',
+        titleSr: 'Izrazite olakšanje i čestitke',
         exercises: [
           { type: 'choice', prompt: 'облегчение', promptLang: 'ru', options: ['olakšanje', 'čestitka', 'sreća', 'uspeh'], answer: 0 },
           { type: 'choice', prompt: 'Radovati se', promptLang: 'sr', options: ['Чувствовать облегчение', 'Поздравлять', 'Радоваться', 'Гордиться'], answer: 2 },

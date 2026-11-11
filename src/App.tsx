@@ -11,9 +11,12 @@ import { SummaryScreen } from './sections/SummaryScreen';
 import { GrammarScreen } from './sections/GrammarScreen';
 import { VocabScreen } from './sections/VocabScreen';
 
+import { PALETTES, nextPalette, type Palette } from './lib/palettes';
+
 type View = 'home' | 'lesson' | 'marathon' | 'summary' | 'grammar' | 'vocab';
 
 const SCRIPT_KEY = 'ucimo-srpski-script';
+const PALETTE_KEY = 'ucimo-srpski-palette';
 
 interface Summary {
   xp: number;
@@ -33,6 +36,18 @@ export default function App() {
     return saved === 'cyrillic' ? 'cyrillic' : 'latin';
   });
   const { progress, completeLesson, unlockSection, markWordLearned, resetProgress } = useProgress();
+  const [palette, setPalette] = useState<Palette>(() => {
+    const saved = localStorage.getItem(PALETTE_KEY);
+    return PALETTES.includes(saved as Palette) ? (saved as Palette) : 'blue';
+  });
+  useEffect(() => {
+    if (palette === 'blue') document.documentElement.removeAttribute('data-palette');
+    else document.documentElement.dataset.palette = palette;
+    localStorage.setItem(PALETTE_KEY, palette);
+  }, [palette]);
+  const togglePalette = useCallback(() => {
+    setPalette((p) => nextPalette(p));
+  }, []);
 
   // Позиция скролла на главной: сохраняем при уходе в урок/марафон
   // и восстанавливаем при возврате, чтобы не «прыгать» в самый верх
@@ -180,6 +195,9 @@ export default function App() {
       <Home
         script={script}
         onToggleScript={() => setScript((s) => (s === 'latin' ? 'cyrillic' : 'latin'))}
+        palette={palette}
+        onTogglePalette={togglePalette}
+        onSelectPalette={setPalette}
         progress={progress}
         onStartLesson={startLesson}
         onStartSection={startMarathon}

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ArrowLeft, BookOpenCheck, Check, RotateCcw, X } from 'lucide-react';
 import type { Script } from '../types';
 import { vocabThemes, allVocabWords, type VocabWord } from '../data/vocab';
@@ -28,18 +28,25 @@ interface Props {
 
 export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Props) {
   const [mode, setMode] = useState<'themes' | 'session'>('themes');
+  const [openThemeId, setOpenThemeId] = useState<string | null>(null);
   const [pool, setPool] = useState<VocabWord[]>([]);
   const [queue, setQueue] = useState<VocabWord[]>([]);
   const [revealed, setRevealed] = useState(false);
   const [dir, setDir] = useState<'sr2ru' | 'ru2sr'>('sr2ru');
   const [sessionLearned, setSessionLearned] = useState(0);
   const [reviewIds, setReviewIds] = useState<Set<string>>(new Set());
+  // свайп карточки: вправо — «знаю», влево — «не знаю»
+  const [dragX, setDragX] = useState(0);
+  const [hintSwipe, setHintSwipe] = useState(false);
+  const [exitDir, setExitDir] = useState<'left' | 'right' | null>(null);
+  const dragRef = useRef<{ startX: number; dx: number; moved: boolean } | null>(null);
 
   const total = pool.length;
   const done = mode === 'session' && queue.length === 0;
   const current = queue[0];
 
   const startSession = (words: VocabWord[]) => {
+    if (!words.length) return;
     const count = Math.min(
       LESSON_MIN + Math.floor(Math.random() * (LESSON_MAX - LESSON_MIN + 1)),
       words.length
@@ -54,7 +61,16 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
     setDir(Math.random() < 0.5 ? 'sr2ru' : 'ru2sr');
     setSessionLearned(0);
     setReviewIds(new Set());
+    setDragX(0);
+    setHintSwipe(true);
     setMode('session');
+  };
+
+  // повторение: в урок попадают только уже выученные слова
+  const startReview = (words: VocabWord[]) => {
+    const learned = words.filter((w) => learnedWords.includes(w.id));
+    if (!learned.length) return;
+    startSession(learned);
   };
 
   const answer = (known: boolean) => {
@@ -74,7 +90,48 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
       setQueue(rest);
     }
     setRevealed(false);
+    setDragX(0);
+    setExitDir(null);
     setDir(Math.random() < 0.5 ? 'sr2ru' : 'ru2sr');
+  };
+
+  const SWIPE_THRESHOLD = 100;
+
+  // за порогом карточка начинает растворяться — видно, что можно отпускать
+  const swipeSide = dragX >= SWIPE_THRESHOLD ? 'right' : dragX <= -SWIPE_THRESHOLD ? 'left' : null;
+  const overshoot = Math.max(0, Math.abs(dragX) - SWIPE_THRESHOLD);
+  const flyOpacity = swipeSide ? Math.max(0, 1 - overshoot / (SWIPE_THRESHOLD * 0.5)) : 1;
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    dragRef.current = { startX: e.clientX, dx: 0, moved: false };
+    setHintSwipe(false);
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    const d = dragRef.current;
+    if (!d) return;
+    d.dx = e.clientX - d.startX;
+    if (Math.abs(d.dx) > 8) d.moved = true;
+    setDragX(d.dx);
+  };
+  const onPointerUp = () => {
+    const d = dragRef.current;
+    dragRef.current = null;
+    if (!d) return;
+    if (Math.abs(d.dx) >= SWIPE_THRESHOLD) {
+      // карточка «прошла точку переключения»: улетает в сторону свайпа
+      const dir = d.dx > 0 ? 'right' : 'left';
+      setDragX(d.dx);
+      setExitDir(dir);
+      window.setTimeout(() => answer(dir === 'right'), 180);
+    } else {
+      setDragX(0);
+    }
+  };
+  const onCardClick = () => {
+    if (dragRef.current?.moved) return;
+    setHintSwipe(false);
+    setRevealed(true);
   };
 
   const exitSession = () => {
@@ -88,7 +145,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
 
   if (mode === 'session' && !done) {
     return (
-      <div className="mx-auto flex min-h-100dvh w-full max-w-xl flex-col px-4">
+      <div className="mx-auto flex min-h-dvh w-full max-w-xl lg:max-w-none lg:w-1/2 flex-col px-4">
         <div className="flex items-center gap-3 pt-4 pb-2">
           <button
             type="button"
@@ -123,36 +180,62 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
           </p>
           <button
             type="button"
-            onClick={() => setRevealed(true)}
+            onClick={onCardClick}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={() => {
+              dragRef.current = null;
+              setDragX(0);
+            }}
             className={cn(
-              'flex min-h-56 w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center',
-              revealed && 'cursor-default'
+              'flex min-h-56 w-full cursor-pointer touch-pan-y flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center select-none',
+              revealed && 'cursor-default',
+              hintSwipe && !revealed && !dragX && 'hint-swipe',
+              exitDir ? 'transition-all duration-200 ease-out' : !dragX && 'transition-transform duration-200 ease-out'
             )}
+            style={
+              exitDir
+                ? {
+                    transform: `translateX(${exitDir === 'right' ? '130%' : '-130%'}) rotate(${exitDir === 'right' ? 18 : -18}deg)`,
+                    opacity: 0,
+                  }
+                : dragX
+                  ? {
+                      transform: `translateX(${dragX}px) rotate(${dragX / 18}deg) scale(${swipeSide ? 0.96 : 1})`,
+                      opacity: flyOpacity,
+                      boxShadow: swipeSide
+                        ? `0 0 0 2px hsl(var(--${swipeSide === 'right' ? 'success' : 'error'}) / 0.55), 0 6px 16px hsl(var(--${swipeSide === 'right' ? 'success' : 'error'}) / 0.25)`
+                        : undefined,
+                    }
+                  : undefined
+            }
           >
-            <span className="font-display text-3xl leading-snug">
+            <span className="flex flex-1 items-center justify-center overflow-hidden font-display text-3xl leading-snug">
               {current && sr(dir === 'sr2ru' ? current.sr : current.ru, script)}
             </span>
-            {revealed && current && (
-              <span className="slide-up">
-                <span className="block font-display text-2xl text-[hsl(var(--primary))]">
-                  {sr(dir === 'sr2ru' ? current.ru : current.sr, script)}
-                </span>
-                {current.example && (
-                  <span className="mt-2 block text-sm font-semibold text-muted-foreground">
-                    {sr(current.example, script)}
+            <span className="flex h-24 w-full flex-col items-center justify-center gap-1 overflow-hidden">
+              {revealed && current ? (
+                <>
+                  <span className="block font-display text-2xl leading-snug text-[hsl(var(--primary))]">
+                    {sr(dir === 'sr2ru' ? current.ru : current.sr, script)}
                   </span>
-                )}
-              </span>
-            )}
-            {!revealed && (
-              <span className="text-sm font-bold text-muted-foreground">
-                Нажми, чтобы увидеть перевод
-              </span>
-            )}
+                  {current.example && (
+                    <span className="block text-xs font-semibold leading-snug text-muted-foreground">
+                      {sr(current.example, script)}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <span className="text-xs font-semibold text-muted-foreground/70">
+                  Нажми, чтобы увидеть перевод · свайп вправо — знаю, влево — нет
+                </span>
+              )}
+            </span>
           </button>
         </div>
 
-        <div className="sticky bottom-0 -mx-4 border-t-2 border-border bg-background px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div className="sticky bottom-0 -mx-4 bg-background px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
           {revealed ? (
             <div className="flex gap-3">
               <button
@@ -173,10 +256,11 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
               </button>
             </div>
           ) : (
-            <p className="text-center font-bold text-muted-foreground">
+            <p className="flex h-[52px] items-center justify-center text-center font-bold text-muted-foreground">
               Вспомни перевод и нажми на карточку
             </p>
           )}
+          <div className="mt-4 border-t-2 border-border" aria-hidden="true" />
         </div>
       </div>
     );
@@ -186,7 +270,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
 
   if (mode === 'session' && done) {
     return (
-      <div className="mx-auto flex min-h-100dvh w-full max-w-xl flex-col items-center justify-center gap-5 px-6 text-center">
+      <div className="mx-auto flex min-h-dvh w-full max-w-xl lg:max-w-none lg:w-1/2 flex-col items-center justify-center gap-5 px-6 text-center">
         <BookOpenCheck className="h-16 w-16 text-[hsl(var(--primary))]" aria-hidden="true" />
         <h2 className="font-display text-2xl">Урок завершён!</h2>
         <p className="font-semibold text-muted-foreground">
@@ -216,7 +300,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
   // ----------------------------------------------------------------- themes
 
   return (
-    <div className="mx-auto min-h-100dvh w-full max-w-xl px-4 pb-16">
+    <div className="mx-auto min-h-dvh w-full max-w-xl lg:max-w-none lg:w-1/2 px-4 pb-16">
       <header className="sticky top-0 z-40 -mx-4 mb-4 border-b-2 border-border bg-background/95 px-4 py-3 backdrop-blur">
         <div className="flex items-center gap-2">
           <button
@@ -237,33 +321,73 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
       <button
         type="button"
         onClick={() => startSession(allVocabWords)}
-        className="btn-push mb-6 w-full bg-[hsl(var(--primary))] px-6 py-4 text-lg font-extrabold text-[hsl(var(--primary-foreground))]"
+        className="btn-push mb-3 w-full bg-[hsl(var(--primary))] px-6 py-4 text-lg font-extrabold text-[hsl(var(--primary-foreground))]"
       >
         Начать изучение слов
       </button>
 
+      {openThemeId === null && learnedCount > 0 && (
+        <button
+          type="button"
+          onClick={() => startReview(allVocabWords)}
+          className="btn-push mb-6 flex w-full items-center justify-center gap-2 border-2 border-[hsl(var(--gold-deep))] bg-[hsl(var(--gold))] px-6 py-2.5 font-extrabold text-[hsl(var(--ink))]"
+        >
+          <RotateCcw className="h-4 w-4" aria-hidden="true" />
+          Повторить выученные слова из разных тем
+        </button>
+      )}
+      {openThemeId !== null && <div className="mb-3" />}
+
       <div className="space-y-2">
         {vocabThemes.map((theme) => {
           const learned = theme.words.filter((w) => learnedWords.includes(w.id)).length;
+          const open = openThemeId === theme.id;
           return (
-            <button
+            <div
               key={theme.id}
-              type="button"
-              onClick={() => startSession(theme.words)}
-              className="flex w-full items-center justify-between gap-3 rounded-xl border-2 border-b-4 border-border bg-card px-4 py-3 text-left transition-colors hover:bg-secondary cursor-pointer"
+              className={cn(
+                'overflow-hidden rounded-xl border-2 border-b-4 border-border bg-card transition-colors',
+                open && 'border-[hsl(var(--primary))]'
+              )}
             >
-              <span className="min-w-0">
-                <span className="block truncate font-bold">{theme.titleRu}</span>
-                {theme.description && (
-                  <span className="block truncate text-xs text-muted-foreground">
-                    {theme.description}
-                  </span>
-                )}
-              </span>
-              <span className="shrink-0 text-sm font-extrabold text-muted-foreground">
-                {learned}/{theme.words.length}
-              </span>
-            </button>
+              <button
+                type="button"
+                onClick={() => setOpenThemeId(open ? null : theme.id)}
+                className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left hover:bg-secondary"
+              >
+                <span className="min-w-0">
+                  <span className="block truncate font-bold">{theme.titleRu}</span>
+                  {theme.description && (
+                    <span className="block truncate text-xs text-muted-foreground">
+                      {theme.description}
+                    </span>
+                  )}
+                </span>
+                <span className="shrink-0 text-sm font-extrabold text-muted-foreground">
+                  {learned}/{theme.words.length}
+                </span>
+              </button>
+              {open && (
+                <div className="flex flex-col gap-2 border-t-2 border-border px-4 py-3">
+                  <button
+                    type="button"
+                    onClick={() => startSession(theme.words)}
+                    className="btn-push bg-[hsl(var(--primary))] px-4 py-2.5 font-extrabold text-[hsl(var(--primary-foreground))]"
+                  >
+                    Начать изучение темы
+                  </button>
+                  <button
+                    type="button"
+                    disabled={learned === 0}
+                    onClick={() => startReview(theme.words)}
+                    className="btn-push flex items-center justify-center gap-2 border-2 border-[hsl(var(--gold-deep))] bg-[hsl(var(--gold))] px-4 py-2 font-extrabold text-[hsl(var(--ink))] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                    Повторить выученные слова этой темы ({learned})
+                  </button>
+                </div>
+              )}
+            </div>
           );
         })}
       </div>

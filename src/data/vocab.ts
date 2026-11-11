@@ -1,8 +1,8 @@
 // Словарь для вкладки «Слова». Парсит текстовые файлы из src/data/vocab/.
-// Формат: см. src/data/vocab/_FORMAT.md
-//   # Тема: Название
-//   # Описание: ...
-//   srpska reč - русский перевод | Пример. — Перевод примера.
+// Формат (единый для всех тем):
+//   # Тема: 🍎 Название темы
+//   srpska reč - русский перевод [| Пример. — Перевод примера.]
+// Файл собран скриптом scripts/merge_vocab.py (слияние + удаление дубликатов).
 
 export interface VocabWord {
   /** Уникальный id: тема + сербское слово. */
@@ -46,6 +46,15 @@ function parseFile(raw: string): VocabTheme[] {
         themes.push(current);
       } else if (header.startsWith('Описание:') && current) {
         current.description = header.slice('Описание:'.length).trim();
+      } else if (/^##/.test(trimmed) && header) {
+        // заголовок вида «### Название темы (123)»
+        const title = header.replace(/\s*\(\d+\)\s*$/, '').trim();
+        current = {
+          id: slugify(title, themes.length),
+          titleRu: title,
+          words: [],
+        };
+        themes.push(current);
       }
       continue;
     }

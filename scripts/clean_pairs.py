@@ -4,7 +4,10 @@ import re, unicodedata
 from pathlib import Path
 
 VOCAB = Path(__file__).resolve().parent.parent / "src" / "data" / "vocab"
-FILES = [VOCAB / "сербско-русские_пары.txt", VOCAB / "сербско-русские_пары_2.txt"]
+# Файл уже объединён и почищен (scripts/merge_vocab.py); при повторном запуске
+# clean_pairs.py перегруппирует слова по своим темам БЕЗ эмодзи и примеров —
+# лучше не запускать его поверх готового файла.
+FILES = [VOCAB / "сербско-русские_пары.txt"]
 OUT = VOCAB / "сербско-русские_пары.txt"
 
 # Пометы и словарные аббревиатуры (мусор вида "карт", "грам имя прилагательное")

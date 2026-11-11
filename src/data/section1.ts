@@ -125,6 +125,7 @@ export const section1Units: Theme[] = [
       {
         id: 's1u1l1',
         titleRu: 'Приветствия',
+        titleSr: 'Pozdravi',
         exercises: [
           { type: 'choice', prompt: 'Здравствуйте', promptLang: 'ru', options: ['zdravo', 'hvala', 'da', 'doviđenja'], answer: 0 },
           { type: 'choice', prompt: 'Doviđenja', promptLang: 'sr', options: ['Спасибо', 'До свидания', 'Да', 'Пожалуйста'], answer: 1 },
@@ -145,6 +146,7 @@ export const section1Units: Theme[] = [
       {
         id: 's1u1l2',
         titleRu: 'Откуда вы',
+        titleSr: 'Odakle ste',
         exercises: [
           { type: 'choice', prompt: 'Откуда ты?', promptLang: 'ru', options: ['Odakle si?', 'Kako si?', 'Ko si?', 'Gde si?'], answer: 0 },
           { type: 'choice', prompt: 'Ja sam iz Rusije', promptLang: 'sr', options: ['Я из Сербии', 'Я из России', 'Я в России', 'Я русский'], answer: 1 },
@@ -165,6 +167,7 @@ export const section1Units: Theme[] = [
       {
         id: 's1u1l3',
         titleRu: 'Представьтесь',
+        titleSr: 'Predstavite se',
         exercises: [
           { type: 'choice', prompt: 'Как тебя зовут?', promptLang: 'ru', options: ['Kako se zoveš?', 'Kako si?', 'Ko je to?', 'Odakle si?'], answer: 0 },
           { type: 'choice', prompt: 'Drago mi je', promptLang: 'sr', options: ['Очень жаль', 'Приятно познакомиться', 'Как дела', 'До свидания'], answer: 1 },
@@ -185,6 +188,7 @@ export const section1Units: Theme[] = [
       {
         id: 's1u1l4',
         titleRu: 'Семья',
+        titleSr: 'Porodica',
         exercises: [
           { type: 'choice', prompt: 'сестра', promptLang: 'ru', options: ['brat', 'sestra', 'majka', 'otac'], answer: 1 },
           { type: 'choice', prompt: 'Majka', promptLang: 'sr', options: ['Отец', 'Мать', 'Брат', 'Сестра'], answer: 1 },
@@ -205,6 +209,7 @@ export const section1Units: Theme[] = [
       {
         id: 's1u1l5',
         titleRu: 'Места',
+        titleSr: 'Mesta',
         exercises: [
           { type: 'choice', prompt: 'Где магазин?', promptLang: 'ru', options: ['Gde je prodavnica?', 'Šta je prodavnica?', 'Ko je prodavnica?', 'Kako je prodavnica?'], answer: 0 },
           { type: 'choice', prompt: 'Ovde', promptLang: 'sr', options: ['Там', 'Здесь', 'Где', 'Дом'], answer: 1 },
@@ -225,6 +230,7 @@ export const section1Units: Theme[] = [
       {
         id: 's1u1l6',
         titleRu: 'Друзья',
+        titleSr: 'Prijatelji',
         exercises: [
           { type: 'choice', prompt: 'подруга', promptLang: 'ru', options: ['prijatelj', 'prijateljica', 'drug', 'sestra'], answer: 1 },
           { type: 'choice', prompt: 'Moj prijatelj', promptLang: 'sr', options: ['Моя подруга', 'Мой друг', 'Мой брат', 'Это друг'], answer: 1 },
@@ -245,6 +251,7 @@ export const section1Units: Theme[] = [
       {
         id: 's1u1l7',
         titleRu: 'Увлечения',
+        titleSr: 'Hobiji',
         exercises: [
           { type: 'choice', prompt: 'Я люблю музыку', promptLang: 'ru', options: ['Volim muziku', 'Volim sport', 'Volim knjigu', 'Volim film'], answer: 0 },
           { type: 'choice', prompt: 'Volim da čitam', promptLang: 'sr', options: ['Я люблю читать', 'Я люблю спорт', 'Я читаю книгу', 'Я люблю музыку'], answer: 0 },
@@ -265,6 +272,7 @@ export const section1Units: Theme[] = [
       {
         id: 's1u1l8',
         titleRu: 'Еда и напитки',
+        titleSr: 'Hrana i piće',
         exercises: [
           { type: 'choice', prompt: 'кофе', promptLang: 'ru', options: ['voda', 'kafa', 'sok', 'hleb'], answer: 1 },
           { type: 'choice', prompt: 'Voda', promptLang: 'sr', options: ['Вода', 'Кофе', 'Сок', 'Хлеб'], answer: 0 },
@@ -285,6 +293,7 @@ export const section1Units: Theme[] = [
       {
         id: 's1u1l9',
         titleRu: 'Питомцы',
+        titleSr: 'Kućni ljubimci',
         exercises: [
           { type: 'choice', prompt: 'кошка', promptLang: 'ru', options: ['pas', 'mačka', 'ptica', 'riba'], answer: 1 },
           { type: 'choice', prompt: 'Pas', promptLang: 'sr', options: ['Кошка', 'Собака', 'Птица', 'Рыба'], answer: 1 },

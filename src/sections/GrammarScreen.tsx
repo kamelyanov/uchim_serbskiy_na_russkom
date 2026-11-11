@@ -113,7 +113,7 @@ export function GrammarScreen({ script, onBack, initialTopicId }: Props) {
   };
 
   return (
-    <div className="mx-auto min-h-100dvh w-full max-w-xl px-4 pb-16">
+    <div className="mx-auto min-h-dvh w-full max-w-xl lg:max-w-none lg:w-1/2 px-4 pb-16">
       {/* Sticky header */}
       <header className="sticky top-0 z-40 -mx-4 mb-4 border-b-2 border-border bg-background/95 px-4 py-3 backdrop-blur">
         <div className="flex items-center gap-2">

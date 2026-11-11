@@ -28,13 +28,13 @@ function withColors(units: Section['units'], offset: number): Section['units'] {
 }
 
 const s1 = withColors(section1Units, 0);
-const s2 = withColors(section2Units, 3);
-const s3 = withColors(section3Units, 5);
-const s4 = withColors(section4Units, 0);
-const s5 = withColors(section5Units, 3);
+const s2 = withColors(section2Units, 1);
+const s3 = withColors(section3Units, 2);
+const s4 = withColors(section4Units, 3);
+const s5 = withColors(section5Units, 4);
 const s6 = withColors(section6Units, 5);
-const s7 = withColors(section7Units, 0);
-const s8 = withColors(section8Units, 3);
+const s7 = withColors(section7Units, 6);
+const s8 = withColors(section8Units, 7);
 
 export const sections: Section[] = [
   {

@@ -113,7 +113,7 @@ export function MarathonRunner({
 
   if (failed) {
     return (
-      <div className="flex min-h-100dvh flex-col items-center justify-center gap-5 px-6 text-center">
+      <div className="flex min-h-dvh flex-col items-center justify-center gap-5 px-6 text-center">
         <Owl size={130} mood="sad" />
         <h2 className="font-display text-2xl">Кажется, вам нужно повторить материал</h2>
         <p className="max-w-sm font-semibold text-muted-foreground">
@@ -131,13 +131,13 @@ export function MarathonRunner({
   }
 
   return (
-    <div className="mx-auto flex min-h-100dvh w-full max-w-xl flex-col px-4">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl lg:max-w-none lg:w-1/2 flex-col px-4">
       {/* Top bar */}
       <div className="flex items-center gap-3 pt-4 pb-2">
         <button
           type="button"
           onClick={onExit}
-          aria-label="Exit marathon"
+          aria-label="Выйти из марафона"
           className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-secondary cursor-pointer focus-visible:outline-3 focus-visible:outline-[hsl(var(--ring))]"
         >
           <X className="h-6 w-6" />
@@ -160,7 +160,7 @@ export function MarathonRunner({
         </div>
         <div className="flex items-center gap-1 font-extrabold text-[hsl(var(--error))]">
           <Heart className="h-5 w-5 fill-current" aria-hidden="true" />
-          <span aria-label={`${hearts} hearts left`}>{hearts}</span>
+          <span aria-label={`Осталось жизней: ${hearts}`}>{hearts}</span>
         </div>
       </div>
 
@@ -216,7 +216,7 @@ export function MarathonRunner({
         {checked === null ? (
           exercise.type === 'match' ? (
             <p className="text-center font-bold text-muted-foreground">
-              Match all the pairs to continue
+              Соедините все пары, чтобы продолжить
             </p>
           ) : (
             <button

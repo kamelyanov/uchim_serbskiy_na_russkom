@@ -328,6 +328,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l1',
         titleRu: 'Поговорите о еде',
+        titleSr: 'Pričajte o hrani',
         exercises: [
           { type: 'choice', prompt: 'завтрак', promptLang: 'ru', options: ['ručak', 'doručak', 'večera', 'hleb'], answer: 1 },
           { type: 'choice', prompt: 'Ručak', promptLang: 'sr', options: ['Завтрак', 'Обед', 'Ужин', 'Еда'], answer: 1 },
@@ -348,6 +349,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l2',
         titleRu: 'Обсудите личную жизнь',
+        titleSr: 'Diskutujte o ličnom životu',
         exercises: [
           { type: 'choice', prompt: 'муж', promptLang: 'ru', options: ['žena', 'muž', 'brat', 'sin'], answer: 1 },
           { type: 'choice', prompt: 'Žena', promptLang: 'sr', options: ['Муж', 'Жена', 'Дочь', 'Мать'], answer: 1 },
@@ -368,6 +370,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l3',
         titleRu: 'Попросите о помощи',
+        titleSr: 'Zatražite pomoć',
         exercises: [
           { type: 'choice', prompt: 'Помогите мне!', promptLang: 'ru', options: ['Pomozi mi!', 'Pomozite mi!', 'Izvinite!', 'Možeš li?'], answer: 1 },
           { type: 'choice', prompt: 'Izvinite', promptLang: 'sr', options: ['Спасибо', 'Извините', 'Помогите', 'Пожалуйста'], answer: 1 },
@@ -388,6 +391,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l4',
         titleRu: 'Поговорите об интересах',
+        titleSr: 'Pričajte o interesovanjima',
         exercises: [
           { type: 'choice', prompt: 'история', promptLang: 'ru', options: ['istorija', 'umetnost', 'književnost', 'muzika'], answer: 0 },
           { type: 'choice', prompt: 'Zanima me muzika', promptLang: 'sr', options: ['Меня интересует музыка', 'Я люблю музыку', 'Я слушаю музыку', 'Музыка интересна'], answer: 0 },
@@ -408,6 +412,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l5',
         titleRu: 'Опишите одежду',
+        titleSr: 'Opišite odeću',
         exercises: [
           { type: 'choice', prompt: 'футболка', promptLang: 'ru', options: ['majica', 'suknja', 'jakna', 'pantalone'], answer: 0 },
           { type: 'choice', prompt: 'Pantalone', promptLang: 'sr', options: ['Юбка', 'Брюки', 'Куртка', 'Туфли'], answer: 1 },
@@ -428,6 +433,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l6',
         titleRu: 'Расскажите о расписании',
+        titleSr: 'Ispričajte o rasporedu',
         exercises: [
           { type: 'choice', prompt: 'среда', promptLang: 'ru', options: ['ponedeljak', 'sreda', 'petak', 'utorak'], answer: 1 },
           { type: 'choice', prompt: 'Petak', promptLang: 'sr', options: ['Понедельник', 'Пятница', 'Среда', 'Четверг'], answer: 1 },
@@ -448,6 +454,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l7',
         titleRu: 'Обсудите поездку',
+        titleSr: 'Diskutujte o putovanju',
         exercises: [
           { type: 'choice', prompt: 'поезд', promptLang: 'ru', options: ['avion', 'voz', 'autobus', 'karta'], answer: 1 },
           { type: 'choice', prompt: 'Avion', promptLang: 'sr', options: ['Поезд', 'Самолёт', 'Автобус', 'Билет'], answer: 1 },
@@ -468,6 +475,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l8',
         titleRu: 'Забронируйте отель',
+        titleSr: 'Rezervišite hotel',
         exercises: [
           { type: 'choice', prompt: 'комната', promptLang: 'ru', options: ['hotel', 'soba', 'rezervacija', 'ključ'], answer: 1 },
           { type: 'choice', prompt: 'Hotel', promptLang: 'sr', options: ['Комната', 'Отель', 'Бронь', 'Ключ'], answer: 1 },
@@ -488,6 +496,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l9',
         titleRu: 'Опишите большой город',
+        titleSr: 'Opišite veliki grad',
         exercises: [
           { type: 'choice', prompt: 'здание', promptLang: 'ru', options: ['ulica', 'zgrada', 'centar', 'grad'], answer: 1 },
           { type: 'choice', prompt: 'Centar', promptLang: 'sr', options: ['Улица', 'Центр', 'Здание', 'Город'], answer: 1 },
@@ -508,6 +517,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l10',
         titleRu: 'Расскажите об учёбе',
+        titleSr: 'Ispričajte o učenju',
         exercises: [
           { type: 'choice', prompt: 'университет', promptLang: 'ru', options: ['škola', 'univerzitet', 'ispit', 'učenik'], answer: 1 },
           { type: 'choice', prompt: 'Student', promptLang: 'sr', options: ['Ученик', 'Студент', 'Учитель', 'Экзамен'], answer: 1 },
@@ -528,6 +538,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l11',
         titleRu: 'Поговорите на свидании',
+        titleSr: 'Pričajte na dejtu',
         exercises: [
           { type: 'choice', prompt: 'свидание', promptLang: 'ru', options: ['sastanak', 'dejt', 'žurka', 'brak'], answer: 0 },
           { type: 'choice', prompt: 'Lepo', promptLang: 'sr', options: ['Плохо', 'Красиво', 'Грустно', 'Скучно'], answer: 1 },
@@ -548,6 +559,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l12',
         titleRu: 'Побеседуйте с коллегами',
+        titleSr: 'Porazgovarajte sa kolegama',
         exercises: [
           { type: 'choice', prompt: 'коллега', promptLang: 'ru', options: ['šef', 'kolega', 'posao', 'kancelarija'], answer: 1 },
           { type: 'choice', prompt: 'Kancelarija', promptLang: 'sr', options: ['Работа', 'Офис', 'Совещание', 'Начальник'], answer: 1 },
@@ -568,6 +580,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l13',
         titleRu: 'Поговорите о продуктах',
+        titleSr: 'Pričajte o proizvodima',
         exercises: [
           { type: 'choice', prompt: 'молоко', promptLang: 'ru', options: ['mleko', 'meso', 'jaje', 'voće'], answer: 0 },
           { type: 'choice', prompt: 'Meso', promptLang: 'sr', options: ['Молоко', 'Мясо', 'Яйцо', 'Фрукты'], answer: 1 },
@@ -588,6 +601,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l14',
         titleRu: 'Обсудите день рождения',
+        titleSr: 'Diskutujte o rođendanu',
         exercises: [
           { type: 'choice', prompt: 'торт', promptLang: 'ru', options: ['poklon', 'torta', 'sveća', 'rođendan'], answer: 1 },
           { type: 'choice', prompt: 'Poklon', promptLang: 'sr', options: ['Торт', 'Подарок', 'Свеча', 'День рождения'], answer: 1 },
@@ -608,6 +622,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l15',
         titleRu: 'Спланируйте переезд',
+        titleSr: 'Isplanirajte selidbu',
         exercises: [
           { type: 'choice', prompt: 'квартира', promptLang: 'ru', options: ['kuća', 'stan', 'kutija', 'nameštaj'], answer: 1 },
           { type: 'choice', prompt: 'Kutija', promptLang: 'sr', options: ['Квартира', 'Коробка', 'Мебель', 'Переезд'], answer: 1 },
@@ -628,6 +643,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l16',
         titleRu: 'Пообщайтесь с врачом',
+        titleSr: 'Razgovarajte sa lekarom',
         exercises: [
           { type: 'choice', prompt: 'врач', promptLang: 'ru', options: ['lekar', 'bolest', 'lek', 'bolnica'], answer: 0 },
           { type: 'choice', prompt: 'Lek', promptLang: 'sr', options: ['Болезнь', 'Лекарство', 'Врач', 'Больница'], answer: 1 },
@@ -648,6 +664,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l17',
         titleRu: 'Поговорите на пикнике',
+        titleSr: 'Pričajte na pikniku',
         exercises: [
           { type: 'choice', prompt: 'корзина', promptLang: 'ru', options: ['ćebe', 'korpa', 'sendvič', 'piknik'], answer: 1 },
           { type: 'choice', prompt: 'Ćebe', promptLang: 'sr', options: ['Корзина', 'Плед', 'Бутерброд', 'Пикник'], answer: 1 },
@@ -668,6 +685,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l18',
         titleRu: 'Расскажите о городе',
+        titleSr: 'Ispričajte o gradu',
         exercises: [
           { type: 'choice', prompt: 'музей', promptLang: 'ru', options: ['pozorište', 'muzej', 'park', 'crkva'], answer: 1 },
           { type: 'choice', prompt: 'Park', promptLang: 'sr', options: ['Музей', 'Парк', 'Театр', 'Мост'], answer: 1 },
@@ -688,6 +706,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l19',
         titleRu: 'Запланируйте отпуск',
+        titleSr: 'Isplanirajte odmor',
         exercises: [
           { type: 'choice', prompt: 'море', promptLang: 'ru', options: ['more', 'plaża', 'sunce', 'odmor'], answer: 0 },
           { type: 'choice', prompt: 'Plaża', promptLang: 'sr', options: ['Море', 'Пляж', 'Солнце', 'Отпуск'], answer: 1 },
@@ -708,6 +727,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l20',
         titleRu: 'Расскажите о покупках',
+        titleSr: 'Ispričajte o kupovini',
         exercises: [
           { type: 'choice', prompt: 'деньги', promptLang: 'ru', options: ['cena', 'novac', 'popust', 'kupovina'], answer: 1 },
           { type: 'choice', prompt: 'Cena', promptLang: 'sr', options: ['Деньги', 'Цена', 'Скидка', 'Покупка'], answer: 1 },
@@ -728,6 +748,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l21',
         titleRu: 'Обсудите спорт',
+        titleSr: 'Diskutujte o sportu',
         exercises: [
           { type: 'choice', prompt: 'футбол', promptLang: 'ru', options: ['košarka', 'fudbal', 'tenis', 'tim'], answer: 1 },
           { type: 'choice', prompt: 'Košarka', promptLang: 'sr', options: ['Футбол', 'Баскетбол', 'Теннис', 'Команда'], answer: 1 },
@@ -748,6 +769,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l22',
         titleRu: 'Поговорите о работе',
+        titleSr: 'Pričajte o poslu',
         exercises: [
           { type: 'choice', prompt: 'зарплата', promptLang: 'ru', options: ['posao', 'plata', 'karijera', 'zanimanje'], answer: 1 },
           { type: 'choice', prompt: 'Posao', promptLang: 'sr', options: ['Зарплата', 'Работа', 'Карьера', 'Профессия'], answer: 1 },
@@ -768,6 +790,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l23',
         titleRu: 'Опишите животных',
+        titleSr: 'Opišite životinje',
         exercises: [
           { type: 'choice', prompt: 'медведь', promptLang: 'ru', options: ['lav', 'slon', 'medved', 'konj'], answer: 2 },
           { type: 'choice', prompt: 'Slon', promptLang: 'sr', options: ['Лев', 'Слон', 'Медведь', 'Конь'], answer: 1 },
@@ -788,6 +811,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l24',
         titleRu: 'Обсудите музыку',
+        titleSr: 'Diskutujte o muzici',
         exercises: [
           { type: 'choice', prompt: 'песня', promptLang: 'ru', options: ['muzika', 'pesma', 'gitara', 'pevač'], answer: 1 },
           { type: 'choice', prompt: 'Gitara', promptLang: 'sr', options: ['Песня', 'Гитара', 'Певец', 'Музыка'], answer: 1 },
@@ -808,6 +832,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l25',
         titleRu: 'Поговорите о погоде',
+        titleSr: 'Pričajte o vremenu',
         exercises: [
           { type: 'choice', prompt: 'дождь', promptLang: 'ru', options: ['sneg', 'kiša', 'vetar', 'sunce'], answer: 1 },
           { type: 'choice', prompt: 'Sneg', promptLang: 'sr', options: ['Дождь', 'Снег', 'Ветер', 'Солнце'], answer: 1 },
@@ -828,6 +853,7 @@ export const section2Units: Theme[] = [
       {
         id: 's2u1l26',
         titleRu: 'Организуйте поездку',
+        titleSr: 'Organizujte putovanje',
         exercises: [
           { type: 'choice', prompt: 'дорога', promptLang: 'ru', options: ['put', 'polazak', 'dolazak', 'destinacija'], answer: 0 },
           { type: 'choice', prompt: 'Polazak', promptLang: 'sr', options: ['Прибытие', 'Отправление', 'Дорога', 'Направление'], answer: 1 },

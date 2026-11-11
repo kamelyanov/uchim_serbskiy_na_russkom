@@ -49,6 +49,8 @@ export type Exercise = ChoiceExercise | BuildExercise | BlankExercise | MatchExe
 export interface Lesson {
   id: string;
   titleRu: string;
+  /** Serbian title (Latin); shown after the Russian one and follows the script toggle. */
+  titleSr: string;
   exercises: Exercise[];
 }
 

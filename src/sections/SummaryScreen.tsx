@@ -31,7 +31,7 @@ export function SummaryScreen({ xp, total, mistakes, streak, nextLessonTitle, on
   }, [perfect]);
 
   return (
-    <div className="mx-auto flex min-h-100dvh w-full max-w-md flex-col items-center justify-center gap-6 px-6 text-center">
+    <div className="mx-auto flex min-h-dvh w-full max-w-md lg:max-w-none lg:w-1/2 flex-col items-center justify-center gap-6 px-6 text-center">
       <Owl size={140} mood="excited" className="float-slow" />
       <div>
         <h2 className="font-display text-3xl text-[hsl(var(--primary))]">
