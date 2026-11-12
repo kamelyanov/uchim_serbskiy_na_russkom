@@ -1,20 +1,22 @@
-export type Palette = 'blue' | 'green' | 'neutral' | 'dark';
+export type Palette = 'white' | 'dark' | 'green' | 'blue' | 'purple';
 
-export const PALETTES: Palette[] = ['blue', 'green', 'neutral', 'dark'];
+export const PALETTES: Palette[] = ['white', 'dark', 'green', 'blue', 'purple'];
 
 export const PALETTE_NAMES: Record<Palette, string> = {
-  blue: 'Нежно-голубая',
-  green: 'Зелёная',
-  neutral: 'Белая',
-  dark: 'Тёмная',
+  white: 'Белая · лаванда',
+  dark: 'Тёмная · графит',
+  green: 'Зелёная · шалфей',
+  blue: 'Голубая · деним',
+  purple: 'Фиолетовая · сирень',
 };
 
 /** Характерные цвета палитры для свотча: [основной, фон]. */
 export const PALETTE_SWATCH: Record<Palette, [string, string]> = {
-  blue: ['hsl(216 60% 42%)', 'hsl(210 42% 93%)'],
-  green: ['hsl(142 55% 22%)', 'hsl(110 37% 94%)'],
-  neutral: ['hsl(215 18% 34%)', 'hsl(0 0% 97%)'],
-  dark: ['hsl(216 70% 60%)', 'hsl(215 25% 10%)'],
+  white: ['hsl(255 30% 60%)', 'hsl(40 15% 98%)'],
+  dark: ['hsl(216 60% 70%)', 'hsl(222 17% 13%)'],
+  green: ['hsl(150 20% 40%)', 'hsl(120 15% 97%)'],
+  blue: ['hsl(210 45% 52%)', 'hsl(210 30% 97%)'],
+  purple: ['hsl(265 30% 55%)', 'hsl(270 20% 98%)'],
 };
 
 export function nextPalette(current: Palette): Palette {

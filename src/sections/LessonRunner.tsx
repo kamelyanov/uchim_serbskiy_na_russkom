@@ -8,6 +8,7 @@ import { BuildExerciseView } from '../components/exercises/BuildExercise';
 import { BlankExerciseView } from '../components/exercises/BlankExercise';
 import { MatchExerciseView } from '../components/exercises/MatchExercise';
 import { Owl } from '../components/Owl';
+import { TipsSheet } from '../components/TipsSheet';
 import { cn } from '@/lib/utils';
 
 interface Props {
@@ -34,6 +35,7 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
   const [xp, setXp] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [failed, setFailed] = useState(false);
+  const [tipsOpen, setTipsOpen] = useState(false);
   const exerciseRef = useRef<HTMLDivElement>(null);
   const isFirstExercise = useRef(true);
 
@@ -102,6 +104,20 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
           Не переживай — каждая ошибка приближает к цели. Выдохни и попробуй
           пройти урок ещё раз.
         </p>
+        <button
+          type="button"
+          onClick={() => setTipsOpen(true)}
+          className="flex w-full max-w-xs items-center justify-center gap-2 rounded-2xl border-2 border-b-4 px-4 py-3 text-left transition-colors"
+          style={{
+            borderColor: `hsl(${theme.colorDeep})`,
+            backgroundColor: `hsl(${theme.color})`,
+          }}
+        >
+          <BookOpen className="h-5 w-5 shrink-0 text-white" aria-hidden="true" />
+          <span className="text-sm leading-tight font-extrabold text-white">
+            Кажется, стоит повторить справочник: «{theme.titleRu}»
+          </span>
+        </button>
         <div className="flex flex-col gap-3 w-full max-w-xs">
           <button
             type="button"
@@ -128,6 +144,7 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
             Назад к урокам
           </button>
         </div>
+        {tipsOpen && <TipsSheet theme={theme} script={script} onClose={() => setTipsOpen(false)} />}
       </div>
     );
   }
@@ -166,7 +183,7 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
       </div>
 
       {/* Exercise body */}
-      <div ref={exerciseRef} className="flex flex-1 scroll-mt-16 flex-col items-start py-6" key={`${lesson.id}-${index}`}>
+      <div ref={exerciseRef} className="flex scroll-mt-16 flex-col items-start py-6" key={`${lesson.id}-${index}`}>
         <p className="mb-1 text-xs font-extrabold uppercase tracking-widest" style={{ color: `hsl(${theme.color})` }}>
           {theme.titleRu} · {index + 1}/{exercises.length}
         </p>
@@ -202,15 +219,8 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
         )}
       </div>
 
-      {/* Bottom action bar */}
-      <div
-        className={cn(
-          'sticky bottom-0 -mx-4 border-t-2 px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-colors',
-          checked === null && 'border-border bg-background',
-          checked === 'correct' && 'border-[hsl(var(--success))] bg-[hsl(var(--success-bg))]',
-          checked === 'wrong' && 'border-[hsl(var(--error))] bg-[hsl(var(--error-bg))]'
-        )}
-      >
+      {/* Action zone: vertically centered between exercise and bottom bar */}
+      <div className="flex flex-1 flex-col justify-center gap-3 pb-4">
         {checked === null ? (
           exercise.type === 'match' ? (
             <p className="text-center font-bold text-muted-foreground">
@@ -260,10 +270,14 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
             </button>
           </div>
         )}
+      </div>
+
+      {/* Bottom bar: grammar link only */}
+      <div className="sticky bottom-0 -mx-4 border-t-2 border-border bg-background px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
         <button
           type="button"
           onClick={onOpenGrammar}
-          className="mx-auto mt-2 flex items-center gap-1.5 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+          className="mx-auto flex items-center gap-1.5 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
         >
           <BookOpen className="h-4 w-4" aria-hidden="true" />
           Грамматика по теме урока

@@ -2,7 +2,12 @@
 // Формат (единый для всех тем):
 //   # Тема: 🍎 Название темы
 //   srpska reč - русский перевод [| Пример. — Перевод примера.]
-// Файл собран скриптом scripts/merge_vocab.py (слияние + удаление дубликатов).
+// Допускается и длинное тире вместо дефиса: «reč — перевод».
+// Данные собираются скриптом scripts/build_vocab.py:
+//   • сербско-русские_пары.txt — ядро (collection: 'core');
+//   • еще-больше-слов.txt — дополнительные слова (collection: 'extra').
+
+export type VocabCollection = 'core' | 'extra';
 
 export interface VocabWord {
   /** Уникальный id: тема + сербское слово. */
@@ -16,8 +21,17 @@ export interface VocabTheme {
   id: string;
   titleRu: string;
   description?: string;
+  collection: VocabCollection;
   words: VocabWord[];
 }
+
+/** Пометки, с которых начинается словарная статья, а не перевод. */
+const DICTIONARY_TAGS = new Set([
+  'грам', 'карт', 'физ', 'мед', 'хим', 'мат', 'биол', 'ист', 'лит', 'муз',
+  'спорт', 'воен', 'юр', 'экон', 'филос', 'психол', 'анат', 'бот', 'зоол',
+  'геог', 'геол', 'тех', 'жарг', 'диал', 'вульг', 'разг', 'книжн', 'устар',
+  'поэт', 'см', 'тж', 'мн', 'ед', 'сов', 'несов', 'перех', 'неперех',
+]);
 
 function slugify(title: string, index: number): string {
   const slug = title
@@ -27,7 +41,29 @@ function slugify(title: string, index: number): string {
   return `${index}-${slug || 'tema'}`;
 }
 
-function parseFile(raw: string): VocabTheme[] {
+/** Отбрасывает заголовки-схемы, обрывки и строки без пары. */
+function isValidPair(sr: string, ru: string, isPhrases: boolean): boolean {
+  if (!sr || !ru) return false;
+  if (sr.includes(' + ')) return false;
+  if (/\d/.test(sr)) return false;
+  if (!isPhrases && /[.!?…]/.test(sr)) return false;
+  if (DICTIONARY_TAGS.has(ru.split(/\s+/)[0]?.toLowerCase() ?? '')) return false;
+  if (!/[a-zA-ZčćžšđČĆŽŠĐ]/.test(sr)) return false;
+  if (!/[а-яёА-ЯЁ]/.test(ru)) return false;
+  if (/[A-Za-z]/.test(ru)) return false;
+  return true;
+}
+
+/** Ищет разделитель пары: сначала « - », затем « — ». */
+function splitPair(line: string): { sr: string; rest: string } | null {
+  const dash = line.indexOf(' - ');
+  if (dash > 0) return { sr: line.slice(0, dash).trim(), rest: line.slice(dash + 3).trim() };
+  const emDash = line.indexOf(' — ');
+  if (emDash > 0) return { sr: line.slice(0, emDash).trim(), rest: line.slice(emDash + 3).trim() };
+  return null;
+}
+
+function parseFile(raw: string, collection: VocabCollection): VocabTheme[] {
   const themes: VocabTheme[] = [];
   let current: VocabTheme | null = null;
 
@@ -38,9 +74,11 @@ function parseFile(raw: string): VocabTheme[] {
     if (trimmed.startsWith('#')) {
       const header = trimmed.replace(/^#+\s*/, '');
       if (header.startsWith('Тема:')) {
+        const title = header.slice('Тема:'.length).trim();
         current = {
-          id: slugify(header.slice('Тема:'.length).trim(), themes.length),
-          titleRu: header.slice('Тема:'.length).trim(),
+          id: `${collection}-${slugify(title, themes.length)}`,
+          titleRu: title,
+          collection,
           words: [],
         };
         themes.push(current);
@@ -50,8 +88,9 @@ function parseFile(raw: string): VocabTheme[] {
         // заголовок вида «### Название темы (123)»
         const title = header.replace(/\s*\(\d+\)\s*$/, '').trim();
         current = {
-          id: slugify(title, themes.length),
+          id: `${collection}-${slugify(title, themes.length)}`,
           titleRu: title,
+          collection,
           words: [],
         };
         themes.push(current);
@@ -61,10 +100,10 @@ function parseFile(raw: string): VocabTheme[] {
 
     if (!current) continue;
 
-    const sep = trimmed.indexOf(' - ');
-    if (sep <= 0) continue;
-    const sr = trimmed.slice(0, sep).trim();
-    let rest = trimmed.slice(sep + 3).trim();
+    const pair = splitPair(trimmed);
+    if (!pair) continue;
+    const { sr } = pair;
+    let rest = pair.rest;
 
     let example: string | undefined;
     const exSep = rest.indexOf(' | ');
@@ -72,7 +111,7 @@ function parseFile(raw: string): VocabTheme[] {
       example = rest.slice(exSep + 3).trim();
       rest = rest.slice(0, exSep).trim();
     }
-    if (!sr || !rest) continue;
+    if (!isValidPair(sr, rest, current.titleRu.includes('Разговорные фразы'))) continue;
 
     current.words.push({ id: `${current.id}:${sr}`, sr, ru: rest, example });
   }
@@ -86,9 +125,25 @@ const files = import.meta.glob('./vocab/*.txt', {
   eager: true,
 }) as Record<string, string>;
 
+const EXTRA_FILE = 'еще-больше-слов.txt';
+
 export const vocabThemes: VocabTheme[] = Object.entries(files)
   .filter(([path]) => !path.endsWith('00-primer.txt'))
   .sort(([a], [b]) => a.localeCompare(b))
-  .flatMap(([, raw]) => parseFile(raw));
+  .flatMap(([path, raw]) =>
+    parseFile(raw, path.endsWith(EXTRA_FILE) ? 'extra' : 'core'),
+  );
+
+export const coreVocabThemes: VocabTheme[] = vocabThemes.filter(
+  (t) => t.collection === 'core',
+);
+
+export const extraVocabThemes: VocabTheme[] = vocabThemes.filter(
+  (t) => t.collection === 'extra',
+);
 
 export const allVocabWords: VocabWord[] = vocabThemes.flatMap((t) => t.words);
+
+export const coreVocabWords: VocabWord[] = coreVocabThemes.flatMap((t) => t.words);
+
+export const extraVocabWords: VocabWord[] = extraVocabThemes.flatMap((t) => t.words);

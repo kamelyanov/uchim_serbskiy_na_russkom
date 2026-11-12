@@ -10,10 +10,11 @@ import { MarathonRunner } from './sections/MarathonRunner';
 import { SummaryScreen } from './sections/SummaryScreen';
 import { GrammarScreen } from './sections/GrammarScreen';
 import { VocabScreen } from './sections/VocabScreen';
+import { ReadingScreen } from './sections/ReadingScreen';
 
 import { PALETTES, nextPalette, type Palette } from './lib/palettes';
 
-type View = 'home' | 'lesson' | 'marathon' | 'summary' | 'grammar' | 'vocab';
+type View = 'home' | 'lesson' | 'marathon' | 'summary' | 'grammar' | 'vocab' | 'reading';
 
 const SCRIPT_KEY = 'ucimo-srpski-script';
 const PALETTE_KEY = 'ucimo-srpski-palette';
@@ -38,10 +39,10 @@ export default function App() {
   const { progress, completeLesson, unlockSection, markWordLearned, resetProgress } = useProgress();
   const [palette, setPalette] = useState<Palette>(() => {
     const saved = localStorage.getItem(PALETTE_KEY);
-    return PALETTES.includes(saved as Palette) ? (saved as Palette) : 'blue';
+    return PALETTES.includes(saved as Palette) ? (saved as Palette) : 'white';
   });
   useEffect(() => {
-    if (palette === 'blue') document.documentElement.removeAttribute('data-palette');
+    if (palette === 'white') document.documentElement.removeAttribute('data-palette');
     else document.documentElement.dataset.palette = palette;
     localStorage.setItem(PALETTE_KEY, palette);
   }, [palette]);
@@ -64,6 +65,30 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem(SCRIPT_KEY, script);
   }, [script]);
+
+  // Кнопка/жест «назад» браузера ведёт внутрь приложения, а не наружу:
+  // сначала закрывает грамматику поверх экрана, затем возвращает на главную
+  const grammarOpen = grammarCtx !== null;
+  useEffect(() => {
+    if (view !== 'home') window.history.pushState({ app: view }, '');
+  }, [view]);
+  useEffect(() => {
+    if (grammarOpen) window.history.pushState({ app: 'grammar' }, '');
+  }, [grammarOpen]);
+  useEffect(() => {
+    const onPop = () => {
+      if (grammarOpen) {
+        setGrammarCtx(null);
+      } else if (view !== 'home') {
+        setActiveLessonId(null);
+        setMarathon(null);
+        setSummary(null);
+        setView('home');
+      }
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, [grammarOpen, view]);
 
   const startLesson = useCallback((lessonId: string) => {
     rememberHomeScroll();
@@ -190,6 +215,8 @@ export default function App() {
         onBack={() => setView('home')}
       />
     );
+  } else if (view === 'reading') {
+    content = <ReadingScreen script={script} onBack={() => setView('home')} />;
   } else {
     content = (
       <Home
@@ -204,6 +231,7 @@ export default function App() {
         onResetProgress={resetProgress}
         onOpenGrammar={() => setView('grammar')}
         onOpenVocab={() => setView('vocab')}
+        onOpenReading={() => setView('reading')}
       />
     );
   }

@@ -1,7 +1,15 @@
 import { useMemo, useRef, useState } from 'react';
-import { ArrowLeft, BookOpenCheck, Check, RotateCcw, X } from 'lucide-react';
+import { ArrowLeft, BookOpenCheck, Check, Layers, RotateCcw, X } from 'lucide-react';
 import type { Script } from '../types';
-import { vocabThemes, allVocabWords, type VocabWord } from '../data/vocab';
+import {
+  allVocabWords,
+  coreVocabThemes,
+  coreVocabWords,
+  extraVocabThemes,
+  extraVocabWords,
+  type VocabTheme,
+  type VocabWord,
+} from '../data/vocab';
 import { sr } from '../lib/transliterate';
 import { cn } from '@/lib/utils';
 
@@ -24,6 +32,80 @@ interface Props {
   learnedWords: string[];
   onMarkLearned: (wordId: string) => void;
   onBack: () => void;
+}
+
+interface ThemeListProps {
+  themes: VocabTheme[];
+  learnedWords: string[];
+  openThemeId: string | null;
+  onToggle: (id: string) => void;
+  onStart: (words: VocabWord[]) => void;
+  onReview: (words: VocabWord[]) => void;
+}
+
+function ThemeList({
+  themes,
+  learnedWords,
+  openThemeId,
+  onToggle,
+  onStart,
+  onReview,
+}: ThemeListProps) {
+  return (
+    <div className="space-y-2">
+      {themes.map((theme) => {
+        const learned = theme.words.filter((w) => learnedWords.includes(w.id)).length;
+        const open = openThemeId === theme.id;
+        return (
+          <div
+            key={theme.id}
+            className={cn(
+              'overflow-hidden rounded-xl border-2 border-b-4 border-border bg-card transition-colors',
+              open && 'border-[hsl(var(--primary))]'
+            )}
+          >
+            <button
+              type="button"
+              onClick={() => onToggle(theme.id)}
+              className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left hover:bg-secondary"
+            >
+              <span className="min-w-0">
+                <span className="block truncate font-bold">{theme.titleRu}</span>
+                {theme.description && (
+                  <span className="block truncate text-xs text-muted-foreground">
+                    {theme.description}
+                  </span>
+                )}
+              </span>
+              <span className="shrink-0 text-sm font-extrabold text-muted-foreground">
+                {learned}/{theme.words.length}
+              </span>
+            </button>
+            {open && (
+              <div className="flex flex-col gap-2 border-t-2 border-border px-4 py-3">
+                <button
+                  type="button"
+                  onClick={() => onStart(theme.words)}
+                  className="btn-push bg-[hsl(var(--primary))] px-4 py-2.5 font-extrabold text-[hsl(var(--primary-foreground))]"
+                >
+                  Начать изучение темы
+                </button>
+                <button
+                  type="button"
+                  disabled={learned === 0}
+                  onClick={() => onReview(theme.words)}
+                  className="btn-push flex items-center justify-center gap-2 border-2 border-[hsl(var(--gold-deep))] bg-[hsl(var(--gold))] px-4 py-2 font-extrabold text-[hsl(var(--ink))] disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                  Повторить выученные слова этой темы ({learned})
+                </button>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Props) {
@@ -96,8 +178,10 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
   };
 
   const SWIPE_THRESHOLD = 100;
+  const TINT_THRESHOLD = 28; // цвет стороны появляется почти сразу при свайпе
 
   // за порогом карточка начинает растворяться — видно, что можно отпускать
+  const tintSide = dragX >= TINT_THRESHOLD ? 'right' : dragX <= -TINT_THRESHOLD ? 'left' : null;
   const swipeSide = dragX >= SWIPE_THRESHOLD ? 'right' : dragX <= -SWIPE_THRESHOLD ? 'left' : null;
   const overshoot = Math.max(0, Math.abs(dragX) - SWIPE_THRESHOLD);
   const flyOpacity = swipeSide ? Math.max(0, 1 - overshoot / (SWIPE_THRESHOLD * 0.5)) : 1;
@@ -179,6 +263,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
             {dir === 'sr2ru' ? 'сербский → русский' : 'русский → сербский'}
           </p>
           <button
+            key={current?.id}
             type="button"
             onClick={onCardClick}
             onPointerDown={onPointerDown}
@@ -189,9 +274,10 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
               setDragX(0);
             }}
             className={cn(
-              'flex min-h-56 w-full cursor-pointer touch-pan-y flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center select-none',
+              'flex min-h-[268px] w-full cursor-pointer touch-pan-y flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center select-none',
               revealed && 'cursor-default',
               hintSwipe && !revealed && !dragX && 'hint-swipe',
+              !exitDir && 'card-enter',
               exitDir ? 'transition-all duration-200 ease-out' : !dragX && 'transition-transform duration-200 ease-out'
             )}
             style={
@@ -201,13 +287,29 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
                     opacity: 0,
                   }
                 : dragX
-                  ? {
-                      transform: `translateX(${dragX}px) rotate(${dragX / 18}deg) scale(${swipeSide ? 0.96 : 1})`,
-                      opacity: flyOpacity,
-                      boxShadow: swipeSide
-                        ? `0 0 0 2px hsl(var(--${swipeSide === 'right' ? 'success' : 'error'}) / 0.55), 0 6px 16px hsl(var(--${swipeSide === 'right' ? 'success' : 'error'}) / 0.25)`
-                        : undefined,
-                    }
+                  ? (() => {
+                      const side = tintSide;
+                      const colorVar = side === 'right' ? 'success' : side === 'left' ? 'error' : null;
+                      // 0 → только начало свайпа, 1 → у порога перелёта:
+                      // кольцо толще и непрозрачнее, заливка плотнеет
+                      const t = Math.min(1, Math.max(0, (Math.abs(dragX) - TINT_THRESHOLD) / (SWIPE_THRESHOLD - TINT_THRESHOLD)));
+                      const ringW = 2 + Math.round(t * 3); // 2 → 5px
+                      const ringA = 0.35 + t * 0.35;
+                      const fillA = t * 0.16;
+                      return {
+                        transform: `translateX(${dragX}px) rotate(${dragX / 18}deg) scale(${swipeSide ? 0.96 : 1})`,
+                        opacity: flyOpacity,
+                        boxShadow: colorVar
+                          ? [
+                              `0 0 0 ${ringW}px hsl(var(--${colorVar}) / ${ringA})`,
+                              `inset 0 0 0 9999px hsl(var(--${colorVar}) / ${fillA})`,
+                              swipeSide ? `0 6px 16px hsl(var(--${colorVar}) / 0.25)` : '',
+                            ]
+                              .filter(Boolean)
+                              .join(', ')
+                          : undefined,
+                      };
+                    })()
                   : undefined
             }
           >
@@ -320,7 +422,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
 
       <button
         type="button"
-        onClick={() => startSession(allVocabWords)}
+        onClick={() => startSession(coreVocabWords)}
         className="btn-push mb-3 w-full bg-[hsl(var(--primary))] px-6 py-4 text-lg font-extrabold text-[hsl(var(--primary-foreground))]"
       >
         Начать изучение слов
@@ -338,59 +440,45 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
       )}
       {openThemeId !== null && <div className="mb-3" />}
 
-      <div className="space-y-2">
-        {vocabThemes.map((theme) => {
-          const learned = theme.words.filter((w) => learnedWords.includes(w.id)).length;
-          const open = openThemeId === theme.id;
-          return (
-            <div
-              key={theme.id}
-              className={cn(
-                'overflow-hidden rounded-xl border-2 border-b-4 border-border bg-card transition-colors',
-                open && 'border-[hsl(var(--primary))]'
-              )}
+      <ThemeList
+        themes={coreVocabThemes}
+        learnedWords={learnedWords}
+        openThemeId={openThemeId}
+        onToggle={(id) => setOpenThemeId(openThemeId === id ? null : id)}
+        onStart={startSession}
+        onReview={startReview}
+      />
+
+      {extraVocabThemes.length > 0 && (
+        <section className="mt-8">
+          <div className="mb-3 rounded-xl border-2 border-b-4 border-border bg-card px-4 py-4">
+            <h2 className="flex items-center gap-2 font-display text-lg text-[hsl(var(--primary))]">
+              <Layers className="h-5 w-5" aria-hidden="true" />
+              Ещё больше слов
+            </h2>
+            <p className="mt-1 text-sm font-semibold text-muted-foreground">
+              Дополнительные {extraVocabWords.length.toLocaleString('ru-RU')} слов сверх ядра —
+              по тем же темам. Здесь редкие и узкие слова, к ним стоит переходить, когда
+              освоены основные.
+            </p>
+            <button
+              type="button"
+              onClick={() => startSession(extraVocabWords)}
+              className="btn-push mt-3 w-full bg-secondary px-4 py-2.5 font-extrabold text-secondary-foreground"
             >
-              <button
-                type="button"
-                onClick={() => setOpenThemeId(open ? null : theme.id)}
-                className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left hover:bg-secondary"
-              >
-                <span className="min-w-0">
-                  <span className="block truncate font-bold">{theme.titleRu}</span>
-                  {theme.description && (
-                    <span className="block truncate text-xs text-muted-foreground">
-                      {theme.description}
-                    </span>
-                  )}
-                </span>
-                <span className="shrink-0 text-sm font-extrabold text-muted-foreground">
-                  {learned}/{theme.words.length}
-                </span>
-              </button>
-              {open && (
-                <div className="flex flex-col gap-2 border-t-2 border-border px-4 py-3">
-                  <button
-                    type="button"
-                    onClick={() => startSession(theme.words)}
-                    className="btn-push bg-[hsl(var(--primary))] px-4 py-2.5 font-extrabold text-[hsl(var(--primary-foreground))]"
-                  >
-                    Начать изучение темы
-                  </button>
-                  <button
-                    type="button"
-                    disabled={learned === 0}
-                    onClick={() => startReview(theme.words)}
-                    className="btn-push flex items-center justify-center gap-2 border-2 border-[hsl(var(--gold-deep))] bg-[hsl(var(--gold))] px-4 py-2 font-extrabold text-[hsl(var(--ink))] disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <RotateCcw className="h-4 w-4" aria-hidden="true" />
-                    Повторить выученные слова этой темы ({learned})
-                  </button>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+              Учить слова из «Ещё больше слов»
+            </button>
+          </div>
+          <ThemeList
+            themes={extraVocabThemes}
+            learnedWords={learnedWords}
+            openThemeId={openThemeId}
+            onToggle={(id) => setOpenThemeId(openThemeId === id ? null : id)}
+            onStart={startSession}
+            onReview={startReview}
+          />
+        </section>
+      )}
     </div>
   );
 }

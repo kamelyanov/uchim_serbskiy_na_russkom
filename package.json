@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/validate_vocab.mjs",
     "build": "tsc -b && vite build",
+    "validate:vocab": "node scripts/validate_vocab.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

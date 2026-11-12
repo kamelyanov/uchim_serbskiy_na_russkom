@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local working notes (never commit)
+WORKLOG.md
+
+# Python / build caches
+scripts/.cache/
+scripts/__pycache__/

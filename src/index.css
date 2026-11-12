@@ -4,14 +4,16 @@
 @tailwind utilities;
 
 @layer base {
-  /* Синяя палитра (по умолчанию). Переключение — атрибут data-palette на <html>. */
+  /* Белая схема с лавандовым акцентом (по умолчанию).
+     Переключение — атрибут data-palette на <html>.
+     Пять равнозначных схем: white, dark, green, blue, purple. */
   :root {
-    --mint: 210 42% 93%;
-    --forest: 216 60% 42%;
-    --forest-deep: 216 64% 32%;
-    --gold: 42 100% 59%;
-    --gold-deep: 38 95% 45%;
-    --ink: 215 16% 13%;
+    --mint: 40 15% 98%; /* фон: белый с тёплым сероватым подтоном */
+    --forest: 255 30% 60%; /* лавандовый акцент */
+    --forest-deep: 255 32% 47%;
+    --gold: 40 60% 55%; /* приглушённое золото (геймификация) */
+    --gold-deep: 38 55% 42%;
+    --ink: 220 12% 20%; /* графитовый текст */
     --paper: 0 0% 100%;
 
     --background: var(--mint);
@@ -21,73 +23,84 @@
     --popover: var(--paper);
     --popover-foreground: var(--ink);
     --primary: var(--forest);
-    --primary-foreground: 210 40% 97%;
-    --secondary: 210 30% 88%;
+    --primary-foreground: 255 30% 98%;
+    --secondary: 255 18% 94%;
     --secondary-foreground: var(--ink);
-    --muted: 210 25% 90%;
-    --muted-foreground: 215 9% 33%;
+    --muted: 40 12% 95%;
+    --muted-foreground: 220 8% 45%;
     --accent: var(--gold);
     --accent-foreground: var(--ink);
-    --destructive: 4 75% 50%;
+    --destructive: 4 60% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 210 20% 77%;
-    --input: 210 20% 77%;
+    --border: 220 12% 88%; /* тонкая бледная обводка */
+    --input: 220 12% 88%;
     --ring: var(--forest);
-    --radius: 1.25rem;
+    --radius: 1.25rem; /* 20px, в диапазоне 16–24 */
 
-    --success: 142 60% 32%;
-    --success-bg: 120 45% 90%;
-    --error: 4 75% 45%;
-    --error-bg: 8 80% 93%;
+    --success: 150 25% 38%;
+    --success-bg: 140 25% 93%;
+    --error: 4 60% 48%;
+    --error-bg: 8 50% 94%;
   }
 
-  /* Зелёная палитра (исходная) */
+  /* Голубая схема: пыльный небесно-голубой + приглушённый индиго */
+  :root[data-palette='blue'] {
+    --mint: 210 30% 97%;
+    --forest: 210 45% 52%;
+    --forest-deep: 215 48% 38%;
+    --primary-foreground: 210 40% 97%;
+    --secondary: 210 25% 93%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 10% 42%;
+    --border: 210 18% 86%;
+    --input: 210 18% 86%;
+  }
+
+  /* Зелёная схема: шалфейный и мятный */
   :root[data-palette='green'] {
-    --mint: 110 37% 94%;
-    --forest: 142 55% 22%;
-    --forest-deep: 142 58% 15%;
-    --ink: 120 9% 11%;
-    --primary-foreground: 110 37% 96%;
-    --secondary: 110 25% 88%;
-    --muted: 110 20% 89%;
-    --muted-foreground: 120 6% 38%;
-    --border: 110 14% 80%;
-    --input: 110 14% 80%;
+    --mint: 120 15% 97%;
+    --forest: 150 20% 40%;
+    --forest-deep: 150 24% 29%;
+    --primary-foreground: 120 25% 97%;
+    --secondary: 120 12% 93%;
+    --muted: 110 10% 94%;
+    --muted-foreground: 130 6% 40%;
+    --border: 120 10% 86%;
+    --input: 120 10% 86%;
   }
 
-  /* Нейтральная белая палитра */
-  :root[data-palette='neutral'] {
-    --mint: 0 0% 97%;
-    --forest: 215 18% 34%;
-    --forest-deep: 215 20% 25%;
-    --ink: 0 0% 12%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 91%;
-    --muted: 0 0% 92%;
-    --muted-foreground: 0 0% 35%;
-    --border: 0 0% 80%;
-    --input: 0 0% 80%;
+  /* Фиолетовая схема: лавандово-фиолетовый + пыльный сиреневый */
+  :root[data-palette='purple'] {
+    --mint: 270 20% 98%;
+    --forest: 265 30% 55%;
+    --forest-deep: 265 34% 42%;
+    --primary-foreground: 270 35% 97%;
+    --secondary: 265 18% 94%;
+    --muted: 265 15% 95%;
+    --muted-foreground: 265 8% 45%;
+    --border: 265 12% 88%;
+    --input: 265 12% 88%;
   }
 
-  /* Тёмная тема */
+  /* Тёмная схема: графитово-синий фон #1C1F26, карточки #242833 */
   :root[data-palette='dark'] {
-    --mint: 215 25% 10%;
-    --paper: 215 24% 15%;
-    --forest: 216 70% 60%;
-    --forest-deep: 216 70% 50%;
-    --gold: 42 100% 59%;
-    --gold-deep: 42 100% 62%;
-    --ink: 210 30% 92%;
-    --primary-foreground: 216 60% 10%;
-    --secondary: 215 20% 22%;
-    --muted: 215 18% 24%;
-    --muted-foreground: 215 12% 62%;
-    --border: 215 16% 32%;
-    --input: 215 16% 32%;
-    --success: 142 55% 45%;
-    --success-bg: 140 30% 16%;
-    --error: 4 75% 62%;
-    --error-bg: 4 40% 18%;
+    --mint: 222 17% 13%; /* #1C1F26 */
+    --paper: 224 16% 17%; /* #242833 */
+    --forest: 216 55% 72%; /* пастельный голубой */
+    --forest-deep: 216 45% 62%;
+    --gold: 42 65% 62%;
+    --gold-deep: 42 60% 68%;
+    --ink: 220 15% 88%; /* мягкий белый, не чистый */
+    --primary-foreground: 222 20% 14%;
+    --secondary: 224 13% 23%;
+    --muted: 224 12% 21%;
+    --muted-foreground: 220 9% 64%; /* светло-серый */
+    --border: 224 12% 30%; /* визуально ~10% белого */
+    --input: 224 12% 30%;
+    --success: 150 40% 58%;
+    --success-bg: 150 25% 17%;
+    --error: 4 60% 66%;
+    --error-bg: 4 30% 18%;
   }
 }
 
@@ -101,9 +114,9 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Noto Sans', 'PT Sans', system-ui, sans-serif;
+    font-family: 'Manrope', 'Noto Sans', system-ui, sans-serif;
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.7; /* увеличенный межстрочный интервал */
     overflow-x: clip;
   }
   .font-display {
@@ -193,6 +206,16 @@
   .hint-swipe {
     animation: hint-swipe 1.4s ease-in-out 0.4s 2;
   }
+  /* Короткий вход новой карточки после свайпа (fill backwards —
+     после конца анимации transform снова управляется инлайн-стилями drag) */
+  .card-enter {
+    animation: card-enter 0.22s ease-out backwards;
+  }
+  .hint-swipe.card-enter {
+    animation:
+      card-enter 0.22s ease-out backwards,
+      hint-swipe 1.4s ease-in-out 0.4s 2;
+  }
 }
 
 @keyframes pop-in {
@@ -217,6 +240,10 @@
   25% { transform: translateX(-28px) rotate(-2deg); }
   75% { transform: translateX(28px) rotate(2deg); }
 }
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 @keyframes star-pop {
   0% { opacity: 0; transform: scale(0) rotate(-30deg); }
   60% { opacity: 1; transform: scale(1.25) rotate(10deg); }
@@ -224,7 +251,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pop-in, .pop-in-stagger > *, .slide-up, .wiggle, .float-slow, .star-pop, .hint-swipe {
+  .pop-in, .pop-in-stagger > *, .slide-up, .wiggle, .float-slow, .star-pop, .hint-swipe, .card-enter, .hint-swipe.card-enter {
     animation: none !important;
   }
   * { transition-duration: 0.01ms !important; }

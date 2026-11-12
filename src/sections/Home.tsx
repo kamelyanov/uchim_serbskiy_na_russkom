@@ -62,9 +62,10 @@ interface Props {
   onResetProgress: () => void;
   onOpenGrammar: () => void;
   onOpenVocab: () => void;
+  onOpenReading: () => void;
 }
 
-export function Home({ script, onToggleScript, palette, onTogglePalette, onSelectPalette, progress, onStartLesson, onStartSection, onResetProgress, onOpenGrammar, onOpenVocab }: Props) {
+export function Home({ script, onToggleScript, palette, onTogglePalette, onSelectPalette, progress, onStartLesson, onStartSection, onResetProgress, onOpenGrammar, onOpenVocab, onOpenReading }: Props) {
   const [tipsTheme, setTipsTheme] = useState<Theme | null>(null);
   const isMobile = useIsMobile();
 
@@ -168,6 +169,16 @@ export function Home({ script, onToggleScript, palette, onTogglePalette, onSelec
             <Library className="h-3.5 w-3.5" aria-hidden="true" />
           </span>
           <span className="text-[10px] font-extrabold uppercase tracking-wide text-muted-foreground">Грамматика</span>
+        </button>
+        <button
+          type="button"
+          onClick={onOpenReading}
+          className="group flex flex-1 cursor-pointer items-center justify-center gap-1.5 py-0.5"
+        >
+          <span className="rounded-lg bg-secondary p-1.5 text-secondary-foreground transition-colors group-hover:bg-muted">
+            <Newspaper className="h-3.5 w-3.5" aria-hidden="true" />
+          </span>
+          <span className="text-[10px] font-extrabold uppercase tracking-wide text-muted-foreground">Чтение</span>
         </button>
       </div>
 
