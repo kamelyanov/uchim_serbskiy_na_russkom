@@ -12,11 +12,11 @@ export const PALETTE_NAMES: Record<Palette, string> = {
 
 /** Характерные цвета палитры для свотча: [основной, фон]. */
 export const PALETTE_SWATCH: Record<Palette, [string, string]> = {
-  white: ['hsl(255 30% 60%)', 'hsl(40 15% 98%)'],
-  dark: ['hsl(216 60% 70%)', 'hsl(222 17% 13%)'],
-  green: ['hsl(150 20% 40%)', 'hsl(120 15% 97%)'],
-  blue: ['hsl(210 45% 52%)', 'hsl(210 30% 97%)'],
-  purple: ['hsl(265 30% 55%)', 'hsl(270 20% 98%)'],
+  white: ['hsl(255 45% 58%)', 'hsl(255 25% 97%)'],
+  dark: ['hsl(216 70% 68%)', 'hsl(222 17% 13%)'],
+  green: ['hsl(150 38% 35%)', 'hsl(130 32% 95%)'],
+  blue: ['hsl(210 62% 48%)', 'hsl(210 45% 95%)'],
+  purple: ['hsl(265 48% 52%)', 'hsl(270 40% 96%)'],
 };
 
 export function nextPalette(current: Palette): Palette {

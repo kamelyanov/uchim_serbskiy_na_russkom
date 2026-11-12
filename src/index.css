@@ -8,12 +8,12 @@
      Переключение — атрибут data-palette на <html>.
      Пять равнозначных схем: white, dark, green, blue, purple. */
   :root {
-    --mint: 40 15% 98%; /* фон: белый с тёплым сероватым подтоном */
-    --forest: 255 30% 60%; /* лавандовый акцент */
-    --forest-deep: 255 32% 47%;
-    --gold: 40 60% 55%; /* приглушённое золото (геймификация) */
-    --gold-deep: 38 55% 42%;
-    --ink: 220 12% 20%; /* графитовый текст */
+    --mint: 255 25% 97%; /* фон: белый с лёгким лавандовым подтоном */
+    --forest: 255 45% 58%; /* лавандовый акцент */
+    --forest-deep: 255 48% 45%;
+    --gold: 40 75% 52%; /* приглушённое золото (геймификация) */
+    --gold-deep: 38 70% 40%;
+    --ink: 255 15% 22%; /* графитовый текст с холодным подтоном */
     --paper: 0 0% 100%;
 
     --background: var(--mint);
@@ -23,84 +23,84 @@
     --popover: var(--paper);
     --popover-foreground: var(--ink);
     --primary: var(--forest);
-    --primary-foreground: 255 30% 98%;
-    --secondary: 255 18% 94%;
+    --primary-foreground: 255 40% 98%;
+    --secondary: 255 30% 93%;
     --secondary-foreground: var(--ink);
-    --muted: 40 12% 95%;
-    --muted-foreground: 220 8% 45%;
+    --muted: 255 22% 95%;
+    --muted-foreground: 255 10% 42%;
     --accent: var(--gold);
     --accent-foreground: var(--ink);
-    --destructive: 4 60% 50%;
+    --destructive: 4 65% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 12% 88%; /* тонкая бледная обводка */
-    --input: 220 12% 88%;
+    --border: 255 18% 85%; /* тонкая бледная обводка */
+    --input: 255 18% 85%;
     --ring: var(--forest);
     --radius: 1.25rem; /* 20px, в диапазоне 16–24 */
 
-    --success: 150 25% 38%;
-    --success-bg: 140 25% 93%;
-    --error: 4 60% 48%;
-    --error-bg: 8 50% 94%;
+    --success: 150 35% 36%;
+    --success-bg: 140 35% 92%;
+    --error: 4 65% 48%;
+    --error-bg: 8 55% 93%;
   }
 
   /* Голубая схема: пыльный небесно-голубой + приглушённый индиго */
   :root[data-palette='blue'] {
-    --mint: 210 30% 97%;
-    --forest: 210 45% 52%;
-    --forest-deep: 215 48% 38%;
-    --primary-foreground: 210 40% 97%;
-    --secondary: 210 25% 93%;
-    --muted: 210 20% 94%;
-    --muted-foreground: 215 10% 42%;
-    --border: 210 18% 86%;
-    --input: 210 18% 86%;
+    --mint: 210 45% 95%;
+    --forest: 210 62% 48%;
+    --forest-deep: 215 65% 36%;
+    --primary-foreground: 210 50% 97%;
+    --secondary: 210 40% 91%;
+    --muted: 210 35% 93%;
+    --muted-foreground: 215 25% 40%;
+    --border: 210 30% 83%;
+    --input: 210 30% 83%;
   }
 
   /* Зелёная схема: шалфейный и мятный */
   :root[data-palette='green'] {
-    --mint: 120 15% 97%;
-    --forest: 150 20% 40%;
-    --forest-deep: 150 24% 29%;
-    --primary-foreground: 120 25% 97%;
-    --secondary: 120 12% 93%;
-    --muted: 110 10% 94%;
-    --muted-foreground: 130 6% 40%;
-    --border: 120 10% 86%;
-    --input: 120 10% 86%;
+    --mint: 130 32% 95%;
+    --forest: 150 38% 35%;
+    --forest-deep: 150 42% 25%;
+    --primary-foreground: 130 45% 97%;
+    --secondary: 135 30% 91%;
+    --muted: 130 25% 93%;
+    --muted-foreground: 135 18% 38%;
+    --border: 130 22% 82%;
+    --input: 130 22% 82%;
   }
 
   /* Фиолетовая схема: лавандово-фиолетовый + пыльный сиреневый */
   :root[data-palette='purple'] {
-    --mint: 270 20% 98%;
-    --forest: 265 30% 55%;
-    --forest-deep: 265 34% 42%;
-    --primary-foreground: 270 35% 97%;
-    --secondary: 265 18% 94%;
-    --muted: 265 15% 95%;
-    --muted-foreground: 265 8% 45%;
-    --border: 265 12% 88%;
-    --input: 265 12% 88%;
+    --mint: 270 40% 96%;
+    --forest: 265 48% 52%;
+    --forest-deep: 265 52% 40%;
+    --primary-foreground: 270 50% 97%;
+    --secondary: 265 35% 93%;
+    --muted: 265 30% 95%;
+    --muted-foreground: 265 20% 42%;
+    --border: 265 22% 85%;
+    --input: 265 22% 85%;
   }
 
   /* Тёмная схема: графитово-синий фон #1C1F26, карточки #242833 */
   :root[data-palette='dark'] {
     --mint: 222 17% 13%; /* #1C1F26 */
     --paper: 224 16% 17%; /* #242833 */
-    --forest: 216 55% 72%; /* пастельный голубой */
-    --forest-deep: 216 45% 62%;
-    --gold: 42 65% 62%;
-    --gold-deep: 42 60% 68%;
+    --forest: 216 70% 68%; /* пастельный голубой */
+    --forest-deep: 216 55% 60%;
+    --gold: 42 75% 60%;
+    --gold-deep: 42 70% 66%;
     --ink: 220 15% 88%; /* мягкий белый, не чистый */
     --primary-foreground: 222 20% 14%;
-    --secondary: 224 13% 23%;
-    --muted: 224 12% 21%;
-    --muted-foreground: 220 9% 64%; /* светло-серый */
-    --border: 224 12% 30%; /* визуально ~10% белого */
-    --input: 224 12% 30%;
-    --success: 150 40% 58%;
-    --success-bg: 150 25% 17%;
-    --error: 4 60% 66%;
-    --error-bg: 4 30% 18%;
+    --secondary: 224 25% 25%;
+    --muted: 224 22% 22%;
+    --muted-foreground: 220 12% 66%; /* светло-серый */
+    --border: 224 14% 32%; /* визуально ~10% белого */
+    --input: 224 14% 32%;
+    --success: 150 50% 55%;
+    --success-bg: 150 30% 18%;
+    --error: 4 70% 64%;
+    --error-bg: 4 35% 19%;
   }
 }
 
