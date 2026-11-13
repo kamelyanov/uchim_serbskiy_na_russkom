@@ -118,6 +118,9 @@
     font-size: 16px;
     line-height: 1.7; /* увеличенный межстрочный интервал */
     overflow-x: clip;
+    /* Блокировка «резинового» скролла в Safari (pull-to-refresh,
+       оттягивание за края страницы) на всех экранах, включая изучение */
+    overscroll-behavior: none;
   }
   .font-display {
     font-family: 'Dela Gothic One', 'Manrope', system-ui, sans-serif;
@@ -194,7 +197,12 @@
     animation: slide-up 0.28s ease-out both;
   }
   .wiggle {
+    /* !important по задержке: инлайн-стили stagger (pop-in у MatchExercise,
+       pop-in-stagger у BlankExercise) иначе сдвигают и дрожание — оно
+       запускалось с опозданием/перезапускалось. Дрожание всегда сразу и ровно 1 раз. */
     animation: wiggle 0.4s ease-in-out;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1;
   }
   .float-slow {
     animation: float-slow 3s ease-in-out infinite;

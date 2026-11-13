@@ -274,7 +274,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
               setDragX(0);
             }}
             className={cn(
-              'flex min-h-[268px] w-full cursor-pointer touch-pan-y flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center select-none',
+              'flex min-h-[268px] max-sm:min-h-[348px] w-full cursor-pointer touch-pan-y flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center select-none',
               revealed && 'cursor-default',
               hintSwipe && !revealed && !dragX && 'hint-swipe',
               !exitDir && 'card-enter',

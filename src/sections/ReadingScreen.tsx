@@ -73,7 +73,7 @@ function TextView({
   const [banner, setBanner] = useState<Banner | null>(null);
 
   const onWord = (word: string, paragraphRu: string) => {
-    setBanner({ word, dict: lookupWord(word), paragraphRu });
+    setBanner({ word, dict: lookupWord(text.dict, word), paragraphRu });
   };
 
   return (

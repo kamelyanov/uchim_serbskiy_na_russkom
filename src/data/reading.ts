@@ -6,8 +6,10 @@
 //   ...
 //   # Перевод:
 //   <строки русского перевода строго в том же порядке, строка в строку>
+//   # Слова:
+//   <словарь этого текста: слово - перевод, каждая форма отдельной строкой>
 // Показывается только сербский текст; русская строка всплывает в баннере
-// по нажатию на слово (точный перевод предложения).
+// по нажатию на слово (контекст), перевод слова — из словаря текста.
 
 export interface ReadingLine {
   sr: string;
@@ -24,9 +26,12 @@ export interface ReadingText {
   id: string;
   titleRu: string;
   paragraphs: ReadingParagraph[];
+  /** словарь этого текста: очищенное слово (нижний регистр) → перевод */
+  dict: Record<string, string>;
 }
 
 const TRANSLATION_MARKER = /^#\s*Перевод:/i;
+const WORDS_MARKER = /^#\s*Слова:/i;
 
 function isHeading(line: string): boolean {
   return !/[.!?…]$/.test(line) && line.length < 80;
@@ -56,8 +61,21 @@ const flatten = (paras: string[][]) => paras.flat();
 function parseFile(path: string, raw: string): ReadingText {
   const lines = raw.split(/\r?\n/);
   const sepIndex = lines.findIndex((l) => TRANSLATION_MARKER.test(l.trim()));
-  const srRaw = (sepIndex === -1 ? lines : lines.slice(0, sepIndex)).join('\n');
-  const ruRaw = sepIndex === -1 ? '' : lines.slice(sepIndex + 1).join('\n');
+  const wordsIndex = lines.findIndex((l) => WORDS_MARKER.test(l.trim()));
+  const srEnd = sepIndex === -1 ? (wordsIndex === -1 ? lines.length : wordsIndex) : sepIndex;
+  const ruEnd = wordsIndex === -1 ? lines.length : wordsIndex;
+  const srRaw = lines.slice(0, srEnd).join('\n');
+  const ruRaw = sepIndex === -1 ? '' : lines.slice(sepIndex + 1, ruEnd).join('\n');
+
+  // Словарь текста: строки вида «слово - перевод» (разделитель — первый « - »,
+  // чтобы перевод мог содержать тире и скобки)
+  const dict: Record<string, string> = {};
+  if (wordsIndex !== -1) {
+    for (const line of lines.slice(wordsIndex + 1)) {
+      const m = line.match(/^\s*(.+?)\s+-\s+(.+?)\s*$/);
+      if (m) dict[cleanWord(m[1])] = m[2];
+    }
+  }
 
   const srParagraphs = splitParagraphLines(srRaw);
   const srLines = flatten(srParagraphs);
@@ -87,7 +105,7 @@ function parseFile(path: string, raw: string): ReadingText {
   let cursor = 0;
   for (const paraLines of srParagraphs) {
     const linesOut: ReadingLine[] = [];
-    for (const _line of paraLines) {
+    for (let n = 0; n < paraLines.length; n++) {
       const i = cursor;
       cursor++;
       if (i < start) continue;
@@ -96,7 +114,7 @@ function parseFile(path: string, raw: string): ReadingText {
     if (linesOut.length) paragraphs.push({ lines: linesOut });
   }
 
-  return { id: path, titleRu, paragraphs };
+  return { id: path, titleRu, paragraphs, dict };
 }
 
 const files = import.meta.glob('./reading/*.txt', {
@@ -109,16 +127,8 @@ export const readingTexts: ReadingText[] = Object.entries(files)
   .map(([path, raw]) => parseFile(path, raw));
 
 // ---------------------------------------------------------------------------
-// Словарный поиск слова по клику: точное совпадение, затем срезка падежных
-// окончаний. Словарь — все пары из вкладки «Слова» (ядро + «ещё больше»).
-
-import { allVocabWords } from './vocab';
-
-const dict = new Map<string, string>();
-for (const w of allVocabWords) {
-  const key = w.sr.toLowerCase();
-  if (!dict.has(key)) dict.set(key, w.ru);
-}
+// Словарный поиск слова по клику в словаре конкретного текста: точное
+// совпадение, затем срезка падежных окончаний.
 
 const SUFFIXES = ['ovima', 'evima', 'ama', 'ima', 'om', 'og', 'oj', 'em', 'eg', 'a', 'u', 'i', 'e', 'o'];
 
@@ -130,16 +140,16 @@ export function cleanWord(raw: string): string {
     .replace(/[^\p{L}\p{N}]+$/u, '');
 }
 
-/** Ищет перевод слова в словаре; null — не найдено. */
-export function lookupWord(raw: string): string | null {
+/** Ищет перевод слова в словаре текста; null — не найдено. */
+export function lookupWord(dict: Record<string, string>, raw: string): string | null {
   const w = cleanWord(raw);
   if (!w || /\d/.test(w)) return null;
-  const exact = dict.get(w);
+  const exact = dict[w];
   if (exact) return exact;
   for (const suf of SUFFIXES) {
     const stem = w.slice(0, w.length - suf.length);
     if (stem.length >= 3 && w.endsWith(suf)) {
-      const hit = dict.get(stem);
+      const hit = dict[stem];
       if (hit) return hit;
     }
   }
