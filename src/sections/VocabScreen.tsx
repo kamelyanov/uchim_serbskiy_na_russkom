@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, BookOpenCheck, Check, Layers, RotateCcw, X } from 'lucide-react';
 import type { Script } from '../types';
 import {
@@ -123,6 +123,19 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
   const [exitDir, setExitDir] = useState<'left' | 'right' | null>(null);
   const dragRef = useRef<{ startX: number; dx: number; moved: boolean } | null>(null);
 
+  // Блокировка «резинового» скролла iOS Safari при свайпе карточки:
+  // пока экран сессии не скроллится (контент влезает), гасим touchmove.
+  // overscroll-behavior не покрывает старые Safari и жест с touch-pan-y.
+  useEffect(() => {
+    if (mode !== 'session') return;
+    const prevent = (e: TouchEvent) => {
+      const el = document.scrollingElement;
+      if (el && el.scrollHeight <= window.innerHeight + 1) e.preventDefault();
+    };
+    document.addEventListener('touchmove', prevent, { passive: false });
+    return () => document.removeEventListener('touchmove', prevent);
+  }, [mode]);
+
   const total = pool.length;
   const done = mode === 'session' && queue.length === 0;
   const current = queue[0];
@@ -178,7 +191,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
   };
 
   const SWIPE_THRESHOLD = 100;
-  const TINT_THRESHOLD = 28; // цвет стороны появляется почти сразу при свайпе
+  const TINT_THRESHOLD = 14; // цвет стороны появляется почти сразу при свайпе
 
   // за порогом карточка начинает растворяться — видно, что можно отпускать
   const tintSide = dragX >= TINT_THRESHOLD ? 'right' : dragX <= -TINT_THRESHOLD ? 'left' : null;
@@ -274,7 +287,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
               setDragX(0);
             }}
             className={cn(
-              'flex min-h-[268px] max-sm:min-h-[348px] w-full cursor-pointer touch-pan-y flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center select-none',
+              'flex min-h-[268px] max-sm:min-h-[60vh] w-full max-w-[545px] mx-auto cursor-pointer touch-pan-y flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center select-none transition-all duration-100',
               revealed && 'cursor-default',
               hintSwipe && !revealed && !dragX && 'hint-swipe',
               !exitDir && 'card-enter',

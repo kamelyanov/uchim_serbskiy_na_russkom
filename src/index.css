@@ -112,15 +112,18 @@
     -webkit-tap-highlight-color: transparent;
     overflow-x: clip;
   }
+  html {
+    /* Блокировка «резинового» скролла в Safari (pull-to-refresh,
+       оттягивание за края страницы) на всех экранах, включая изучение */
+    overscroll-behavior: none;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Manrope', 'Noto Sans', system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.7; /* увеличенный межстрочный интервал */
     overflow-x: clip;
-    /* Блокировка «резинового» скролла в Safari (pull-to-refresh,
-       оттягивание за края страницы) на всех экранах, включая изучение */
-    overscroll-behavior: none;
   }
   .font-display {
     font-family: 'Dela Gothic One', 'Manrope', system-ui, sans-serif;
@@ -212,7 +215,7 @@
   }
   /* Подсказка: карточку можно двигать влево-вправо */
   .hint-swipe {
-    animation: hint-swipe 1.4s ease-in-out 0.4s 2;
+    animation: hint-swipe 0.5s ease-in-out 0.4s 1;
   }
   /* Короткий вход новой карточки после свайпа (fill backwards —
      после конца анимации transform снова управляется инлайн-стилями drag) */
@@ -222,7 +225,7 @@
   .hint-swipe.card-enter {
     animation:
       card-enter 0.22s ease-out backwards,
-      hint-swipe 1.4s ease-in-out 0.4s 2;
+      hint-swipe 0.5s ease-in-out 0.4s 1;
   }
 }
 
