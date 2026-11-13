@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { BookOpen, Check, Heart, X, Zap } from 'lucide-react';
 import type { Script } from '../types';
 import type { Exercise } from '../types';
@@ -37,6 +37,7 @@ export function MarathonRunner({
   const [buildSel, setBuildSel] = useState<string[]>([]);
   const [blankSel, setBlankSel] = useState<string | null>(null);
   const [checked, setChecked] = useState<'correct' | 'wrong' | null>(null);
+  const [wrongMarks, setWrongMarks] = useState<string[]>([]);
   const [xp, setXp] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistakes, setMistakes] = useState(0);
@@ -44,6 +45,16 @@ export function MarathonRunner({
   const [failed, setFailed] = useState(false);
   const exerciseRef = useRef<HTMLDivElement>(null);
   const isFirstExercise = useRef(true);
+  const nextTimer = useRef<number | null>(null);
+
+  // При выходе из марафона гасим таймер автоперехода, чтобы не вызвать
+  // переход/завершение уже на другом экране
+  useEffect(
+    () => () => {
+      if (nextTimer.current !== null) window.clearTimeout(nextTimer.current);
+    },
+    []
+  );
 
   // При переходе к следующему упражнению мягко скроллим к его началу,
   // чтобы страница не «прыгала» в самый верх
@@ -74,15 +85,30 @@ export function MarathonRunner({
     if (exercise.type === 'blank') correct = blankSel === exercise.answer;
     if (correct) {
       setChecked('correct');
+      setWrongMarks([]);
       setXp((x) => x + 10);
       setCorrectCount((c) => c + 1);
+      // Автопереход: «Проверить» + «Продолжить» в один клик
+      nextTimer.current = window.setTimeout(next, 500);
     } else {
       setChecked('wrong');
+      setWrongMarks((m) => [
+        ...m,
+        exercise.type === 'choice' ? String(choiceSel) : exercise.type === 'blank' ? blankSel! : buildSel.join(' '),
+      ]);
       setMistakes((m) => m + 1);
       const h = hearts - 1;
       setHearts(h);
       if (h <= 0) setFailed(true);
     }
+  };
+
+  // «Повторить»: то же задание сначала, неверный выбор остаётся подсвечен красным
+  const retry = () => {
+    setChoiceSel(null);
+    setBuildSel([]);
+    setBlankSel(null);
+    setChecked(null);
   };
 
   const next = () => {
@@ -95,6 +121,7 @@ export function MarathonRunner({
     setBuildSel([]);
     setBlankSel(null);
     setChecked(null);
+    setWrongMarks([]);
   };
 
   const onMatchComplete = (matchMistakes: number) => {
@@ -102,12 +129,16 @@ export function MarathonRunner({
       setChecked('correct');
       setXp((x) => x + 10);
       setCorrectCount((c) => c + 1);
+      // Автопереход, как после «Проверить» с верным ответом
+      nextTimer.current = window.setTimeout(next, 500);
     } else {
       setChecked('wrong');
       setMistakes((m) => m + matchMistakes);
       const h = Math.max(0, hearts - matchMistakes);
       setHearts(h);
       if (h <= 0) setFailed(true);
+      // Пары уже соединены — повторить нельзя, переходим дальше сами
+      nextTimer.current = window.setTimeout(next, 1500);
     }
   };
 
@@ -131,7 +162,7 @@ export function MarathonRunner({
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl lg:max-w-none lg:w-1/2 flex-col px-4">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl lg:max-w-none lg:w-[900px] flex-col px-4">
       {/* Top bar */}
       <div className="flex items-center gap-3 pt-4 pb-2">
         <button
@@ -165,7 +196,8 @@ export function MarathonRunner({
       </div>
 
       {/* Exercise body */}
-      <div ref={exerciseRef} className="flex scroll-mt-16 flex-col items-start py-6" key={`marathon-${index}`}>
+      <div className="mx-auto w-full lg:w-[600px]">
+        <div ref={exerciseRef} className="flex scroll-mt-16 flex-col items-start py-6" key={`marathon-${index}`}>
         <p
           className="mb-1 text-xs font-extrabold uppercase tracking-widest"
           style={{ color: `hsl(${color})` }}
@@ -179,6 +211,7 @@ export function MarathonRunner({
             selected={choiceSel}
             onChange={setChoiceSel}
             checked={checked}
+            wrongMarks={wrongMarks}
           />
         )}
         {exercise.type === 'build' && (
@@ -188,6 +221,7 @@ export function MarathonRunner({
             selected={buildSel}
             onChange={setBuildSel}
             checked={checked}
+            wrongMarks={wrongMarks}
           />
         )}
         {exercise.type === 'blank' && (
@@ -197,76 +231,87 @@ export function MarathonRunner({
             selected={blankSel}
             onChange={setBlankSel}
             checked={checked}
+            wrongMarks={wrongMarks}
           />
         )}
         {exercise.type === 'match' && (
           <MatchExerciseView exercise={exercise} script={script} onComplete={onMatchComplete} />
         )}
+        </div>
       </div>
 
-      {/* Action zone: vertically centered between exercise and bottom bar */}
-      <div className="flex flex-1 flex-col justify-center gap-3 pb-4">
-        {checked === null ? (
-          exercise.type === 'match' ? (
-            <p className="text-center font-bold text-muted-foreground">
-              Соедините все пары, чтобы продолжить
-            </p>
-          ) : (
-            <button
-              type="button"
-              className="btn-push w-full bg-[hsl(var(--primary))] px-6 py-3.5 text-[hsl(var(--primary-foreground))]"
-              disabled={!canCheck}
-              onClick={check}
-            >
-              Проверить
-            </button>
-          )
-        ) : (
-          <div className="slide-up">
-            <div className="mb-3 flex items-center gap-2">
-              <span
-                className={cn(
-                  'flex h-8 w-8 items-center justify-center rounded-full',
-                  checked === 'correct'
-                    ? 'bg-[hsl(var(--success))] text-white'
-                    : 'bg-[hsl(var(--error))] text-white'
-                )}
-              >
-                {checked === 'correct' ? <Check className="h-5 w-5" /> : <X className="h-5 w-5" />}
-              </span>
-              <p
-                className={cn(
-                  'font-display text-lg',
-                  checked === 'correct' ? 'text-[hsl(var(--success))]' : 'text-[hsl(var(--error))]'
-                )}
-              >
-                {checked === 'correct' ? 'Отлично!' : 'Не совсем…'}
+      {/* Spacer: прижимает нижний блок к низу даже на коротких заданиях */}
+      <div className="flex-1" />
+
+      {/* Bottom: проверка/фидбек + грамматика, приколочены к низу экрана */}
+      <div className="sticky bottom-0 -mx-4 border-t-2 border-border bg-background px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div className="mx-auto w-full lg:w-[600px]">
+          {/* Фидбек занимает место всегда — кнопка не прыгает при появлении */}
+          <div className="mb-3 flex min-h-[32px] items-center">
+            {checked !== null && (
+              <div className="slide-up flex items-center gap-2">
+                <span
+                  className={cn(
+                    'flex h-8 w-8 items-center justify-center rounded-full',
+                    checked === 'correct'
+                      ? 'bg-[hsl(var(--success))] text-white'
+                      : 'bg-[hsl(var(--error))] text-white'
+                  )}
+                >
+                  {checked === 'correct' ? <Check className="h-5 w-5" /> : <X className="h-5 w-5" />}
+                </span>
+                <p
+                  className={cn(
+                    'font-display text-lg',
+                    checked === 'correct' ? 'text-[hsl(var(--success))]' : 'text-[hsl(var(--error))]'
+                  )}
+                >
+                  {checked === 'correct' ? 'Отлично!' : 'Не совсем…'}
+                </p>
+              </div>
+            )}
+          </div>
+          {checked === null ? (
+            exercise.type === 'match' ? (
+              <p className="flex min-h-[52px] items-center justify-center text-center font-bold text-muted-foreground">
+                Соедините все пары, чтобы продолжить
               </p>
-            </div>
+            ) : (
+              <button
+                type="button"
+                className="btn-push w-full bg-[hsl(var(--primary))] px-6 py-3.5 text-[hsl(var(--primary-foreground))]"
+                disabled={!canCheck}
+                onClick={check}
+              >
+                Проверить
+              </button>
+            )
+          ) : (
             <button
               type="button"
               className={cn(
                 'btn-push w-full px-6 py-3.5 text-white',
                 checked === 'correct' ? 'bg-[hsl(var(--success))]' : 'bg-[hsl(var(--error))]'
               )}
-              onClick={next}
+              onClick={checked === 'wrong' && exercise.type !== 'match' ? retry : next}
+              disabled={checked === 'correct'}
             >
-              Продолжить
+              {checked === 'correct'
+                ? 'Отлично!'
+                : checked === 'wrong' && exercise.type !== 'match'
+                  ? 'Повторить'
+                  : 'Продолжить'}
             </button>
-          </div>
-        )}
-      </div>
-
-      {/* Bottom bar: grammar link only */}
-      <div className="sticky bottom-0 -mx-4 border-t-2 border-border bg-background px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
-        <button
-          type="button"
-          onClick={onOpenGrammar}
-          className="mx-auto flex items-center gap-1.5 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
-        >
-          <BookOpen className="h-4 w-4" aria-hidden="true" />
-          Грамматика
-        </button>
+          )}
+          <button
+            type="button"
+            onClick={onOpenGrammar}
+            className="mx-auto mt-3 flex items-center gap-1.5 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+          >
+            <BookOpen className="h-4 w-4" aria-hidden="true" />
+            Грамматика
+          </button>
+        </div>
       </div>
     </div>
   );

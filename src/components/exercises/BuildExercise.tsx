@@ -9,6 +9,8 @@ interface Props {
   selected: string[];
   onChange: (words: string[]) => void;
   checked: 'correct' | 'wrong' | null;
+  /** Неверно собранные фразы — после «Повторить» показаны красным. */
+  wrongMarks?: string[];
 }
 
 function shuffled<T>(arr: T[]): T[] {
@@ -20,7 +22,7 @@ function shuffled<T>(arr: T[]): T[] {
   return a;
 }
 
-export function BuildExerciseView({ exercise, script, selected, onChange, checked }: Props) {
+export function BuildExerciseView({ exercise, script, selected, onChange, checked, wrongMarks }: Props) {
   const solutionWords = useMemo(() => exercise.sr.split(' '), [exercise.sr]);
   // Bank tiles: solution words + distractors, shuffled once per exercise.
   const bank = useMemo(
@@ -111,9 +113,15 @@ export function BuildExerciseView({ exercise, script, selected, onChange, checke
         })}
       </div>
 
-      {checked === 'wrong' && (
-        <p className="mt-4 font-bold text-[hsl(var(--error))]">
-          Правильный ответ: <span className="font-serifbian">{sr(exercise.sr, script)}</span>
+      {wrongMarks && wrongMarks.length > 0 && selected.length === 0 && (
+        <p className="mb-4 font-bold text-[hsl(var(--error))]">
+          Не подходит:{' '}
+          {wrongMarks.map((m, i) => (
+            <span key={i} className="font-serifbian line-through">
+              {sr(m, script)}
+              {i < wrongMarks.length - 1 ? '; ' : ''}
+            </span>
+          ))}
         </p>
       )}
     </div>

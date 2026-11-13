@@ -9,9 +9,11 @@ interface Props {
   onChange: (index: number | null) => void;
   /** After checking: index of correct answer; wrong selection gets error style. */
   checked: 'correct' | 'wrong' | null;
+  /** Ключи неверно выбранных вариантов — после «Повторить» подсвечены красным. */
+  wrongMarks?: string[];
 }
 
-export function ChoiceExerciseView({ exercise, script, selected, onChange, checked }: Props) {
+export function ChoiceExerciseView({ exercise, script, selected, onChange, checked, wrongMarks }: Props) {
   const display = (text: string, lang: 'ru' | 'sr') =>
     lang === 'sr' ? sr(text, script) : text;
 
@@ -45,12 +47,11 @@ export function ChoiceExerciseView({ exercise, script, selected, onChange, check
                 checked === 'correct' && isAnswer &&
                   'border-[hsl(var(--success))] bg-[hsl(var(--success-bg))] text-[hsl(var(--success))]',
                 checked === 'correct' && !isAnswer && 'border-border bg-card opacity-60',
-                checked === 'wrong' && isAnswer &&
-                  'border-[hsl(var(--success))] bg-[hsl(var(--success-bg))] text-[hsl(var(--success))]',
+                // правильный ответ при ошибке НЕ подсвечиваем — иначе повторение бессмысленно
                 checked === 'wrong' && isSelected && !isAnswer &&
                   'border-[hsl(var(--error))] bg-[hsl(var(--error-bg))] text-[hsl(var(--error))] wiggle',
-                checked === 'wrong' && !isSelected && !isAnswer &&
-                  'border-border bg-card opacity-60'
+                wrongMarks?.includes(String(i)) &&
+                  'border-[hsl(var(--error))] bg-[hsl(var(--error-bg))] text-[hsl(var(--error))]'
               )}
             >
               {display(opt, optionLang)}

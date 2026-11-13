@@ -8,9 +8,11 @@ interface Props {
   selected: string | null;
   onChange: (value: string | null) => void;
   checked: 'correct' | 'wrong' | null;
+  /** Неверно выбранные слова — после «Повторить» их тайлы подсвечены красным. */
+  wrongMarks?: string[];
 }
 
-export function BlankExerciseView({ exercise, script, selected, onChange, checked }: Props) {
+export function BlankExerciseView({ exercise, script, selected, onChange, checked, wrongMarks }: Props) {
   return (
     <div className="w-full">
       <p className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-2">
@@ -54,11 +56,11 @@ export function BlankExerciseView({ exercise, script, selected, onChange, checke
                 checked === 'correct' && isAnswer &&
                   'border-[hsl(var(--success))] bg-[hsl(var(--success-bg))] text-[hsl(var(--success))]',
                 checked === 'correct' && !isAnswer && 'opacity-60',
-                checked === 'wrong' && isAnswer &&
-                  'border-[hsl(var(--success))] bg-[hsl(var(--success-bg))] text-[hsl(var(--success))]',
+                // правильное слово при ошибке НЕ подсвечиваем
                 checked === 'wrong' && isSelected && !isAnswer &&
                   'border-[hsl(var(--error))] bg-[hsl(var(--error-bg))] text-[hsl(var(--error))] wiggle',
-                checked === 'wrong' && !isSelected && !isAnswer && 'opacity-60'
+                wrongMarks?.includes(opt) &&
+                  'border-[hsl(var(--error))] bg-[hsl(var(--error-bg))] text-[hsl(var(--error))]'
               )}
             >
               {sr(opt, script)}

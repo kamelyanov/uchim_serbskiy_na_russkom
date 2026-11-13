@@ -13,7 +13,8 @@ createRoot(document.getElementById('root')!).render(
 )
 
 // PWA: register the service worker (auto-activating, network-first HTML).
-if ('serviceWorker' in navigator) {
+// Только в production: в dev SW кэширует статику и раздаёт устаревший бандл.
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {
       // offline support unavailable — app still works online

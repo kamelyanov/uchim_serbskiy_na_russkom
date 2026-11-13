@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { BookOpen, Check, Heart, X } from 'lucide-react';
 import type { Script } from '../types';
 import type { LessonLocation } from '../data';
@@ -26,11 +26,20 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
   const lesson = theme.lessons[lessonIndex];
   const exercises: Exercise[] = lesson.exercises;
 
-  const [index, setIndex] = useState(0);
+  // Очередь упражнений: индексы в порядке прохождения. Упражнение, решённое
+  // не с первого раза, возвращается в конец очереди и повторяется, пока не
+  // будет решено без ошибок.
+  const [plan, setPlan] = useState<number[]>(() => exercises.map((_, i) => i));
+  const [completed, setCompleted] = useState(0);
+  const [requeued, setRequeued] = useState(0);
+  const [attempt, setAttempt] = useState(0);
   const [choiceSel, setChoiceSel] = useState<number | null>(null);
   const [buildSel, setBuildSel] = useState<string[]>([]);
   const [blankSel, setBlankSel] = useState<string | null>(null);
   const [checked, setChecked] = useState<'correct' | 'wrong' | null>(null);
+  // Ключи неверных ответов текущей попытки — подсвечены красным и копятся,
+  // пока упражнение не будет решено верно
+  const [wrongMarks, setWrongMarks] = useState<string[]>([]);
   const [hearts, setHearts] = useState(MAX_HEARTS);
   const [xp, setXp] = useState(0);
   const [mistakes, setMistakes] = useState(0);
@@ -38,6 +47,16 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
   const [tipsOpen, setTipsOpen] = useState(false);
   const exerciseRef = useRef<HTMLDivElement>(null);
   const isFirstExercise = useRef(true);
+  const nextTimer = useRef<number | null>(null);
+
+  // При выходе из урока гасим таймер автоперехода, чтобы не вызвать
+  // переход/завершение уже на другом экране
+  useEffect(
+    () => () => {
+      if (nextTimer.current !== null) window.clearTimeout(nextTimer.current);
+    },
+    []
+  );
 
   // При переходе к следующему упражнению мягко скроллим к его началу,
   // чтобы страница не «прыгала» в самый верх
@@ -48,10 +67,12 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
     }
     (document.activeElement as HTMLElement | null)?.blur();
     exerciseRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [index]);
+  }, [completed, attempt]);
 
-  const exercise = exercises[index];
-  const progress = (index + (checked ? 1 : 0)) / exercises.length;
+  const exerciseIndex = plan[0];
+  const exercise = exercises[exerciseIndex];
+  const totalUnits = exercises.length + requeued;
+  const progress = (completed + (checked ? 1 : 0)) / totalUnits;
 
   const canCheck = useMemo(() => {
     if (checked !== null) return false;
@@ -68,9 +89,16 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
     if (exercise.type === 'blank') correct = blankSel === exercise.answer;
     if (correct) {
       setChecked('correct');
-      setXp((x) => x + 10);
+      // С первого раза — полный XP, после ошибок — урезанный
+      setXp((x) => x + (wrongMarks.length ? 5 : 10));
+      // Автопереход: «Проверить» + «Продолжить» в один клик
+      nextTimer.current = window.setTimeout(next, 500);
     } else {
       setChecked('wrong');
+      setWrongMarks((m) => [
+        ...m,
+        exercise.type === 'choice' ? String(choiceSel) : exercise.type === 'blank' ? blankSel! : buildSel.join(' '),
+      ]);
       setMistakes((m) => m + 1);
       const h = hearts - 1;
       setHearts(h);
@@ -78,21 +106,43 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
     }
   };
 
-  const next = () => {
-    if (index + 1 >= exercises.length) {
-      onComplete(lesson.id, xp + 10, mistakes); // +10 completion bonus
-      return;
-    }
-    setIndex((i) => i + 1);
+  // «Повторить»: то же задание сначала; неверные ответы остаются подсвечены красным
+  const retry = () => {
     setChoiceSel(null);
     setBuildSel([]);
     setBlankSel(null);
     setChecked(null);
+    setAttempt((a) => a + 1);
+  };
+
+  const next = () => {
+    const redo = wrongMarks.length > 0;
+    if (plan.length === 1 && !redo) {
+      onComplete(lesson.id, xp + 10, mistakes); // +10 completion bonus
+      return;
+    }
+    setCompleted((c) => c + 1);
+    if (redo) {
+      // ошибся — упражнение уходит в конец урока
+      setPlan((p) => [...p.slice(1), p[0]]);
+      setRequeued((r) => r + 1);
+    } else {
+      setPlan((p) => p.slice(1));
+    }
+    setChoiceSel(null);
+    setBuildSel([]);
+    setBlankSel(null);
+    setChecked(null);
+    setWrongMarks([]);
+    setAttempt((a) => a + 1);
   };
 
   const onMatchComplete = (matchMistakes: number) => {
     setChecked('correct');
     setXp((x) => x + (matchMistakes === 0 ? 10 : 5));
+    // Ошибки в парах — как неверный ответ: упражнение уйдёт в конец урока
+    if (matchMistakes > 0) setWrongMarks(['match']);
+    nextTimer.current = window.setTimeout(next, 500);
   };
 
   if (failed) {
@@ -123,11 +173,15 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
             type="button"
             className="btn-push bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] px-6 py-3"
             onClick={() => {
-              setIndex(0);
+              setPlan(exercises.map((_, i) => i));
+              setCompleted(0);
+              setRequeued(0);
+              setAttempt(0);
               setChoiceSel(null);
               setBuildSel([]);
               setBlankSel(null);
               setChecked(null);
+              setWrongMarks([]);
               setHearts(MAX_HEARTS);
               setXp(0);
               setMistakes(0);
@@ -150,7 +204,7 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-xl lg:max-w-none lg:w-1/2 flex-col px-4">
+    <div className="mx-auto flex min-h-dvh w-full max-w-xl lg:max-w-none lg:w-[900px] flex-col px-4">
       {/* Top bar */}
       <div className="flex items-center gap-3 pt-4 pb-2">
         <button
@@ -183,9 +237,10 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
       </div>
 
       {/* Exercise body */}
-      <div ref={exerciseRef} className="flex scroll-mt-16 flex-col items-start py-6" key={`${lesson.id}-${index}`}>
+      <div className="mx-auto w-full lg:w-[600px]">
+        <div ref={exerciseRef} className="flex scroll-mt-16 flex-col items-start py-6" key={`${lesson.id}-${exerciseIndex}-${attempt}`}>
         <p className="mb-1 text-xs font-extrabold uppercase tracking-widest" style={{ color: `hsl(${theme.color})` }}>
-          {theme.titleRu} · {index + 1}/{exercises.length}
+          {theme.titleRu} · {completed + 1}/{totalUnits}
         </p>
         {exercise.type === 'choice' && (
           <ChoiceExerciseView
@@ -194,6 +249,7 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
             selected={choiceSel}
             onChange={setChoiceSel}
             checked={checked}
+            wrongMarks={wrongMarks}
           />
         )}
         {exercise.type === 'build' && (
@@ -203,6 +259,7 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
             selected={buildSel}
             onChange={setBuildSel}
             checked={checked}
+            wrongMarks={wrongMarks}
           />
         )}
         {exercise.type === 'blank' && (
@@ -212,76 +269,83 @@ export function LessonRunner({ location, script, onExit, onComplete, onOpenGramm
             selected={blankSel}
             onChange={setBlankSel}
             checked={checked}
+            wrongMarks={wrongMarks}
           />
         )}
         {exercise.type === 'match' && (
           <MatchExerciseView exercise={exercise} script={script} onComplete={onMatchComplete} />
         )}
+        </div>
       </div>
 
-      {/* Action zone: vertically centered between exercise and bottom bar */}
-      <div className="flex flex-1 flex-col justify-center gap-3 pb-4">
-        {checked === null ? (
-          exercise.type === 'match' ? (
-            <p className="text-center font-bold text-muted-foreground">
-              Соедините все пары, чтобы продолжить
-            </p>
-          ) : (
-            <button
-              type="button"
-              className="btn-push w-full bg-[hsl(var(--primary))] px-6 py-3.5 text-[hsl(var(--primary-foreground))]"
-              disabled={!canCheck}
-              onClick={check}
-            >
-              Проверить
-            </button>
-          )
-        ) : (
-          <div className="slide-up">
-            <div className="mb-3 flex items-center gap-2">
-              <span
-                className={cn(
-                  'flex h-8 w-8 items-center justify-center rounded-full',
-                  checked === 'correct'
-                    ? 'bg-[hsl(var(--success))] text-white'
-                    : 'bg-[hsl(var(--error))] text-white'
-                )}
-              >
-                {checked === 'correct' ? <Check className="h-5 w-5" /> : <X className="h-5 w-5" />}
-              </span>
-              <p
-                className={cn(
-                  'font-display text-lg',
-                  checked === 'correct' ? 'text-[hsl(var(--success))]' : 'text-[hsl(var(--error))]'
-                )}
-              >
-                {checked === 'correct' ? 'Отлично!' : 'Не совсем…'}
+      {/* Spacer: прижимает нижний блок к низу даже на коротких заданиях */}
+      <div className="flex-1" />
+
+      {/* Bottom: проверка/фидбек + грамматика, приколочены к низу экрана */}
+      <div className="sticky bottom-0 -mx-4 border-t-2 border-border bg-background px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
+        <div className="mx-auto w-full lg:w-[600px]">
+          {/* Фидбек занимает место всегда — кнопка не прыгает при появлении */}
+          <div className="mb-3 flex min-h-[32px] items-center">
+            {checked !== null && (
+              <div className="slide-up flex items-center gap-2">
+                <span
+                  className={cn(
+                    'flex h-8 w-8 items-center justify-center rounded-full',
+                    checked === 'correct'
+                      ? 'bg-[hsl(var(--success))] text-white'
+                      : 'bg-[hsl(var(--error))] text-white'
+                  )}
+                >
+                  {checked === 'correct' ? <Check className="h-5 w-5" /> : <X className="h-5 w-5" />}
+                </span>
+                <p
+                  className={cn(
+                    'font-display text-lg',
+                    checked === 'correct' ? 'text-[hsl(var(--success))]' : 'text-[hsl(var(--error))]'
+                  )}
+                >
+                  {checked === 'correct' ? 'Отлично!' : 'Не совсем…'}
+                </p>
+              </div>
+            )}
+          </div>
+          {checked === null ? (
+            exercise.type === 'match' ? (
+              <p className="flex min-h-[52px] items-center justify-center text-center font-bold text-muted-foreground">
+                Соедините все пары, чтобы продолжить
               </p>
-            </div>
+            ) : (
+              <button
+                type="button"
+                className="btn-push w-full bg-[hsl(var(--primary))] px-6 py-3.5 text-[hsl(var(--primary-foreground))]"
+                disabled={!canCheck}
+                onClick={check}
+              >
+                Проверить
+              </button>
+            )
+          ) : (
             <button
               type="button"
               className={cn(
                 'btn-push w-full px-6 py-3.5 text-white',
                 checked === 'correct' ? 'bg-[hsl(var(--success))]' : 'bg-[hsl(var(--error))]'
               )}
-              onClick={next}
+              onClick={checked === 'wrong' ? retry : next}
+              disabled={checked === 'correct'}
             >
-              Продолжить
+              {checked === 'correct' ? 'Отлично!' : checked === 'wrong' ? 'Повторить' : 'Продолжить'}
             </button>
-          </div>
-        )}
-      </div>
-
-      {/* Bottom bar: grammar link only */}
-      <div className="sticky bottom-0 -mx-4 border-t-2 border-border bg-background px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))]">
-        <button
-          type="button"
-          onClick={onOpenGrammar}
-          className="mx-auto flex items-center gap-1.5 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
-        >
-          <BookOpen className="h-4 w-4" aria-hidden="true" />
-          Грамматика по теме урока
-        </button>
+          )}
+          <button
+            type="button"
+            onClick={onOpenGrammar}
+            className="mx-auto mt-3 flex items-center gap-1.5 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
+          >
+            <BookOpen className="h-4 w-4" aria-hidden="true" />
+            Грамматика по теме урока
+          </button>
+        </div>
       </div>
     </div>
   );
