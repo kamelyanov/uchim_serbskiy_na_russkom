@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Volume2 } from 'lucide-react';
-import { hasVoice, noteUserGesture, speak, subscribeTts } from '../lib/tts';
+import { hasVoice, speak, subscribeTts } from '../lib/tts';
 import { cn } from '../lib/utils';
 
 interface SpeakerButtonProps {
@@ -26,7 +26,6 @@ export function SpeakerButton({ text, size = 'md', className, rate }: SpeakerBut
       aria-label="Прослушать"
       onClick={(e) => {
         e.stopPropagation();
-        noteUserGesture();
         setPlaying(true);
         const ok = speak(text, { rate, onEnd: () => setPlaying(false) });
         if (!ok) setPlaying(false);

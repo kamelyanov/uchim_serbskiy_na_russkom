@@ -13,13 +13,10 @@ import { VocabScreen } from './sections/VocabScreen';
 import { ReadingScreen } from './sections/ReadingScreen';
 
 import { PALETTES, nextPalette, type Palette } from './lib/palettes';
-import { initTts, noteUserGesture } from './lib/tts';
+import { initTts } from './lib/tts';
 
-// TTS: load voices; any first tap unlocks speech autoplay for the session.
+// TTS: load voices on app start.
 initTts();
-if (typeof window !== 'undefined') {
-  window.addEventListener('pointerdown', noteUserGesture, { once: true });
-}
 
 type View = 'home' | 'lesson' | 'marathon' | 'summary' | 'grammar' | 'vocab' | 'reading';
 

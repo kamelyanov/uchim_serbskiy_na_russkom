@@ -60,16 +60,6 @@ export function TtsSettingsPanel() {
                 В этом браузере нет сербского голоса. Лучше всего озвучка работает в Chrome и Edge.
               </p>
             )}
-            <label className="flex cursor-pointer items-center gap-2 text-sm font-bold">
-              <input
-                type="checkbox"
-                checked={settings.autoSpeak}
-                onChange={(e) => patch({ autoSpeak: e.target.checked })}
-                className="h-4 w-4 accent-[hsl(var(--primary))]"
-              />
-              Озвучивать верный ответ
-            </label>
-
             {voices.length > 0 && (
               <select
                 value={settings.voiceURI ?? ''}

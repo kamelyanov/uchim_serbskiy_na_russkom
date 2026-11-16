@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
 import type { ChoiceExercise, Script } from '../../types';
 import { sr } from '../../lib/transliterate';
-import { speakIfAllowed } from '../../lib/tts';
 import { SpeakerButton } from '../SpeakerButton';
 import { cn } from '@/lib/utils';
 
@@ -22,15 +20,6 @@ export function ChoiceExerciseView({ exercise, script, selected, onChange, check
 
   const prompt = display(exercise.prompt, exercise.promptLang);
   const optionLang = exercise.promptLang === 'sr' ? 'ru' : 'sr';
-
-  // After a correct answer, speak the Serbian side (prompt or correct option).
-  useEffect(() => {
-    if (checked === 'correct') {
-      speakIfAllowed(
-        optionLang === 'sr' ? exercise.options[exercise.answer] : exercise.prompt
-      );
-    }
-  }, [checked, exercise, optionLang]);
 
   return (
     <div className="w-full">

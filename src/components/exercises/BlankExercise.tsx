@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
 import type { BlankExercise, Script } from '../../types';
 import { sr } from '../../lib/transliterate';
-import { speakIfAllowed } from '../../lib/tts';
 import { cn } from '@/lib/utils';
 
 interface Props {
@@ -15,12 +13,6 @@ interface Props {
 }
 
 export function BlankExerciseView({ exercise, script, selected, onChange, checked, wrongMarks }: Props) {
-  useEffect(() => {
-    if (checked === 'correct') {
-      speakIfAllowed(`${exercise.before} ${exercise.answer} ${exercise.after}`);
-    }
-  }, [checked, exercise]);
-
   return (
     <div className="w-full">
       <p className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-2">

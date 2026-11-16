@@ -3,7 +3,6 @@ import { ArrowLeft, BookOpen, X } from 'lucide-react';
 import type { Script } from '../types';
 import { readingTexts, lookupWord, type ReadingText } from '../data/reading';
 import { sr as srTrans } from '../lib/transliterate';
-import { speak } from '../lib/tts';
 import { SpeakerButton } from '../components/SpeakerButton';
 import { AppFooter } from '../components/AppFooter';
 
@@ -76,7 +75,6 @@ function TextView({
   const [banner, setBanner] = useState<Banner | null>(null);
 
   const onWord = (word: string, paragraphRu: string) => {
-    speak(word, { rate: 0.8 });
     setBanner({ word, dict: lookupWord(text.dict, word), paragraphRu });
   };
 

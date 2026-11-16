@@ -7,8 +7,6 @@ export interface TtsSettings {
   rate: number;
   /** Master switch; when false, speaker buttons are hidden and nothing plays. */
   enabled: boolean;
-  /** Speak the correct Serbian answer automatically after a right answer. */
-  autoSpeak: boolean;
 }
 
 const SETTINGS_KEY = 'ucimo-srpski-tts';
@@ -18,7 +16,6 @@ let voices: SpeechSynthesisVoice[] = [];
 let selectedVoice: SpeechSynthesisVoice | null = null;
 let settings: TtsSettings = loadSettings();
 let listeners: (() => void)[] = [];
-let hasUserGesture = false;
 
 function loadSettings(): TtsSettings {
   try {
@@ -29,13 +26,12 @@ function loadSettings(): TtsSettings {
         voiceURI: typeof parsed.voiceURI === 'string' ? parsed.voiceURI : null,
         rate: typeof parsed.rate === 'number' && parsed.rate > 0 ? parsed.rate : DEFAULT_RATE,
         enabled: parsed.enabled !== false,
-        autoSpeak: parsed.autoSpeak !== false,
       };
     }
   } catch {
     // corrupted settings — fall through to defaults
   }
-  return { voiceURI: null, rate: DEFAULT_RATE, enabled: true, autoSpeak: true };
+  return { voiceURI: null, rate: DEFAULT_RATE, enabled: true };
 }
 
 function saveSettings() {
@@ -127,11 +123,6 @@ export function initTts() {
   }
 }
 
-/** Record that the user interacted with the page (autoplay policies). */
-export function noteUserGesture() {
-  hasUserGesture = true;
-}
-
 /** Remove emoji and other symbols that voices read aloud awkwardly. */
 function normalize(text: string): string {
   return text
@@ -173,17 +164,4 @@ export function stopSpeaking() {
 
 export function isSpeaking(): boolean {
   return supported() && window.speechSynthesis.speaking;
-}
-
-/** Whether autoplay without a fresh tap is allowed in this session. */
-export function canAutoplay(): boolean {
-  return hasUserGesture;
-}
-
-/**
- * Auto-play after a correct answer: only when enabled in settings and the
- * session has seen at least one user gesture (browser autoplay policies).
- */
-export function speakIfAllowed(text: string) {
-  if (settings.autoSpeak && hasUserGesture) speak(text);
 }

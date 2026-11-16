@@ -24,6 +24,7 @@ import { sections, findLesson, findNextLessonId, firstIncompleteInSection } from
 import { sr } from '../lib/transliterate';
 import { TipsSheet } from '../components/TipsSheet';
 import { TtsSettingsPanel } from '../components/TtsSettings';
+import { VoiceInstallLinks } from '../components/AppFooter';
 import { Owl } from '../components/Owl';
 import { useIsMobile } from '../hooks/use-mobile';
 import { PALETTE_NAMES, PALETTE_SWATCH, PALETTES, nextPalette, type Palette } from '../lib/palettes';
@@ -372,6 +373,7 @@ export function Home({ script, onToggleScript, palette, onTogglePalette, onSelec
 
         {/* TTS settings */}
         <TtsSettingsPanel />
+        <VoiceInstallLinks />
 
         {/* Palette picker */}
         <div className="mt-6 border-t-2 border-border pt-4">          <p className="mb-2 text-xs font-extrabold uppercase tracking-widest text-muted-foreground">
