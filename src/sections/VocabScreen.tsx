@@ -11,6 +11,7 @@ import {
   type VocabWord,
 } from '../data/vocab';
 import { sr } from '../lib/transliterate';
+import { SpeakerButton } from '../components/SpeakerButton';
 import { cn } from '@/lib/utils';
 
 const LESSON_MIN = 25;
@@ -275,6 +276,14 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
           <p className="text-xs font-extrabold uppercase tracking-widest text-muted-foreground">
             {dir === 'sr2ru' ? 'сербский → русский' : 'русский → сербский'}
           </p>
+        <div className="relative w-full max-w-[545px] mx-auto">
+          {current && (
+            <SpeakerButton
+              text={current.sr}
+              rate={0.8}
+              className="absolute right-3 top-3 z-10 border border-border bg-card"
+            />
+          )}
           <button
             key={current?.id}
             type="button"
@@ -287,7 +296,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
               setDragX(0);
             }}
             className={cn(
-              'flex min-h-[268px] max-sm:min-h-[60vh] w-full max-w-[545px] mx-auto cursor-pointer touch-pan-y flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center select-none transition-all duration-100',
+              'flex min-h-[268px] max-sm:min-h-[60vh] w-full mx-auto cursor-pointer touch-pan-y flex-col items-center justify-center gap-3 rounded-2xl border-2 border-b-4 border-border bg-card px-6 py-10 text-center select-none transition-all duration-100',
               revealed && 'cursor-default',
               hintSwipe && !revealed && !dragX && 'hint-swipe',
               !exitDir && 'card-enter',
@@ -348,6 +357,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
               )}
             </span>
           </button>
+        </div>
         </div>
 
         <div className="sticky bottom-0 -mx-4 bg-background px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))]">

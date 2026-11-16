@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { BuildExercise, Script } from '../../types';
 import { sr } from '../../lib/transliterate';
+import { speakIfAllowed } from '../../lib/tts';
 import { cn } from '@/lib/utils';
 
 interface Props {
@@ -38,6 +39,10 @@ export function BuildExerciseView({ exercise, script, selected, onChange, checke
     setUsedIdx([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exercise]);
+
+  useEffect(() => {
+    if (checked === 'correct') speakIfAllowed(exercise.sr);
+  }, [checked, exercise]);
 
   const pick = (bankIndex: number) => {
     if (checked !== null) return;

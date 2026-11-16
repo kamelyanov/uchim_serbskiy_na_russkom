@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { MatchExercise, Script } from '../../types';
 import { sr } from '../../lib/transliterate';
+import { noteUserGesture, speak } from '../../lib/tts';
 import { cn } from '@/lib/utils';
 
 interface Props {
@@ -62,6 +63,10 @@ export function MatchExerciseView({ exercise, script, onComplete, onMistakes }: 
 
   const tap = (card: Card) => {
     if (done || matched.has(card.pairIndex) || wrongIds.has(card.id)) return;
+    if (card.side === 'sr') {
+      noteUserGesture();
+      speak(card.text);
+    }
     if (selectedId === null) {
       setSelectedId(card.id);
       return;

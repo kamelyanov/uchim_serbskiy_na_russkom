@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
 import type { ChoiceExercise, Script } from '../../types';
 import { sr } from '../../lib/transliterate';
+import { speakIfAllowed } from '../../lib/tts';
+import { SpeakerButton } from '../SpeakerButton';
 import { cn } from '@/lib/utils';
 
 interface Props {
@@ -20,13 +23,23 @@ export function ChoiceExerciseView({ exercise, script, selected, onChange, check
   const prompt = display(exercise.prompt, exercise.promptLang);
   const optionLang = exercise.promptLang === 'sr' ? 'ru' : 'sr';
 
+  // After a correct answer, speak the Serbian side (prompt or correct option).
+  useEffect(() => {
+    if (checked === 'correct') {
+      speakIfAllowed(
+        optionLang === 'sr' ? exercise.options[exercise.answer] : exercise.prompt
+      );
+    }
+  }, [checked, exercise, optionLang]);
+
   return (
     <div className="w-full">
       <p className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-2">
         {exercise.promptLang === 'ru' ? 'Переведите на сербский' : 'Переведите на русский'}
       </p>
-      <div className="mb-6 rounded-2xl border-2 border-border bg-card px-4 py-3">
-        <p className="font-serifbian text-xl">{prompt}</p>
+      <div className="mb-6 flex items-center gap-1 rounded-2xl border-2 border-border bg-card px-4 py-3">
+        <p className="font-serifbian text-xl flex-1">{prompt}</p>
+        {exercise.promptLang === 'sr' && <SpeakerButton text={exercise.prompt} size="sm" />}
       </div>
       <div className="grid gap-3 pop-in-stagger">
         {exercise.options.map((opt, i) => {

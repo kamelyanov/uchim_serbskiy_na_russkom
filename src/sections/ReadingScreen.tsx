@@ -3,6 +3,8 @@ import { ArrowLeft, BookOpen, X } from 'lucide-react';
 import type { Script } from '../types';
 import { readingTexts, lookupWord, type ReadingText } from '../data/reading';
 import { sr as srTrans } from '../lib/transliterate';
+import { speak } from '../lib/tts';
+import { SpeakerButton } from '../components/SpeakerButton';
 
 interface Props {
   script: Script;
@@ -73,6 +75,7 @@ function TextView({
   const [banner, setBanner] = useState<Banner | null>(null);
 
   const onWord = (word: string, paragraphRu: string) => {
+    speak(word, { rate: 0.8 });
     setBanner({ word, dict: lookupWord(text.dict, word), paragraphRu });
   };
 
@@ -113,9 +116,12 @@ function TextView({
           <div className="slide-up w-full max-w-lg rounded-t-3xl border-t-2 border-border bg-background px-5 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
             <div className="mb-3 flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="font-display text-xl text-[hsl(var(--primary))]">
-                  {srTrans(banner.word, script)}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="font-display text-xl text-[hsl(var(--primary))]">
+                    {srTrans(banner.word, script)}
+                  </p>
+                  <SpeakerButton text={banner.word} size="sm" rate={0.8} />
+                </div>
                 {banner.dict ? (
                   <p className="mt-1 text-base font-bold">{banner.dict}</p>
                 ) : (
