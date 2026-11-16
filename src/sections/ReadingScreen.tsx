@@ -4,7 +4,6 @@ import type { Script } from '../types';
 import { readingTexts, lookupWord, type ReadingText } from '../data/reading';
 import { sr as srTrans } from '../lib/transliterate';
 import { SpeakerButton } from '../components/SpeakerButton';
-import { AppFooter } from '../components/AppFooter';
 
 interface Props {
   script: Script;
@@ -204,7 +203,6 @@ export function ReadingScreen({ script, onBack }: Props) {
           ))}
         </div>
       )}
-      <AppFooter />
     </div>
   );
 }

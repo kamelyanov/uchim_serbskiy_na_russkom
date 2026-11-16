@@ -14,8 +14,8 @@ export function VoiceInstallLinks() {
     },
   ];
   return (
-    <div className="mt-6 border-t-2 border-border pt-4">
-      <p className="mb-2 text-xs font-extrabold uppercase tracking-widest text-muted-foreground">
+    <div className="mt-4 border-t-2 border-border pt-3">
+      <p className="mb-1.5 text-xs font-extrabold uppercase tracking-widest text-muted-foreground">
         Нет сербского голоса?
       </p>
       <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
@@ -31,7 +31,7 @@ export function VoiceInstallLinks() {
           </a>
         ))}
       </div>
-      <p className="mt-2 text-xs text-muted-foreground">
+      <p className="mt-1.5 text-xs text-muted-foreground">
         В Chrome на компьютере голоса скачиваются автоматически.
       </p>
     </div>
@@ -41,7 +41,7 @@ export function VoiceInstallLinks() {
 /** Общий футер для всех страниц: настройки озвучки + установка голосов. */
 export function AppFooter() {
   return (
-    <footer className="mx-auto mt-10 w-full max-w-3xl border-t-2 border-border px-4 pb-8 pt-6 text-center">
+    <footer className="mx-auto mt-auto w-full max-w-3xl border-t-2 border-border px-4 pb-4 pt-4 text-center">
       <TtsSettingsPanel />
       <VoiceInstallLinks />
     </footer>

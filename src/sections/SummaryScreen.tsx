@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Flame, Target, Zap } from 'lucide-react';
 import { Owl } from '../components/Owl';
-import { AppFooter } from '../components/AppFooter';
 
 interface Props {
   xp: number;
@@ -78,7 +77,6 @@ export function SummaryScreen({ xp, total, mistakes, streak, nextLessonTitle, on
           Следующее задание{nextLessonTitle ? `: ${nextLessonTitle}` : ''} →
         </button>
       )}
-      <AppFooter />
     </div>
   );
 }

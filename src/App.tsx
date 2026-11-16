@@ -14,6 +14,7 @@ import { ReadingScreen } from './sections/ReadingScreen';
 
 import { PALETTES, nextPalette, type Palette } from './lib/palettes';
 import { initTts } from './lib/tts';
+import { AppFooter } from './components/AppFooter';
 
 // TTS: load voices on app start.
 initTts();
@@ -240,9 +241,12 @@ export default function App() {
     );
   }
 
+  const showFooter = view !== 'lesson' && view !== 'marathon';
+
   return (
-    <>
-      {content}
+    <div className="flex min-h-dvh flex-col">
+      <main className="flex-1">{content}</main>
+      {showFooter && <AppFooter />}
       {grammarCtx && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-background">
           <GrammarScreen
@@ -252,6 +256,6 @@ export default function App() {
           />
         </div>
       )}
-    </>
+    </div>
   );
 }

@@ -32,8 +32,8 @@ export function TtsSettingsPanel() {
   const patch = (p: Partial<TtsSettings>) => setTtsSettings(p);
 
   return (
-    <div className="mt-6 border-t-2 border-border pt-4">
-      <p className="mb-3 flex items-center justify-center gap-2 text-xs font-extrabold uppercase tracking-widest text-muted-foreground">
+    <div>
+      <p className="mb-2 flex items-center justify-center gap-2 text-xs font-extrabold uppercase tracking-widest text-muted-foreground">
         {settings.enabled ? (
           <Volume2 className="h-4 w-4" aria-hidden="true" />
         ) : (
@@ -42,7 +42,7 @@ export function TtsSettingsPanel() {
         Озвучка
       </p>
 
-      <div className="flex flex-col items-center gap-2.5">
+      <div className="flex flex-col items-center gap-2">
         <label className="flex cursor-pointer items-center gap-2 text-sm font-bold">
           <input
             type="checkbox"
@@ -60,40 +60,42 @@ export function TtsSettingsPanel() {
                 В этом браузере нет сербского голоса. Лучше всего озвучка работает в Chrome и Edge.
               </p>
             )}
-            {voices.length > 0 && (
-              <select
-                value={settings.voiceURI ?? ''}
-                onChange={(e) => patch({ voiceURI: e.target.value || null })}
-                className="max-w-full rounded-xl border-2 border-border bg-card px-3 py-1.5 text-sm font-semibold"
-              >
-                <option value="">Голос: автоматически</option>
-                {voices.map((v) => (
-                  <option key={v.voiceURI} value={v.voiceURI}>
-                    {v.name} ({v.lang})
-                  </option>
-                ))}
-              </select>
-            )}
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+              {voices.length > 0 && (
+                <select
+                  value={settings.voiceURI ?? ''}
+                  onChange={(e) => patch({ voiceURI: e.target.value || null })}
+                  className="max-w-full rounded-xl border-2 border-border bg-card px-3 py-1.5 text-sm font-semibold"
+                >
+                  <option value="">Голос: автоматически</option>
+                  {voices.map((v) => (
+                    <option key={v.voiceURI} value={v.voiceURI}>
+                      {v.name} ({v.lang})
+                    </option>
+                  ))}
+                </select>
+              )}
 
-            <label className="flex items-center gap-2 text-sm font-bold">
-              Скорость
-              <input
-                type="range"
-                min={0.6}
-                max={1.2}
-                step={0.1}
-                value={settings.rate}
-                onChange={(e) => patch({ rate: Number(e.target.value) })}
-                className={cn('w-32 accent-[hsl(var(--primary))]')}
-              />
-              <button
-                type="button"
-                onClick={() => speak('Dobro došli! Kako ste?')}
-                className="rounded-lg border-2 border-border px-2 py-0.5 text-xs font-bold text-muted-foreground transition-colors hover:bg-secondary"
-              >
-                Тест
-              </button>
-            </label>
+              <label className="flex items-center gap-2 text-sm font-bold">
+                Скорость
+                <input
+                  type="range"
+                  min={0.6}
+                  max={1.2}
+                  step={0.1}
+                  value={settings.rate}
+                  onChange={(e) => patch({ rate: Number(e.target.value) })}
+                  className={cn('w-28 accent-[hsl(var(--primary))]')}
+                />
+                <button
+                  type="button"
+                  onClick={() => speak('Dobro došli! Kako ste?')}
+                  className="rounded-lg border-2 border-border px-2 py-0.5 text-xs font-bold text-muted-foreground transition-colors hover:bg-secondary"
+                >
+                  Тест
+                </button>
+              </label>
+            </div>
           </>
         )}
       </div>
