@@ -3,6 +3,7 @@ import { ArrowLeft, BookOpen, ChevronRight } from 'lucide-react';
 import type { Script } from '../types';
 import { grammarSections, type GrammarBlock } from '../data/grammar';
 import { sr } from '../lib/transliterate';
+import { AppFooter } from '../components/AppFooter';
 
 interface Props {
   script: Script;
@@ -188,6 +189,7 @@ export function GrammarScreen({ script, onBack, initialTopicId }: Props) {
         </div>
       ))}
       </div>
+      <AppFooter />
     </div>
   );
 }

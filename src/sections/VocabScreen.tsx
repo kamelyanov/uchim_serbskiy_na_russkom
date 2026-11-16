@@ -12,6 +12,7 @@ import {
 } from '../data/vocab';
 import { sr } from '../lib/transliterate';
 import { SpeakerButton } from '../components/SpeakerButton';
+import { AppFooter } from '../components/AppFooter';
 import { cn } from '@/lib/utils';
 
 const LESSON_MIN = 25;
@@ -502,6 +503,7 @@ export function VocabScreen({ script, learnedWords, onMarkLearned, onBack }: Pro
           />
         </section>
       )}
+      <AppFooter />
     </div>
   );
 }
