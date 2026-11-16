@@ -70,7 +70,7 @@ export function TtsSettingsPanel() {
               Озвучивать верный ответ
             </label>
 
-            {voices.length > 1 && (
+            {voices.length > 0 && (
               <select
                 value={settings.voiceURI ?? ''}
                 onChange={(e) => patch({ voiceURI: e.target.value || null })}

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { MatchExercise, Script } from '../../types';
 import { sr } from '../../lib/transliterate';
-import { noteUserGesture, speak } from '../../lib/tts';
+import { SpeakerButton } from '../SpeakerButton';
 import { cn } from '@/lib/utils';
 
 interface Props {
@@ -63,10 +63,6 @@ export function MatchExerciseView({ exercise, script, onComplete, onMistakes }: 
 
   const tap = (card: Card) => {
     if (done || matched.has(card.pairIndex) || wrongIds.has(card.id)) return;
-    if (card.side === 'sr') {
-      noteUserGesture();
-      speak(card.text);
-    }
     if (selectedId === null) {
       setSelectedId(card.id);
       return;
@@ -115,24 +111,32 @@ export function MatchExerciseView({ exercise, script, onComplete, onMistakes }: 
           const isSelected = selectedId === card.id;
           const isWrong = wrongIds.has(card.id);
           return (
-            <button
-              key={card.id}
-              type="button"
-              onClick={() => tap(card)}
-              className={cn(
-                'tile w-full pop-in text-base px-2 py-3',
-                isSelected &&
-                  'border-[hsl(var(--primary))] bg-[hsl(142_55%_92%)] text-[hsl(var(--primary))]',
-                isWrong &&
-                  'border-[hsl(var(--error))] bg-[hsl(var(--error-bg))] text-[hsl(var(--error))] wiggle',
-                isMatched &&
-                  'border-[hsl(var(--success))] bg-[hsl(var(--success-bg))] text-[hsl(var(--success))] opacity-0 pointer-events-none transition-opacity duration-300'
+            <div key={card.id} className="relative w-full">
+              <button
+                type="button"
+                onClick={() => tap(card)}
+                className={cn(
+                  'tile w-full pop-in text-base px-2 py-3',
+                  isSelected &&
+                    'border-[hsl(var(--primary))] bg-[hsl(142_55%_92%)] text-[hsl(var(--primary))]',
+                  isWrong &&
+                    'border-[hsl(var(--error))] bg-[hsl(var(--error-bg))] text-[hsl(var(--error))] wiggle',
+                  isMatched &&
+                    'border-[hsl(var(--success))] bg-[hsl(var(--success-bg))] text-[hsl(var(--success))] opacity-0 pointer-events-none transition-opacity duration-300'
+                )}
+                style={{ animationDelay: `${i * 0.05}s` }}
+                aria-pressed={isSelected}
+              >
+                {card.side === 'sr' ? sr(card.text, script) : card.text}
+              </button>
+              {card.side === 'sr' && !isMatched && (
+                <SpeakerButton
+                  text={card.text}
+                  size="sm"
+                  className="absolute right-0.5 top-0.5 z-10 bg-card/80"
+                />
               )}
-              style={{ animationDelay: `${i * 0.05}s` }}
-              aria-pressed={isSelected}
-            >
-              {card.side === 'sr' ? sr(card.text, script) : card.text}
-            </button>
+            </div>
           );
         })}
       </div>
